@@ -1,0 +1,12 @@
+.select {
+  width: 100px;
+  height: 25px;
+  cursor: pointer;
+  background: green;
+  color: lawngreen;
+
+  &:focus {
+    outline: none;
+    border: 1px solid lawngreen;
+  }
+}

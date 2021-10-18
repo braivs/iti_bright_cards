@@ -1,0 +1,17 @@
+.examples {
+    background-color: orange;
+    .column {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .testSpanError {
+            color: red;
+        }
+
+        .blue {
+            border-bottom: 5px solid blue;
+        }
+    }
+}

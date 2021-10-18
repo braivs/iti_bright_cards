@@ -1,0 +1,20 @@
+.button {
+  cursor: pointer;
+  &:disabled {
+    cursor: auto;
+    background: grey;
+    color: dimgrey;
+    border: 1px solid white;
+  }
+}
+
+.default {
+  background: green;
+  color: lawngreen;
+  border: 1px solid dodgerblue;
+}
+
+.red {
+  background: red;
+  border: 1px solid chocolate;
+}
