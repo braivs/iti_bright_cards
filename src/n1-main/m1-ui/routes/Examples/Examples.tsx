@@ -1,11 +1,11 @@
 import React, {ChangeEvent, useState} from 'react';
-import SuperInputText from "../c1-SuperInputText/SuperInputText";
+import SuperInputText from "../../common/c1-SuperInputText/SuperInputText";
 import s from './Examples.module.scss'
-import SuperButton from "../c2-SuperButton/SuperButton";
-import SuperCheckbox from "../c3-SuperCheckbox/SuperCheckbox";
-import SuperEditableSpan from "../c4-SuperEditableSpan/SuperEditableSpan";
-import SuperSelect from "../c5-SuperSelect/SuperSelect";
-import SuperRadio from "../c6-SuperRadio/SuperRadio";
+import SuperButton from "../../common/c2-SuperButton/SuperButton";
+import SuperCheckbox from "../../common/c3-SuperCheckbox/SuperCheckbox";
+import SuperEditableSpan from "../../common/c4-SuperEditableSpan/SuperEditableSpan";
+import SuperSelect from "../../common/c5-SuperSelect/SuperSelect";
+import SuperRadio from "../../common/c6-SuperRadio/SuperRadio";
 
 export const Examples = () => {
     const [text, setText] = useState<string>('') // for SuperInputText
@@ -29,7 +29,7 @@ export const Examples = () => {
 
     return (
         <div className={s.examples}>
-            <div>This is examples for common components.</div>
+            <div>This is examples of common components.</div>
             <hr/>
             <div className={s.column}>
                 <div>с1-SuperInputText:</div>
