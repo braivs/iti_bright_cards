@@ -21,5 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.idea
+.idea/*
+!.idea/material_theme_project.xml
 yarn.lock
