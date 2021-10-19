@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/iti_friday/static/css/main.d741cd0d.chunk.css",
-    "main.js": "/iti_friday/static/js/main.dd501913.chunk.js",
-    "main.js.map": "/iti_friday/static/js/main.dd501913.chunk.js.map",
+    "main.js": "/iti_friday/static/js/main.5a7f4c3c.chunk.js",
+    "main.js.map": "/iti_friday/static/js/main.5a7f4c3c.chunk.js.map",
     "runtime-main.js": "/iti_friday/static/js/runtime-main.e350d12a.js",
     "runtime-main.js.map": "/iti_friday/static/js/runtime-main.e350d12a.js.map",
-    "static/js/2.5f2c82c2.chunk.js": "/iti_friday/static/js/2.5f2c82c2.chunk.js",
-    "static/js/2.5f2c82c2.chunk.js.map": "/iti_friday/static/js/2.5f2c82c2.chunk.js.map",
+    "static/js/2.d49f1eb1.chunk.js": "/iti_friday/static/js/2.d49f1eb1.chunk.js",
+    "static/js/2.d49f1eb1.chunk.js.map": "/iti_friday/static/js/2.d49f1eb1.chunk.js.map",
     "static/js/3.9f57e8d8.chunk.js": "/iti_friday/static/js/3.9f57e8d8.chunk.js",
     "static/js/3.9f57e8d8.chunk.js.map": "/iti_friday/static/js/3.9f57e8d8.chunk.js.map",
     "index.html": "/iti_friday/index.html",
     "static/css/main.d741cd0d.chunk.css.map": "/iti_friday/static/css/main.d741cd0d.chunk.css.map",
-    "static/js/2.5f2c82c2.chunk.js.LICENSE.txt": "/iti_friday/static/js/2.5f2c82c2.chunk.js.LICENSE.txt"
+    "static/js/2.d49f1eb1.chunk.js.LICENSE.txt": "/iti_friday/static/js/2.d49f1eb1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e350d12a.js",
-    "static/js/2.5f2c82c2.chunk.js",
+    "static/js/2.d49f1eb1.chunk.js",
     "static/css/main.d741cd0d.chunk.css",
-    "static/js/main.dd501913.chunk.js"
+    "static/js/main.5a7f4c3c.chunk.js"
   ]
 }
