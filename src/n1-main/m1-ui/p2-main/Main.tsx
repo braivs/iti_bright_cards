@@ -21,6 +21,7 @@ export const Main = () => {
                 <Route exact path={'/passwordrecovery'} render={() => <PasswordRecovery/>}/>
                 <Route exact path={'/passwordnew'} render={() => <PasswordNew/>}/>
                 <Route exact path={'/tests'} render={() => <Examples/>}/>
+                <Redirect exact from={'/'} to={'/tests'}/>
                 <Redirect from={'*'} to={'/404'}/>
             </Switch>
         </div>
