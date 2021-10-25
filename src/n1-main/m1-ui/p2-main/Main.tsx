@@ -8,11 +8,13 @@ import {Page404} from "../routes/Page404";
 import {PasswordRecovery} from "../routes/PasswordRecovery";
 import {PasswordNew} from "../routes/PasswordNew";
 import {Examples} from "../routes/Examples/Examples";
+import {TestForReducer} from "../p3-pages/TestForReducer";
 
 export const Main = () => {
     return (
         <div>
             <Header/>
+            <TestForReducer />
             <Switch>
                 <Route exact path={'/login'} render={() => <Login/>}/>
                 <Route exact path={'/registration'} render={() => <Registration/>}/>
