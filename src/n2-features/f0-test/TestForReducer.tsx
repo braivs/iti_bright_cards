@@ -1,9 +1,9 @@
 import React from 'react';
-import SuperInputText from "../common/c1-SuperInputText/SuperInputText";
-import SuperButton from "../common/c2-SuperButton/SuperButton";
+import SuperInputText from "../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
+import SuperButton from "../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStoreType} from "../../m2-bll/store";
-import {setTestValueAC} from "../../m2-bll/testReducer";
+import {AppStoreType} from "../../n1-main/m2-bll/store";
+import {setTestValueAC} from "../../n1-main/m2-bll/testReducer";
 
 export const TestForReducer = () => {
 

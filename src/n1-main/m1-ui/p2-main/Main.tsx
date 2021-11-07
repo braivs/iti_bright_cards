@@ -1,14 +1,14 @@
 import React from 'react';
 import {Header} from "../p1-header/Header";
 import {Redirect, Route, Switch} from "react-router-dom";
-import {Login} from "../routes/Login";
-import {Registration} from "../routes/Registration";
-import {Profile} from "../routes/Profile";
-import {Page404} from "../routes/Page404";
-import {PasswordRecovery} from "../routes/PasswordRecovery";
-import {PasswordNew} from "../routes/PasswordNew";
-import {Examples} from "../routes/Examples/Examples";
-import {TestForReducer} from "../p3-pages/TestForReducer";
+import {Login} from "../../../n2-features/f1-auth/a1-login/Login";
+import {Registration} from "../../../n2-features/f1-auth/a2-register/Registration";
+import {Profile} from "../../../n2-features/f1-auth/Profile";
+import {Page404} from "../../../n2-features/f1-auth/Page404";
+import {PasswordRecovery} from "../../../n2-features/f1-auth/PasswordRecovery";
+import {PasswordNew} from "../../../n2-features/f1-auth/PasswordNew";
+import {Examples} from "../../../n2-features/f0-test/Examples/Examples";
+import {TestForReducer} from "../../../n2-features/f0-test/TestForReducer";
 
 export const Main = () => {
     return (
