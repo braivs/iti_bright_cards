@@ -96,13 +96,13 @@ export const Examples = () => {
             <hr/>
             {/*----------------------------------------------------*/}
             <div className={s.column}>
-                <h2>с5-SuperSelect:</h2>
+                <h2>с5-SuperSelect and SuperRadio:</h2>
                 <SuperSelect
                     options={arr}
                     value={valueForSsSr}
                     onChangeOption={onChangeOption}
                 />
-                <div>
+                <div className={s.radioContainer}>
                     <SuperRadio
                         options={arr}
                         value={valueForSsSr}
