@@ -105,7 +105,7 @@ export const Examples = () => {
                 <div>
                     <SuperRadio
                         options={arr}
-                        value={value}
+                        value={valueForSsSr}
                         onChangeOption={onChangeOption}
                     />
                 </div>
