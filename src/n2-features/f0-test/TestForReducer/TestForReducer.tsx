@@ -1,17 +1,17 @@
 import React from 'react';
-import SuperInputText from "../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
-import SuperButton from "../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
+import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
+import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStoreType} from "../../n1-main/m2-bll/store";
-import {setTestValueAC} from "../../n1-main/m2-bll/testReducer";
+import {AppStoreType} from "../../../n1-main/m2-bll/store";
+import {setTestValueAC} from "../../../n1-main/m2-bll/testReducer";
+import s from './TestForReducer.module.scss'
 
 export const TestForReducer = () => {
 
     const dispatch = useDispatch()
     let reducerValue = useSelector<AppStoreType, string>(state => state.testReducer.testValue)
 
-    return <div>
-        <hr/>
+    return <div className={s.testForReducer}>
         <div>Hi, I am test for reducer. I will set 'test value' to state and will show it at the input, if you click the
             button.
         </div>
@@ -19,6 +19,5 @@ export const TestForReducer = () => {
             <SuperInputText value={reducerValue}/>
             <SuperButton onClick={() => {dispatch(setTestValueAC('test value'))}}>Click Me</SuperButton>
         </div>
-        <hr/>
     </div>
 }

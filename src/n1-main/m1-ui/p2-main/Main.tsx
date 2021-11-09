@@ -8,7 +8,7 @@ import {Page404} from "../../../n2-features/f1-auth/Page404";
 import {PasswordRecovery} from "../../../n2-features/f1-auth/PasswordRecovery";
 import {PasswordNew} from "../../../n2-features/f1-auth/PasswordNew";
 import {Examples} from "../../../n2-features/f0-test/Examples/Examples";
-import {TestForReducer} from "../../../n2-features/f0-test/TestForReducer";
+import {TestForReducer} from "../../../n2-features/f0-test/TestForReducer/TestForReducer";
 
 export const Main = () => {
     return (

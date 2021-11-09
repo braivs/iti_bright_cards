@@ -1,18 +1,20 @@
+@import '../components/styles/mixins';
+
 .input {
-  background: green;
-  color: lawngreen;
-  &:focus {
-    outline: 2px solid lawngreen;
-  }
+    //@include inputIgn;
+    @include inputPortfolio;
+
 }
 
 .superInput {
-  border: 2px solid cadetblue;
+    //border: 2px solid cadetblue;
+    margin-right: 10px;
+    //margin-bottom: 30px;
 }
 
 .errorInput {
-  border: 2px solid green;
-  background: red;
+    //@include errorInputIgn;
+    @include errorInputPortfolio;
 }
 
 .error {

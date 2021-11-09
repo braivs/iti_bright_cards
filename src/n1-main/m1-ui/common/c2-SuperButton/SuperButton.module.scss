@@ -1,20 +1,23 @@
+@import '../components/styles/mixins';
+
+
 .button {
-  cursor: pointer;
-  &:disabled {
-    cursor: auto;
-    background: grey;
-    color: dimgrey;
-    border: 1px solid white;
-  }
+    cursor: pointer;
+    @include btnPortfolio();
+
+    &:disabled {
+        cursor: auto;
+        //@include btnDisabledIgn;
+        @include btnDisabledPortfolio;
+    }
 }
 
 .default {
-  background: green;
-  color: lawngreen;
-  border: 1px solid dodgerblue;
+    //@include btnDefaultIgn
+    @include btnDefaultPortfolio;
 }
 
 .red {
-  background: red;
-  border: 1px solid chocolate;
+    //@include btnRedIgn;
+    @include btnRedPortfolio;
 }

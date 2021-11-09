@@ -29,42 +29,47 @@ export const Examples = () => {
 
     return (
         <div className={s.examples}>
-            <div>This is examples of common components.</div>
+            <h1>This is examples of common components.</h1>
             <hr/>
             <div className={s.column}>
-                <div>с1-SuperInputText:</div>
-                <SuperInputText
-                    value={text}
-                    onChangeText={setText}
-                    onEnter={showAlert}
-                    error={error}
-                    spanClassName={s.testSpanError}
-                />
-                <SuperInputText
-                    className={s.blue} // проверьте, работает ли смешивание классов
-                />
+                <h2>с1-SuperInputText:</h2>
+                <div className={s.inputContainer}>
+                    <SuperInputText
+                        value={text}
+                        onChangeText={setText}
+                        onEnter={showAlert}
+                        error={error}
+                        spanClassName={s.testSpanError}
+                    />
+                </div>
+                <div>
+                    <SuperInputText
+                        className={s.blue} // проверьте, работает ли смешивание классов
+                    />
+                </div>
             </div>
             <hr/>
             {/*----------------------------------------------------*/}
             <div className={s.column}>
-                <div>с2-SuperButton:</div>
-                <SuperButton>
+                <h2>с2-SuperButton:</h2>
+                <SuperButton className={s.superButton}>
                     default
                 </SuperButton>
                 <SuperButton
                     red // пропсу с булевым значением не обязательно указывать true
                     onClick={showAlert}
+                    className={s.superButton}
                 >
                     delete {/*// название кнопки попадёт в children*/}
                 </SuperButton>
-                <SuperButton disabled>
+                <SuperButton disabled className={s.superButton}>
                     disabled
                 </SuperButton>
             </div>
             <hr/>
             {/*----------------------------------------------------*/}
             <div className={s.column}>
-                <div>с3-SuperCheckbox:</div>
+                <h2>с3-SuperCheckbox:</h2>
                 <SuperCheckbox
                     checked={checked}
                     onChangeChecked={setChecked}
@@ -78,17 +83,20 @@ export const Examples = () => {
             <hr/>
             {/*----------------------------------------------------*/}
             <div>
-                <div>с4-SuperEditableSpan:</div>
-                <SuperEditableSpan
-                    value={value}
-                    onChangeText={setValue}
-                    spanProps={{children: value ? undefined : 'enter text...'}}
-                />
+                <h2>с4-SuperEditableSpan:</h2>
+                <div className={s.SuperEditableSpanContainer}>
+                    <SuperEditableSpan
+                        value={value}
+                        onChangeText={setValue}
+                        spanProps={{children: value ? undefined : 'enter text...'}}
+                    />
+                </div>
+
             </div>
             <hr/>
             {/*----------------------------------------------------*/}
             <div className={s.column}>
-                <div>с5-SuperSelect:</div>
+                <h2>с5-SuperSelect:</h2>
                 <SuperSelect
                     options={arr}
                     value={valueForSsSr}

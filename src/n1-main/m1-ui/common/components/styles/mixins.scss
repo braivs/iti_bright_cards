@@ -1,0 +1,110 @@
+@import './variables';
+
+@mixin btnIgn {
+
+}
+
+@mixin btnPortfolio {
+    width: 125px;
+    height: 41px;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+    transition: all 0.5s ease;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    color: $textColor;
+    font-family: $textFontFamily;
+}
+
+@mixin btnDefaultIgn {
+    background: green;
+    color: lawngreen;
+    border: 1px solid dodgerblue;
+
+}
+
+@mixin btnDefaultPortfolio {
+    background-color: $primaryColor;
+    border-color: $primaryColor;
+    color: #212529;
+    &:hover {
+        background-color: #f0d900;
+        box-shadow: 0 5px 15px rgb(0 0 0 / 30%);
+    }
+}
+
+@mixin btnDisabledIgn {
+    background: grey;
+    color: dimgrey;
+    border: 1px solid white;
+    &:hover {
+        background: grey;
+        box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+    }
+}
+
+@mixin btnDisabledPortfolio {
+    background-color: #939597;
+    color: #eeffff;
+    &:hover {
+        background: #939597;
+        box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+    }
+}
+
+@mixin btnRedIgn {
+    background: red;
+    border: 1px solid chocolate;
+}
+
+@mixin btnRedPortfolio {
+    background: #ff3838;
+    border: none;
+    &:hover {
+        background: #ff0000;
+        box-shadow: 0 5px 15px rgb(0 0 0 / 30%);
+    }
+}
+
+@mixin inputIgn {
+    background: green;
+    color: lawngreen;
+    &:focus {
+        outline: 2px solid lawngreen;
+    }
+}
+
+@mixin inputPortfolio {
+    background-color: $primaryColor;
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+    font-size: 21px;
+    &:focus {
+        outline: none;
+        border-bottom: 2px solid $textColor;
+    }
+}
+
+@mixin errorInputIgn {
+    border: 2px solid green;
+    background: red;
+}
+
+@mixin errorInputPortfolio {
+    border: 2px solid red;
+}
+
+@mixin selectIgn {
+    background: green;
+    color: lawngreen;
+
+    &:focus {
+        outline: none;
+        border: 1px solid lawngreen;
+    }
+}
+@mixin selectMy {
+    background: $primaryColor;
+    border: none;
+}

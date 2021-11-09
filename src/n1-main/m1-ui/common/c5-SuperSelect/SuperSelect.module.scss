@@ -1,12 +1,9 @@
-.select {
-  width: 100px;
-  height: 25px;
-  cursor: pointer;
-  background: green;
-  color: lawngreen;
+@import '../components/styles/mixins';
 
-  &:focus {
-    outline: none;
-    border: 1px solid lawngreen;
-  }
+.select {
+    width: 100px;
+    height: 25px;
+    cursor: pointer;
+    //@include selectIgn;
+    @include selectMy;
 }

@@ -1,5 +1,8 @@
+@import '../../../n1-main/m1-ui/common/components/styles/variables';
+
 .examples {
-    background-color: orange;
+    padding: 20px;
+    background-color: $bgColor;
     .column {
         display: flex;
         flex-wrap: wrap;
@@ -13,5 +16,19 @@
         .blue {
             border-bottom: 5px solid blue;
         }
+    }
+
+    .superButton {
+        margin-bottom: 20px;
+    }
+
+    .inputContainer {
+        display: flex;
+        flex-direction: column;
+        height: 60px;
+    }
+
+    .SuperEditableSpanContainer {
+        height: 30px;
     }
 }
