@@ -1,9 +1,9 @@
-@import '../components/styles/mixins';
+@import '../components/styles/variables';
 
 .select {
     width: 100px;
     height: 25px;
     cursor: pointer;
-    //@include selectIgn;
-    @include selectMy;
+    background: $primaryColor;
+    border: none;
 }

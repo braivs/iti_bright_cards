@@ -1,10 +1,20 @@
-@import '../components/styles/mixins';
+@import '../components/styles/variables';
 
 .radio {
     appearance: none;
     cursor: pointer;
     border-radius: 50%;
-    @include radioMy;
+    height: 20px;
+    width: 20px;
+    background: none;
+    border: 2px solid $primaryColor;
+    &:hover {
+        border: 2px solid $accentColor;
+    }
+
+    &:checked {
+        background: $primaryColor;
+    }
 }
 
 .label {
