@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/iti_bright_cards/static/css/main.40f41346.chunk.css",
+    "main.css": "/iti_bright_cards/static/css/main.a97304a6.chunk.css",
     "main.js": "/iti_bright_cards/static/js/main.4878098b.chunk.js",
     "main.js.map": "/iti_bright_cards/static/js/main.4878098b.chunk.js.map",
     "runtime-main.js": "/iti_bright_cards/static/js/runtime-main.f1aae692.js",
@@ -10,13 +10,13 @@
     "static/js/3.1e5504b1.chunk.js": "/iti_bright_cards/static/js/3.1e5504b1.chunk.js",
     "static/js/3.1e5504b1.chunk.js.map": "/iti_bright_cards/static/js/3.1e5504b1.chunk.js.map",
     "index.html": "/iti_bright_cards/index.html",
-    "static/css/main.40f41346.chunk.css.map": "/iti_bright_cards/static/css/main.40f41346.chunk.css.map",
+    "static/css/main.a97304a6.chunk.css.map": "/iti_bright_cards/static/css/main.a97304a6.chunk.css.map",
     "static/js/2.3c4cbda6.chunk.js.LICENSE.txt": "/iti_bright_cards/static/js/2.3c4cbda6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f1aae692.js",
     "static/js/2.3c4cbda6.chunk.js",
-    "static/css/main.40f41346.chunk.css",
+    "static/css/main.a97304a6.chunk.css",
     "static/js/main.4878098b.chunk.js"
   ]
 }
