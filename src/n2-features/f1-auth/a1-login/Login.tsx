@@ -4,6 +4,8 @@ import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperC
 import s from './Login.module.scss'
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {AppStoreType} from "../../../n1-main/m2-bll/store";
 
 
 export type LoginPropsType = {
@@ -27,6 +29,8 @@ export const Login: React.FC<LoginPropsType> = (props) => {
     const changeRemember = (e:any) => {
         props.setRememberMe(e.currentTarget.value)
     }
+
+    const error = useSelector<AppStoreType, string | null>(state => state.auth.error)
     return (
         <div className={s.form}>
             <form>
@@ -34,6 +38,7 @@ export const Login: React.FC<LoginPropsType> = (props) => {
                     <div className={s.text}>Sign In</div>
                     <div><SuperInputText value={props.email} onChange={changeLogin}/></div>
                     <div><SuperInputText type={"password"} value={props.password} onChange={changePassword}/></div>
+                    {error ? <span>{error}</span> : null}
                     <div><SuperCheckbox checked={props.rememberMe} onChange={changeRemember} className={s.checkbox} children={'Remember Me'}/></div>
                     <div><SuperButton children={'Login'} onClick={props.LoggedIn}/></div>
                     <NavLink to={'/passwordrecovery'}>Forgot password</NavLink>
