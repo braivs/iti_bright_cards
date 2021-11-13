@@ -2,13 +2,18 @@ import React, {useState} from 'react';
 import s from './PasswordNew.module.scss'
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
+import {useParams} from "react-router-dom";
 
 export const PasswordNew = () => {
     const [newPassword, setNewPassword] = useState<string>('')
     const [newPassword2, setNewPassword2] = useState<string>('')
+    // const { token } = useParams<{token: string}>();
+    const { token } = useParams<{token: string}>();
+    console.log('tokeen', token)
+
     const onClickHandler = () => {
         if (newPassword === newPassword2 && newPassword.length > 7) {
-            console.log('password change')
+            console.log('password change', token)
         } else {
             console.log('problem with pass')
         }
