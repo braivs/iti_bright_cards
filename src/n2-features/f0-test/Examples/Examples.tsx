@@ -6,6 +6,7 @@ import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperC
 import SuperEditableSpan from "../../../n1-main/m1-ui/common/c4-SuperEditableSpan/SuperEditableSpan";
 import SuperSelect from "../../../n1-main/m1-ui/common/c5-SuperSelect/SuperSelect";
 import SuperRadio from "../../../n1-main/m1-ui/common/c6-SuperRadio/SuperRadio";
+import {TestForReducer} from "../TestForReducer/TestForReducer";
 
 export const Examples = () => {
     const [text, setText] = useState<string>('') // for SuperInputText
@@ -29,6 +30,7 @@ export const Examples = () => {
 
     return (
         <div className={s.examples}>
+            <TestForReducer />
             <h1>This is examples of common components.</h1>
             <hr/>
             <div className={s.column}>

@@ -11,7 +11,7 @@ export const Header = () => {
                 <NavLink className={s.item} to={'/registration'}>Registration</NavLink>
                 <NavLink className={s.item} to={'/profile'}>Profile</NavLink>
                 <NavLink className={s.item} to={'/404'}>404</NavLink>
-                <NavLink className={s.item} to={'/passwordrecovery'}>Recovery Password</NavLink>
+                <NavLink className={s.item} to={'/passwordrecovery'}>PasswordRecovery</NavLink>
                 <NavLink className={s.item} to={'/passwordnew'}>New Password</NavLink>
                 <NavLink className={s.item} to={'/tests'}>Tests</NavLink>
             </div>
