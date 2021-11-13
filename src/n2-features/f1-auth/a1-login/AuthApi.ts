@@ -13,6 +13,9 @@ export const authAPI = {
     },
     me() {
         return instance.post<InitialProfileType>('/auth/me')
+    },
+    logout() {
+        return instance.delete('/auth/me')
     }
 }
 

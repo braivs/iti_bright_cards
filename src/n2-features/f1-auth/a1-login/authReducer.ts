@@ -43,7 +43,6 @@ export const LoginTC = (email: string, password: string, rememberMe: boolean) =>
     authAPI.login({email, password, rememberMe}).then(res => {
             if (res.statusText === 'OK') {
                 dispatch(setIsLoggedId(true))
-                console.log(res.data)
                 dispatch(setProfile(res.data))
             }
         }
@@ -58,13 +57,24 @@ export const InitializeTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
             if (res.statusText === 'OK') {
                 dispatch(setIsLoggedId(true))
-                console.log(res.data)
                 dispatch(setProfile(res.data))
             }
         }
     ).catch(e => {
             e.response && dispatch(setIsLoggedId(false))
 
+        }
+    )
+}
+export const LogoutTC = () => (dispatch: Dispatch) => {
+    authAPI.logout().then(res => {
+        if (res.statusText === 'OK') {
+            dispatch(setIsLoggedId(false))
+        }
+        }
+    ).catch(e => {
+            e.response ? dispatch(setIsError(e.response.data.error))
+                : dispatch(setIsError(e.message + ', more details in the console'));
         }
     )
 }

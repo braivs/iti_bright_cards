@@ -15,7 +15,6 @@ export const Main = () => {
     return (
         <div>
             <Header/>
-            <TestForReducer />
             <Switch>
                 <Route exact path={'/login'} render={() => <LoginContainer/>}/>
                 <Route exact path={'/registration'} render={() => <Registration/>}/>

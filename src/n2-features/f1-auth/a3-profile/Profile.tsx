@@ -25,7 +25,6 @@ export const Profile = () => {
         return <Redirect to='/login' />
     }
     return (
-        <div>
             <div className={s.profileContainer}>
                 <div className={s.profile}>
                     {avatar ? <img src={avatar} alt=""/> : null}
@@ -33,6 +32,6 @@ export const Profile = () => {
                     <span>Количество карт: {publicCardPacksCount}</span>
                 </div>
             </div>
-        </div>
+
     );
 }
