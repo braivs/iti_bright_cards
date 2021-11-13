@@ -9,6 +9,7 @@ import {PasswordRecovery} from "../../../n2-features/f1-auth/PasswordRecovery";
 import {PasswordNew} from "../../../n2-features/f1-auth/PasswordNew";
 import {Examples} from "../../../n2-features/f0-test/Examples/Examples";
 import {TestForReducer} from "../../../n2-features/f0-test/TestForReducer/TestForReducer";
+import {LoginContainer} from "../../../n2-features/f1-auth/a1-login/LoginContainer";
 
 export const Main = () => {
     return (
@@ -16,7 +17,7 @@ export const Main = () => {
             <Header/>
             <TestForReducer />
             <Switch>
-                <Route exact path={'/login'} render={() => <Login/>}/>
+                <Route exact path={'/login'} render={() => <LoginContainer/>}/>
                 <Route exact path={'/registration'} render={() => <Registration/>}/>
                 <Route exact path={'/profile'} render={() => <Profile/>}/>
                 <Route exact path={'/404'} render={() => <Page404/>}/>
