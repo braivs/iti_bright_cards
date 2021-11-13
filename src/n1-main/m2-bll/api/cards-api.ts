@@ -12,12 +12,17 @@ const instance = axios.create({
 
 export const cardsAPI = {
     recoveryPassword(email: string) {
-
         const dataForPost = {
             email,
             from: "Briws <brightwiths@gmail.com>",
             message: `<div>password recovery link:<a href='http://localhost:3000/#/passwordnew/$token$'>link</a></div>`
         }
         return instance.post('auth/forgot', dataForPost)
+    },
+    changePassword(password: string, resetPasswordToken: string) {
+        return instance.post('/auth/set-new-password', {password, resetPasswordToken})
+    },
+    authMe() {
+        return instance.post('/auth/me', {})
     }
 }

@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './PasswordRecovery.module.scss'
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
-import {useDispatch} from "react-redux";
-import {recoveryPasswordTC} from "../../../n1-main/m2-bll/recovery-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {authMeTC, ProfileType, recoveryPasswordTC} from "../../../n1-main/m2-bll/recovery-reducer";
+import {AppStoreType} from "../../../n1-main/m2-bll/store";
 
 export const PasswordRecovery = () => {
     const [email, setEmail] = useState<string>('')
@@ -12,6 +13,7 @@ export const PasswordRecovery = () => {
     const onClickHandler = () => {
         dispatch(recoveryPasswordTC(email))
     }
+
 
     //todo: need to add error message here
     return (
