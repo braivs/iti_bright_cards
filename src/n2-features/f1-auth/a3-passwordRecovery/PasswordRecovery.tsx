@@ -9,8 +9,8 @@ import {AppStoreType} from "../../../n1-main/m2-bll/store";
 export const PasswordRecovery = () => {
     const [email, setEmail] = useState<string>('')
     const dispatch = useDispatch()
-    let infoText = useSelector<AppStoreType, string>(state => state.recoveryPassword.info)
-    let errorText = useSelector<AppStoreType, string>(state => state.recoveryPassword.errorText)
+    let infoText = useSelector<AppStoreType, string>(state => state.recoveryPassword.forgot.info)
+    let errorText = useSelector<AppStoreType, string>(state => state.recoveryPassword.forgot.errorText)
 
     let statusText = ''
     let classColor = ''

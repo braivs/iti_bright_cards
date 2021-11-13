@@ -10,8 +10,8 @@ import {AppStoreType} from "../../../n1-main/m2-bll/store";
 export const PasswordNew = () => {
     const [newPassword, setNewPassword] = useState<string>('')
     const [newPassword2, setNewPassword2] = useState<string>('')
-    let infoText = useSelector<AppStoreType, string>(state => state.recoveryPassword.info)
-    let errorText = useSelector<AppStoreType, string>(state => state.recoveryPassword.errorText)
+    let infoText = useSelector<AppStoreType, string>(state => state.recoveryPassword.setNew.info)
+    let errorText = useSelector<AppStoreType, string>(state => state.recoveryPassword.setNew.errorText)
     const dispatch = useDispatch()
     const [matchStatus, setMatchStatus] = useState('')
 
