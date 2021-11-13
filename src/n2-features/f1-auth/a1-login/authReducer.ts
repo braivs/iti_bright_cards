@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux'
 import {authAPI, AuthLoginType} from "./AuthApi";
+import {setProfile, SetProfileType} from "../a3-profile/profileReducer";
 
 
 let initialState = {
@@ -38,15 +39,32 @@ export const setIsError = (error: string) => {
 }
 
 //Thunks
-export const LoginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+export const LoginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<ActionsType | SetProfileType>) => {
     authAPI.login({email, password, rememberMe}).then(res => {
             if (res.statusText === 'OK') {
                 dispatch(setIsLoggedId(true))
+                console.log(res.data)
+                dispatch(setProfile(res.data))
             }
         }
     ).catch(e => {
-        e.response ?  dispatch(setIsError(e.response.data.error))
+            e.response ? dispatch(setIsError(e.response.data.error))
                 : dispatch(setIsError(e.message + ', more details in the console'));
+        }
+    )
+}
+
+export const InitializeTC = () => (dispatch: Dispatch) => {
+    authAPI.me().then(res => {
+            if (res.statusText === 'OK') {
+                dispatch(setIsLoggedId(true))
+                console.log(res.data)
+                dispatch(setProfile(res.data))
+            }
+        }
+    ).catch(e => {
+            e.response && dispatch(setIsLoggedId(false))
+
         }
     )
 }

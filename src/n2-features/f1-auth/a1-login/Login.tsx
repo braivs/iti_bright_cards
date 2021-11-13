@@ -27,7 +27,7 @@ export const Login: React.FC<LoginPropsType> = (props) => {
         props.setPassword(e.currentTarget.value)
     }
     const changeRemember = (e:any) => {
-        props.setRememberMe(e.currentTarget.value)
+        props.setRememberMe(e.currentTarget.checked)
     }
 
     const error = useSelector<AppStoreType, string | null>(state => state.auth.error)
