@@ -1,71 +1,49 @@
-import {ThunkAction} from "redux-thunk";
-import {AppStoreType} from "./store";
 import {cardsAPI} from "./api/cards-api";
-import {useDispatch} from "react-redux";
 import {Dispatch} from "redux";
 
 const initialState = {
-    profile: null as ProfileType | null
+    info: '',
+    errorText: ''
 }
-
-type InitialStateType = typeof initialState;
-
 
 export const recoveryReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case "SET-AUTH-DATA": {
-            return {...state, profile: action.profile}
-        }
+        case "RESTORE-PASS/SHOW-INFO-AND-ERROR":
+            return {...state, info: action.infoText, errorText: action.errorText}
         default:
             return state
     }
 }
 
-export const recoveryPasswordTC = (email: string) => {
-    return(dispatch: ThunkDispatch) => {
+export const showInfoAndErrorAC = (infoText: string, errorText: string) =>
+    ({type: 'RESTORE-PASS/SHOW-INFO-AND-ERROR', infoText, errorText} as const)
+
+export const forgotPasswordTC = (email: string) => {
+    return (dispatch: Dispatch<ActionType>) => {
         cardsAPI.recoveryPassword(email)
-            //todo: something here
-            .then(() => {console.log('sended to email')})
-    }
-}
-
-export const changePasswordTC = (email: string, resetPasswordToken: string) => {
-    return(dispatch: ThunkDispatch) => {
-        cardsAPI.changePassword(email, resetPasswordToken)
-            //todo: something here
-            .then(() => {console.log('password changed')})
-    }
-}
-
-export const authMeTC = () => {
-    return(dispatch: ThunkDispatch) => {
-        cardsAPI.authMe()
             .then(res => {
-                dispatch(setAuthUserDataAC(res.data as ProfileType))
+                dispatch(showInfoAndErrorAC(res.data.info, ''))
             })
-
+            .catch(res => {
+                dispatch(showInfoAndErrorAC('', res.response.data.error))
+            })
     }
 }
 
-export const RecoveryPasswordAC = () =>
-    ({type: 'RECOVERY-PASSWORD'} as const)
-const setAuthUserDataAC = (profile: ProfileType) => ({
-    type: 'SET-AUTH-DATA', profile
-} as const)
-
-type ActionType = ReturnType<typeof RecoveryPasswordAC> | ReturnType<typeof setAuthUserDataAC>
-// type AppThunkType = ThunkAction<void, AppStoreType, unknown, ActionType>
-type ThunkDispatch = Dispatch<ActionType>
-
-export type ProfileType = {
-    created: string
-    email: string
-    isAdmin: boolean
-    name: string
-    publicCardPacksCount: number
-    rememberMe: boolean
-    token: string
-    tokenDeathTime: number
-    updated: string
-    verified: boolean
+export const setNewPasswordTC = (password: string, resetPasswordToken: string) => {
+    return (dispatch: Dispatch<ActionType>) => {
+        cardsAPI.changePassword(password, resetPasswordToken)
+            .then(res => {
+                dispatch(showInfoAndErrorAC(res.data.info, ''))
+            })
+            .catch(res => {
+                dispatch(showInfoAndErrorAC('', res.response.data.error))
+            })
+    }
 }
+
+type InitialStateType = {
+    info: string
+    errorText: string
+}
+type ActionType = ReturnType<typeof showInfoAndErrorAC>

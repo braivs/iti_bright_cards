@@ -5,7 +5,7 @@ import {recoveryReducer} from "./recovery-reducer";
 
 const reducers = combineReducers({
     testReducer: testReducer,
-    profile: recoveryReducer
+    recoveryPassword: recoveryReducer
 })
 
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware))
