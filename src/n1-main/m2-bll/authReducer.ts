@@ -1,6 +1,6 @@
 import {Dispatch} from 'redux'
 import {authAPI, AuthLoginType} from "./AuthApi";
-import {setProfile, SetProfileType} from "../a3-profile/profileReducer";
+import {setProfile, SetProfileType} from "./profileReducer";
 
 
 let initialState = {
@@ -34,7 +34,7 @@ export const setIsLoggedId = (value: boolean) => {
     return ({type: 'login/SET-IS-LOGGED-IN', value} as const)
 }
 
-export const setIsError = (error: string) => {
+export const setIsError = (error: string | null) => {
     return ({type: 'login/SET-IS-ERROR', error} as const)
 }
 
@@ -44,6 +44,7 @@ export const LoginTC = (email: string, password: string, rememberMe: boolean) =>
             if (res.statusText === 'OK') {
                 dispatch(setIsLoggedId(true))
                 dispatch(setProfile(res.data))
+                dispatch(setIsError(null))
             }
         }
     ).catch(e => {

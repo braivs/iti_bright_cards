@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../a1-login/AuthApi";
+import {authAPI} from "./AuthApi";
 
 
 let initialState = {

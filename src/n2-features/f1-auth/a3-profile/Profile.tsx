@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
-import {InitialProfileType, SetProfileType} from "./profileReducer";
+import {InitialProfileType, SetProfileType} from "../../../n1-main/m2-bll/profileReducer";
 import s from './profile.module.scss'
-import {InitializeTC} from "../a1-login/authReducer";
+import {InitializeTC} from "../../../n1-main/m2-bll/authReducer";
 import {Redirect} from "react-router-dom";
 
 export const Profile = () => {
