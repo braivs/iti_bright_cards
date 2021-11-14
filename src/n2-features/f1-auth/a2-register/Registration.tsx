@@ -29,43 +29,39 @@ export const Registration = (props: PropsType) => {
 
     const error = useSelector<AppStoreType, null | string>(state => state.registration.error)
 
-    const emailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.currentTarget.value)
-    }
-
-    const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.currentTarget.value)
-    }
-
-    const setRepeatPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setRepeatPassword(e.currentTarget.value)
-    }
-
     return (
         <>
             <div className={style.form}>
-                <SuperInputText
-                    value={email}
-                    onChange={emailHandler}
-                    spanClassName={s.testSpanError}
-                    placeholder={'email'}
-                />
 
-                <SuperInputText
-                    type='password'
-                    value={password}
-                    onChange={passwordHandler}
-                    spanClassName={s.testSpanError}
-                    placeholder={'password'}
-                />
+                <label>
+                    <div>Your email</div>
+                    <SuperInputText
+                        value={email}
+                        onChangeText={setEmail}
+                        className={s.testSpanError}
+                    />
+                </label>
 
-                <SuperInputText
-                    value={repeatPassword}
-                    onChange={setRepeatPasswordHandler}
-                    spanClassName={s.testSpanError}
-                    placeholder={'password'}
-                />
+                <label>
+                    <div>Your password</div>
+                    <SuperInputText
+                        type={'password'}
+                        value={password}
+                        onChangeText={setPassword}
+                        className={s.testSpanError}
+                    />
+                </label>
 
+                <label>
+                    <div>Repeat your password</div>
+                    <SuperInputText
+                        type={'password'}
+                        value={repeatPassword}
+                        onChangeText={setRepeatPassword}
+                        className={s.testSpanError}
+                    />
+
+                </label>
                 {error !== null && <div className={style.error}>{error}</div>}
 
                 <SuperButton onClick={register} className={s.superButton}>
@@ -73,6 +69,5 @@ export const Registration = (props: PropsType) => {
                 </SuperButton>
             </div>
         </>
-
     );
 }
