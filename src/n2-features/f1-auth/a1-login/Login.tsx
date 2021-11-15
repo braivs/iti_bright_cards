@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import s from './Login.module.scss'
@@ -15,7 +15,7 @@ export type LoginPropsType = {
     setEmail: (s: string) => void,
     setPassword: (s: string) => void,
     setRememberMe: (s: boolean) => void,
-    LoggedIn: () => void
+    LoggedIn: (e: any) => void
 }
 
 

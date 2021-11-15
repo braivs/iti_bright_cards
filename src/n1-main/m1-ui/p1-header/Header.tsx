@@ -18,7 +18,7 @@ export const Header = () => {
                 <NavLink className={s.item} to={'/login'}>Login</NavLink>
                 <NavLink className={s.item} to={'/registration'}>Registration</NavLink>
                 <NavLink className={s.item} to={'/profile'}>Profile</NavLink>
-                <NavLink className={s.item} to={'/passwordrecovery/:token'}>PasswordRecovery</NavLink>
+                <NavLink className={s.item} to={'/passwordrecovery'}>PasswordRecovery</NavLink>
                 <NavLink className={s.item} to={'/tests'}>Tests</NavLink>
                 <a className={s.link} onClick={logout}>Log out</a>
             </div>
