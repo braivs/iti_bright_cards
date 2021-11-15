@@ -8,6 +8,7 @@ import {Page404} from "../../../n2-features/f1-auth/Page404";
 import {PasswordRecovery} from "../../../n2-features/f1-auth/a3-passwordRecovery/PasswordRecovery";
 import {PasswordNew} from "../../../n2-features/f1-auth/a4-passwordNew/PasswordNew";
 import {Examples} from "../../../n2-features/f0-test/Examples/Examples";
+import {LoginContainer} from "../../../n2-features/f1-auth/a1-login/LoginContainer";
 
 export const Main = () => {
     return (
@@ -15,8 +16,8 @@ export const Main = () => {
             <Header/>
             <Switch>
                 <Route exact path={'/login'} render={() => <LoginContainer/>}/>
-                <Route exact path={'/registration'} render={() => <Registration/>}/>
-                <Route exact path={'/login'} render={() => <Login/>}/>
+                {/*<Route exact path={'/registration'} render={() => <Registration/>}/>*/}
+                {/*<Route exact path={'/login'} render={() => <Login/>}/>*/}
                 <Route exact path={'/registration'} render={() => <RegistrationContainer/>}/>
                 <Route exact path={'/profile'} render={() => <Profile/>}/>
                 <Route exact path={'/404'} render={() => <Page404/>}/>
