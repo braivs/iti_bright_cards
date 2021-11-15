@@ -25,8 +25,6 @@ export const PasswordRecovery = () => {
         dispatch(forgotPasswordTC(email))
     }
 
-
-    //todo: need to add error message here
     return (
         <div className={s.passwordRecovery}>
             <h1>This page will recover you password.</h1>
