@@ -27,7 +27,7 @@ export const Registration = (props: PropsType) => {
         register
     } = props
 
-    const error = useSelector<AppStoreType, null | string>(state => state.registration.error)
+    //const error = useSelector<AppStoreType, null | string>(state => state.registration.error)
 
     return (
         <>
@@ -62,7 +62,6 @@ export const Registration = (props: PropsType) => {
                     />
 
                 </label>
-                {error !== null && <div className={style.error}>{error}</div>}
 
                 <SuperButton onClick={register} className={s.superButton}>
                     registration

@@ -9,21 +9,19 @@ import {AppStoreType} from "../../../n1-main/m2-bll/store";
 export const PasswordRecovery = () => {
     const [email, setEmail] = useState<string>('')
     const dispatch = useDispatch()
-    let infoText = useSelector<AppStoreType, string>(state => state.recoveryPassword.forgot.info)
-    let errorText = useSelector<AppStoreType, string>(state => state.recoveryPassword.forgot.errorText)
 
     let statusText = ''
     let classColor = ''
-    if (infoText !== '') {
-        statusText = infoText + ' You need to click recover link in you email.'
-        classColor = s.green
-    } else {
-        statusText = errorText
-        classColor = s.red
-    }
-    const onClickHandler = () => {
-        dispatch(forgotPasswordTC(email))
-    }
+    // if (infoText !== '') {
+    //     statusText = infoText + ' You need to click recover link in you email.'
+    //     classColor = s.green
+    // } else {
+    //     statusText = errorText
+    //     classColor = s.red
+    // }
+    // const onClickHandler = () => {
+    //     dispatch(forgotPasswordTC(email))
+    // }
 
     return (
         <div className={s.passwordRecovery}>
@@ -35,7 +33,7 @@ export const PasswordRecovery = () => {
                     <SuperInputText value={email} onChangeText={setEmail} className={s.input}/>
                 </label>
             </div>
-            <div className={s.element}><SuperButton onClick={onClickHandler} >Recover</SuperButton></div>
+            {/*<div className={s.element}><SuperButton onClick={onClickHandler} >Recover</SuperButton></div>*/}
             <div className={classColor}>{statusText}</div>
         </div>
 

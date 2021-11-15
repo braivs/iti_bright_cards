@@ -10,8 +10,6 @@ import {AppStoreType} from "../../../n1-main/m2-bll/store";
 export const PasswordNew = () => {
     const [newPassword, setNewPassword] = useState<string>('')
     const [newPassword2, setNewPassword2] = useState<string>('')
-    let infoText = useSelector<AppStoreType, string>(state => state.recoveryPassword.setNew.info)
-    let errorText = useSelector<AppStoreType, string>(state => state.recoveryPassword.setNew.errorText)
     const dispatch = useDispatch()
     const [matchStatus, setMatchStatus] = useState('')
 
@@ -29,13 +27,6 @@ export const PasswordNew = () => {
 
     let statusText = ''
     let classColor = ''
-    if (infoText !== '') {
-        statusText = infoText
-        classColor = s.green
-    } else {
-        statusText = errorText
-        classColor = s.red
-    }
 
     return (
         <div className={s.passwordNew}>
