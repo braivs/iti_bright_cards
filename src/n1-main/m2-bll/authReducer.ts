@@ -1,6 +1,6 @@
 import {Dispatch} from 'redux'
-import {authAPI, AuthLoginType} from "./AuthApi";
-import {setProfile, SetProfileType} from "../a3-profile/profileReducer";
+import {authAPI, AuthLoginType} from "../../n2-features/f1-auth/a1-login/AuthApi";
+import {setProfile, SetProfileType} from "./profileReducer";
 
 
 let initialState = {

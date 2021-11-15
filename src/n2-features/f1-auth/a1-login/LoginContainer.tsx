@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Login} from "./Login";
 import {authAPI} from "./AuthApi";
-import {LoginTC} from "./authReducer";
+import {LoginTC} from "../../../n1-main/m2-bll/authReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import {Redirect} from "react-router-dom";
