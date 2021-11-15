@@ -22,7 +22,7 @@ export const Main = () => {
                 <Route exact path={'/profile'} render={() => <Profile/>}/>
                 <Route exact path={'/404'} render={() => <Page404/>}/>
                 <Route exact path={'/passwordrecovery'} render={() => <PasswordRecovery/>}/>
-                <Route exact path={'/passwordnew'} render={() => <PasswordNew/>}/>
+                <Route exact path={'/passwordnew/:token'} render={() => <PasswordNew/>}/>
                 <Route exact path={'/tests'} render={() => <Examples/>}/>
                 <Redirect exact from={'/'} to={'/tests'}/>
                 <Redirect from={'*'} to={'/404'}/>
