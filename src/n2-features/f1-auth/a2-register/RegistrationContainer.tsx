@@ -16,8 +16,9 @@ export const RegistrationContainer = () => {
     const register = () => {
         if (password === repeatPassword) {
             dispatch(registrationTC(email, password))
+        } else {
+            dispatch(setErrorMessageAC('password mismatch'))
         }
-        dispatch(setErrorMessageAC('password mismatch'))
     }
 
     if (isRegistered) {

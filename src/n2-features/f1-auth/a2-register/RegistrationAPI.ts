@@ -5,6 +5,16 @@ const instance = axios.create({
     withCredentials: true,
 })
 
+/*type ResponseType = {
+    info: string
+    response: {
+        data: {
+            email: string
+            password: string
+        }
+    }
+}*/
+
 export const registrationAPI = {
     registration(email: string, password: string ){
         return instance.post<any>(`auth/register`, { email, password} )
