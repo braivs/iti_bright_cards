@@ -8,7 +8,11 @@ import {Redirect} from "react-router-dom";
 
 export const Profile = () => {
     const dispatch = useDispatch()
+    const isLoggedIn = useSelector<AppStoreType, boolean>(state => state.auth.isLoggedIn)
     useEffect(() => {
+        if(!isLoggedIn) {
+            return
+        }
         dispatch(InitializeTC())
     }, [])
     const {
@@ -18,7 +22,6 @@ export const Profile = () => {
         publicCardPacksCount,
         _id
     } = useSelector<AppStoreType, InitialProfileType>(state => state.profile)
-    const isLoggedIn = useSelector<AppStoreType, boolean>(state => state.auth.isLoggedIn)
 
 
     if(!isLoggedIn) {
