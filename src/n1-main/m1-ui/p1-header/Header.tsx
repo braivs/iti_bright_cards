@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 import s from './Header.module.scss'
 import {useDispatch} from "react-redux";
-import {LogoutTC} from "../../../n2-features/f1-auth/a1-login/authReducer";
+import {LogoutTC} from "../../m2-bll/authReducer";
 
 export const Header = () => {
 
@@ -20,7 +20,7 @@ export const Header = () => {
                 <NavLink className={s.item} to={'/profile'}>Profile</NavLink>
                 <NavLink className={s.item} to={'/passwordrecovery'}>PasswordRecovery</NavLink>
                 <NavLink className={s.item} to={'/tests'}>Tests</NavLink>
-                <NavLink className={s.item} to={'/login'} onClick={logout}>Log out</NavLink>
+                <a className={s.link} onClick={logout}>Log out</a>
             </div>
 
         </div>

@@ -3,8 +3,8 @@ import {testReducer} from "./test-reducer";
 import thunkMiddleware from "redux-thunk";
 import {registrationReducer} from "./registrationReducer";
 import {recoveryReducer} from "./recovery-reducer";
-import {authReducer} from "../../n2-features/f1-auth/a1-login/authReducer";
-import {profileReducer} from "../../n2-features/f1-auth/a3-profile/profileReducer";
+import {authReducer} from "./authReducer";
+import {profileReducer} from "./profileReducer";
 
 const reducers = combineReducers({
     testReducer: testReducer,

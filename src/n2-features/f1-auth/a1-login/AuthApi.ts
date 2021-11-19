@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from 'axios'
-import {InitialProfileType, SetProfileType} from "../a3-profile/profileReducer";
+import {InitialProfileType, SetProfileType} from "../../../n1-main/m2-bll/profileReducer";
 
 const instance = axios.create({
     // baseURL: 'http://localhost:7542/2.0/',
