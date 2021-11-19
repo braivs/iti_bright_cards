@@ -15,15 +15,15 @@ export const LoginContainer: React.FC = () => {
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppStoreType, boolean>(state => state.auth.isLoggedIn)
 
-const LoggedIn = (e: any) => {
-        e.stopPropagation()
-    dispatch(LoginTC(email, password, rememberMe));
-    setEmail('');
-    setPassword('');
+    const LoggedIn = (e: any) => {
+        e.preventDefault()
+        dispatch(LoginTC(email, password, rememberMe));
+        setEmail('');
+        setPassword('');
 
-}
-    if(isLoggedIn) {
-        return <Redirect to='/profile' />
+    }
+    if (isLoggedIn) {
+        return <Redirect to='/profile'/>
     }
     return <Login email={email} password={password} rememberMe={rememberMe}
                   setEmail={setEmail} setPassword={setPassword} setRememberMe={setRememberMe} LoggedIn={LoggedIn}/>

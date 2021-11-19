@@ -7,14 +7,8 @@ import {InitializeTC} from "../../../n1-main/m2-bll/authReducer";
 import {Redirect} from "react-router-dom";
 
 export const Profile = () => {
-    const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppStoreType, boolean>(state => state.auth.isLoggedIn)
-    useEffect(() => {
-        if(!isLoggedIn) {
-            return
-        }
-        dispatch(InitializeTC())
-    }, [])
+
     const {
         avatar,
         email,

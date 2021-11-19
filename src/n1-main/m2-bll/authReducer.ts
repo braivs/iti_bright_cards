@@ -41,10 +41,9 @@ export const setIsError = (error: string) => {
 //Thunks
 export const LoginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<ActionsType | SetProfileType>) => {
     authAPI.login({email, password, rememberMe}).then(res => {
-            if (res.statusText === 'OK') {
-                dispatch(setIsLoggedId(true))
-                dispatch(setProfile(res.data))
-            }
+            dispatch(setIsLoggedId(true))
+            dispatch(setProfile(res.data))
+
         }
     ).catch(e => {
             e.response ? dispatch(setIsError(e.response.data.error))
@@ -55,22 +54,21 @@ export const LoginTC = (email: string, password: string, rememberMe: boolean) =>
 
 export const InitializeTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
-            if (res.statusText === 'OK') {
-                dispatch(setIsLoggedId(true))
-                dispatch(setProfile(res.data))
-            }
+            dispatch(setIsLoggedId(true))
+            dispatch(setProfile(res.data))
         }
     ).catch(e => {
-            e.response && dispatch(setIsLoggedId(false))
+
+            dispatch(setIsLoggedId(false))
+
 
         }
     )
 }
 export const LogoutTC = () => (dispatch: Dispatch) => {
     authAPI.logout().then(res => {
-        if (res.statusText === 'OK') {
             dispatch(setIsLoggedId(false))
-        }
+
         }
     ).catch(e => {
             e.response ? dispatch(setIsError(e.response.data.error))

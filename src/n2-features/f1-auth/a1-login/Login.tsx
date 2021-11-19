@@ -33,14 +33,14 @@ export const Login: React.FC<LoginPropsType> = (props) => {
     const error = useSelector<AppStoreType, string | null>(state => state.auth.error)
     return (
         <div className={s.form}>
-            <form>
+            <form onSubmit={props.LoggedIn}>
                 <div className={s.border}>
                     <div className={s.text}>Sign In</div>
                     <div><SuperInputText value={props.email} onChange={changeLogin}/></div>
                     <div><SuperInputText type={"password"} value={props.password} onChange={changePassword}/></div>
                     {error ? <span>{error}</span> : null}
                     <div><SuperCheckbox checked={props.rememberMe} onChange={changeRemember} className={s.checkbox} children={'Remember Me'}/></div>
-                    <div><SuperButton children={'Login'} onClick={props.LoggedIn}/></div>
+                    <div><SuperButton children={'Login'} /></div>
                     <NavLink to={'/passwordrecovery'}>Forgot password</NavLink>
                 </div>
             </form>
