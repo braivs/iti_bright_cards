@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FormEvent, useState} from 'react';
 import {Login} from "./Login";
 import {authAPI} from "./AuthApi";
 import {LoginTC} from "../../../n1-main/m2-bll/authReducer";
@@ -15,7 +15,7 @@ export const LoginContainer: React.FC = () => {
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppStoreType, boolean>(state => state.auth.isLoggedIn)
 
-    const LoggedIn = (e: any) => {
+    const LoggedIn = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch(LoginTC(email, password, rememberMe));
         setEmail('');
