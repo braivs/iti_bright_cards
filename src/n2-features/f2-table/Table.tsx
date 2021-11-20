@@ -8,12 +8,8 @@ export interface ITableModel {
 }
 
 interface ITableProps {
-// loading: boolean;
-// error: string;
-//
-// logoutCallback: () => void;
-    model: ITableModel[];
-    data: any;
+    model?: ITableModel[];
+    data?: any;
 
     headerStyle?: CSSProperties,
     tableStyle?: CSSProperties,
@@ -23,14 +19,8 @@ interface ITableProps {
 
 export const Table: React.FC<ITableProps> = (
     {
-// loading,
-// error,
-//
-// logoutCallback,
-
         model,
         data,
-
         headerStyle,
         tableStyle,
         rowsStyle,
@@ -42,7 +32,6 @@ export const Table: React.FC<ITableProps> = (
         <div
             style={{
                 margin: '0 10px',
-// minHeight: '80vh',
                 display: 'flex',
                 flexFlow: 'column',
                 alignItems: 'center',
@@ -51,14 +40,6 @@ export const Table: React.FC<ITableProps> = (
             }}
         >
             table
-
-            {/*{loading*/}
-            {/*? <div style={{color: 'orange'}}>loading...</div>*/}
-            {/*: error*/}
-            {/*? <div style={{color: 'red'}}>{error}</div>*/}
-            {/*: <div><br/></div>*/}
-            {/*}*/}
-
             <div
                 style={{
                     border: '1px solid red',
@@ -70,7 +51,7 @@ export const Table: React.FC<ITableProps> = (
                     ...headerStyle,
                 }}
             >
-                {model.map((m: ITableModel, index: number) => m.title(index))}
+                {/*{model.map((m: ITableModel, index: number) => m.title(index))}*/}
             </div>
 
             <div
@@ -92,7 +73,7 @@ export const Table: React.FC<ITableProps> = (
                             ...rowStyle,
                         }}
                     >
-                        {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}
+                        {/*{model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}*/}
                     </div>
                 ))}
             </div>

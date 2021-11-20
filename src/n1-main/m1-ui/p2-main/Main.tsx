@@ -16,7 +16,7 @@ export const Main = () => {
         <div>
             <Header/>
             <Switch>
-                <Route exact path={'/table'} render={() => <Table/>}/>
+                <Route exact path={'/table'} render={() => <Table />}/>
                 <Route exact path={'/login'} render={() => <LoginContainer/>}/>
                 <Route exact path={'/registration'} render={() => <RegistrationContainer/>}/>
                 <Route exact path={'/profile'} render={() => <Profile/>}/>
