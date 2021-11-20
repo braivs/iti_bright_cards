@@ -14,11 +14,15 @@ export const RegistrationContainer = () => {
     const isRegistered = useSelector<AppStoreType, boolean>(state => state.registration.isRegistered)
 
     const register = () => {
+        dispatch(setErrorMessageAC(null))
         if (password === repeatPassword) {
             dispatch(registrationTC(email, password))
         } else {
             dispatch(setErrorMessageAC('password mismatch'))
         }
+        setEmail('')
+        setPassword('')
+        setRepeatPassword('')
     }
 
     if (isRegistered) {
