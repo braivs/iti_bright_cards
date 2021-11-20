@@ -5,13 +5,15 @@ import {setProfile, SetProfileType} from "./profileReducer";
 
 let initialState = {
     isLoggedIn: false,
-    error: null
+    error: null,
+    isInitilize: false
 }
 
 
 type InitialStateType = {
     isLoggedIn: boolean
     error: string | null
+    isInitilize: boolean
 }
 
 
@@ -21,6 +23,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
             return {...state, isLoggedIn: action.value}
         case 'login/SET-IS-ERROR':
             return {...state, error: action.error}
+        case 'login/SET-IS-INITIALIZE':
+            return {...state, isInitilize: action.isInitilize}
         default:
             return {...state}
     }
@@ -32,6 +36,9 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 
 export const setIsLoggedId = (value: boolean) => {
     return ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+}
+export const setIsInitialize = (isInitilize: boolean) => {
+    return ({type: 'login/SET-IS-INITIALIZE', isInitilize} as const)
 }
 
 export const setIsError = (error: string) => {
@@ -56,12 +63,11 @@ export const InitializeTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
             dispatch(setIsLoggedId(true))
             dispatch(setProfile(res.data))
+            dispatch(setIsInitialize(true))
         }
     ).catch(e => {
 
             dispatch(setIsLoggedId(false))
-
-
         }
     )
 }
@@ -82,5 +88,6 @@ export const LogoutTC = () => (dispatch: Dispatch) => {
 
 type SetIsLoggedIdType = ReturnType<typeof setIsLoggedId>
 type SetIsErrorType = ReturnType<typeof setIsError>
+type SetIsInitializeType = ReturnType<typeof setIsInitialize>
 
-type ActionsType = SetIsLoggedIdType | SetIsErrorType
+type ActionsType = SetIsLoggedIdType | SetIsErrorType | SetIsInitializeType
