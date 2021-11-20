@@ -1,0 +1,29 @@
+.table {
+    margin: 0 10px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+
+    .style1 {
+        border: 1px solid red;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .style2 {
+        border: 1px solid lime;
+        width: 100%;
+
+        .style3 {
+            width: 100%;
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

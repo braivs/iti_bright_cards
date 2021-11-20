@@ -10,7 +10,6 @@ const initialState = {
         info: '',
         errorText: ''
     }
-
 }
 
 export const recoveryReducer = (state = initialState, action: ActionType): InitialStateType => {

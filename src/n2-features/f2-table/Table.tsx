@@ -1,81 +1,45 @@
-import React, {CSSProperties, ReactNode} from 'react';
+import React, {CSSProperties, ReactNode, useEffect} from 'react';
 import sContainer from '../../n1-main/m1-ui/common/components/Container.module.scss'
+import s from './Table.module.scss'
+import {log} from "util";
+import {useDispatch} from "react-redux";
+import {getCardsPackTC} from "../../n1-main/m2-bll/table-reducer";
 
-// пример универсальной таблицы
-export interface ITableModel {
-    title: (index: number) => ReactNode;
+export type TableModel = {
+    title: (index: number) => ReactNode
     render: (dataItem: any, modelIndex: number, dataIndex: number) => ReactNode;
 }
 
-interface ITableProps {
-    model?: ITableModel[];
+type TableProps = {
+    model?: TableModel[]
     data?: any;
 
-    headerStyle?: CSSProperties,
-    tableStyle?: CSSProperties,
-    rowsStyle?: CSSProperties,
-    rowStyle?: CSSProperties,
 }
 
-export const Table: React.FC<ITableProps> = (
-    {
-        model,
-        data,
-        headerStyle,
-        tableStyle,
-        rowsStyle,
-        rowStyle,
-    }
-) => {
+export const Table: React.FC<TableProps> = ({model,data}) => {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getCardsPackTC())
+    }, [])
 
     return (
-        <div
-            style={{
-                margin: '0 10px',
-                display: 'flex',
-                flexFlow: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                ...tableStyle,
-            }}
-        >
-            table
-            <div
-                style={{
-                    border: '1px solid red',
-                    width: '100%',
-                    display: 'flex',
-                    flexFlow: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    ...headerStyle,
-                }}
-            >
+        <div className={`${sContainer.container} ${s.table}`}>
+            This is table.
+            <div className={s.style1}>
                 {/*{model.map((m: ITableModel, index: number) => m.title(index))}*/}
             </div>
 
-            <div
-                style={{
-                    border: '1px solid lime',
-                    width: '100%',
-                    ...rowsStyle,
-                }}
-            >
-                {data.map((dataItem: any, dataIndex: number) => (
-                    <div
-                        key={dataItem._id || dataIndex}
-                        style={{
-                            width: '100%',
-                            display: 'flex',
-                            flexFlow: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            ...rowStyle,
-                        }}
-                    >
-                        {/*{model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}*/}
-                    </div>
-                ))}
+            <div className={s.style2}>
+                {/*{data.map((dataItem: any, dataIndex: number) => (*/}
+                {/*    <div*/}
+                {/*        key={dataItem._id || dataIndex}*/}
+                {/*        className={s.style3}*/}
+                {/*    >*/}
+                {/*        {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}*/}
+                {/*    </div>*/}
+                {/*))}*/}
             </div>
         </div>
     );
