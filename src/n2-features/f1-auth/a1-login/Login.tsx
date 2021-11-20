@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, {FormEvent, MouseEvent} from 'react';
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import s from './Login.module.scss'
@@ -15,7 +15,7 @@ export type LoginPropsType = {
     setEmail: (s: string) => void,
     setPassword: (s: string) => void,
     setRememberMe: (s: boolean) => void,
-    LoggedIn: (e: any) => void
+    LoggedIn: (e: FormEvent<HTMLFormElement>) => void
 }
 
 
@@ -33,14 +33,14 @@ export const Login: React.FC<LoginPropsType> = (props) => {
     const error = useSelector<AppStoreType, string | null>(state => state.auth.error)
     return (
         <div className={s.form}>
-            <form>
+            <form onSubmit={props.LoggedIn}>
                 <div className={s.border}>
                     <div className={s.text}>Sign In</div>
                     <div><SuperInputText value={props.email} onChange={changeLogin}/></div>
                     <div><SuperInputText type={"password"} value={props.password} onChange={changePassword}/></div>
                     {error ? <span>{error}</span> : null}
                     <div><SuperCheckbox checked={props.rememberMe} onChange={changeRemember} className={s.checkbox} children={'Remember Me'}/></div>
-                    <div><SuperButton children={'Login'} onClick={props.LoggedIn}/></div>
+                    <div><SuperButton children={'Login'} /></div>
                     <NavLink to={'/passwordrecovery'}>Forgot password</NavLink>
                 </div>
             </form>
