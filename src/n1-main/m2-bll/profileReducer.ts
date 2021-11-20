@@ -17,7 +17,7 @@ export type InitialProfileType = {
     publicCardPacksCount: number
     _id: string
 }
-
+//1
 export const profileReducer = (state: InitialProfileType = initialState, action: ActionsType): InitialProfileType => {
     switch (action.type) {
         case 'profile/SET-PROFILE':
