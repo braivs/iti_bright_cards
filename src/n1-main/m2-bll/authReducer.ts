@@ -63,13 +63,13 @@ export const InitializeTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
             dispatch(setIsLoggedId(true))
             dispatch(setProfile(res.data))
-            dispatch(setIsInitialize(true))
         }
     ).catch(e => {
-
             dispatch(setIsLoggedId(false))
         }
-    )
+    ).finally(() => {
+        dispatch(setIsInitialize(true))
+    })
 }
 export const LogoutTC = () => (dispatch: Dispatch) => {
     authAPI.logout().then(res => {
