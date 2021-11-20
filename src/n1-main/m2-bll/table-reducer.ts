@@ -1,14 +1,14 @@
 import {Dispatch} from "react";
-import {cardsAPI} from "./api/cards-api";
+import {cardsAPI, CardType} from "./api/cards-api";
 
 const initialState: InitialStateType = {
-    cardsPack: []
+    cards: []
 }
 
 export const tableReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "SET-CARDS":
-            return {...state}
+            return {...state, cards: action.cards}
         default:
             return state
     }
@@ -16,22 +16,23 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
 
 // todo: need to fix any
 type InitialStateType = {
-    cardsPack: Array<any>
+    cards: Array<CardType>
 }
 
-export const setCardsAC = () =>
-    ({type: 'SET-CARDS'} as const)
+export const setCardsAC = (cards: Array<CardType>) =>
+    ({type: 'SET-CARDS', cards} as const)
 
 export const getCardsPackTC = () => {
     return (dispatch: Dispatch<ActionType>) => {
-        // debugger
         cardsAPI.getCardsPack()
             .then((res) => {
-                console.log('getCardsPack then:',res)
+                setCardsAC(res.data.cardPacks)
+                console.log('getCardsPack then:',res.data.cardPacks)
             })
             .catch((res) => {
                 console.log('getCardsPack catch:', res.response.data.error)
             })
+
     }
 }
 

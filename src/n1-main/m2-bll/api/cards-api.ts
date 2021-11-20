@@ -5,8 +5,8 @@ const settings = {
 }
 
 const instance = axios.create({
-    // baseURL: 'http://localhost:7542/2.0/',
-    baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    baseURL: 'http://localhost:7542/2.0/',
+    // baseURL: 'https://neko-back.herokuapp.com/2.0/',
     ...settings
 })
 
@@ -23,9 +23,8 @@ export const cardsAPI = {
         return instance.post<ResponseType>('auth/set-new-password', {password, resetPasswordToken})
     },
     getCardsPack() {
-        // debugger
         return instance.get<CardsResponseType>('cards/pack')
-    }
+    },
 }
 
 type ResponseType = {
@@ -37,7 +36,7 @@ type ResponseType = {
     }
 }
 
-type CardsPack = {
+export type CardType = {
     _id: string
     user_id: string
     name: string
@@ -53,7 +52,7 @@ type CardsPack = {
 }
 
 type CardsResponseType = {
-    cardsPack: Array<CardsPack>
+    cardPacks: Array<CardType>
     cardPacksTotalCount: number // количество колод
     maxCardsCount: number
     minCardsCount: number
