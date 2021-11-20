@@ -13,7 +13,7 @@ export const authAPI = {
         return instance.post<InitialProfileType>('/auth/login', data);
     },
     me() {
-        return instance.post<InitialProfileType>('/auth/me')
+        return instance.post<InitialProfileType>('/auth/me',{})
     },
     logout() {
         return instance.delete('/auth/me')

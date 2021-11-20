@@ -2,8 +2,10 @@ import React, {CSSProperties, ReactNode, useEffect} from 'react';
 import sContainer from '../../n1-main/m1-ui/common/components/Container.module.scss'
 import s from './Table.module.scss'
 import {log} from "util";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getCardsPackTC} from "../../n1-main/m2-bll/table-reducer";
+import {AppStoreType} from "../../n1-main/m2-bll/store";
+import {CardType} from "../../n1-main/m2-bll/api/cards-api";
 
 export type TableModel = {
     title: (index: number) => ReactNode
@@ -23,12 +25,14 @@ export const Table: React.FC<TableProps> = ({model,data}) => {
     useEffect(() => {
         dispatch(getCardsPackTC())
     }, [])
+    let cardsPack = useSelector<AppStoreType, Array<CardType>>(state => state.table.cardPacks)
 
     return (
         <div className={`${sContainer.container} ${s.table}`}>
             This is table.
             <div className={s.style1}>
                 {/*{model.map((m: ITableModel, index: number) => m.title(index))}*/}
+                {cardsPack.map(m => <div>1</div>)}
             </div>
 
             <div className={s.style2}>
