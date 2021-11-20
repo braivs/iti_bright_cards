@@ -9,7 +9,7 @@ const initialState: InitialStateType = {
 export const tableReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "SET-CARDS":
-            return {...state, cardPacks: action.cards}
+            return {...state, cardPacks: [...action.cards]}
         default:
             return state
     }
@@ -28,6 +28,7 @@ export const getCardsPackTC = () => {
         cardsAPI.getCardsPack()
             .then((res) => {
                 setCardsAC(res.data.cardPacks)
+                debugger
                 console.log('getCardsPack then:', res.data.cardPacks)
             })
             .catch((res) => {
