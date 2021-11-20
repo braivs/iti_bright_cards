@@ -6,18 +6,20 @@ const instance = axios.create({
     withCredentials: true,
 })
 
-/*type ResponseType = {
-    info: string
-    response: {
-        data: {
-            email: string
-            password: string
-        }
+type ResponseType = {
+    addedUser: {
+        email: string
+        isAdmin: boolean
+        name: string
+        publicCardPacksCount: number
+        rememberMe: boolean
+        updated: string
+        _id: string
     }
-}*/
+}
 
 export const registrationAPI = {
     registration(email: string, password: string ){
-        return instance.post<any>(`auth/register`, { email, password} )
+        return instance.post<ResponseType>(`auth/register`, { email, password} )
     }
 }

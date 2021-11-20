@@ -1,10 +1,11 @@
 import React, {ChangeEvent} from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from '../../../n1-main/m2-bll/store'
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import s from "../../f0-test/Examples/Examples.module.scss";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import style from './Registration.module.scss'
+import {setErrorMessageAC} from "../../../n1-main/m2-bll/registrationReducer";
 
 
 type PropsType = {
@@ -28,46 +29,65 @@ export const Registration = (props: PropsType) => {
     } = props
 
     const error = useSelector<AppStoreType, null | string>(state => state.registration.error)
+    const dispatch = useDispatch()
+
+    const emailHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.currentTarget.value)
+        dispatch(setErrorMessageAC(''))
+    }
+
+    const setPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.currentTarget.value)
+        dispatch(setErrorMessageAC(''))
+    }
+    const setRepeatPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setRepeatPassword(e.currentTarget.value)
+        dispatch(setErrorMessageAC(''))
+    }
 
     return (
-        <>
+
+        <div className={style.block}>
             <div className={style.form}>
+                <p className={style.text}>Registration</p>
 
                 <label>
-                    <div>Your email</div>
                     <SuperInputText
                         value={email}
-                        onChangeText={setEmail}
-                        className={s.testSpanError}
+                        onChange={emailHandler}
+                        className={`${s.testSpanError}${style.placeholder}`}
+                        placeholder={'enter your email'}
                     />
                 </label>
 
                 <label>
-                    <div>Your password</div>
                     <SuperInputText
                         type={'password'}
                         value={password}
-                        onChangeText={setPassword}
+                        onChange={setPasswordHandler}
                         className={s.testSpanError}
+                        placeholder={'enter  your password'}
                     />
                 </label>
 
                 <label>
-                    <div>Repeat your password</div>
                     <SuperInputText
                         type={'password'}
                         value={repeatPassword}
-                        onChangeText={setRepeatPassword}
+                        onChange={setRepeatPasswordHandler}
                         className={s.testSpanError}
+                        placeholder={'repeat  your password'}
                     />
-
                 </label>
+
                 {error !== null && <div className={style.error}>{error}</div>}
 
-                <SuperButton onClick={register} className={s.superButton}>
-                    registration
-                </SuperButton>
+                <div>
+                    <SuperButton onClick={register} className={s.superButton}>
+                        registration
+                    </SuperButton>
+                </div>
             </div>
-        </>
+        </div>
     );
 }
