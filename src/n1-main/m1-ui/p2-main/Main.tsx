@@ -9,15 +9,15 @@ import {PasswordRecovery} from "../../../n2-features/f1-auth/a3-passwordRecovery
 import {PasswordNew} from "../../../n2-features/f1-auth/a4-passwordNew/PasswordNew";
 import {Examples} from "../../../n2-features/f0-test/Examples/Examples";
 import {LoginContainer} from "../../../n2-features/f1-auth/a1-login/LoginContainer";
+import {Table} from "../../../n2-features/f2-table/Table";
 
 export const Main = () => {
     return (
         <div>
             <Header/>
             <Switch>
+                <Route exact path={'/table'} render={() => <Table/>}/>
                 <Route exact path={'/login'} render={() => <LoginContainer/>}/>
-                {/*<Route exact path={'/registration'} render={() => <Registration/>}/>*/}
-                {/*<Route exact path={'/login'} render={() => <Login/>}/>*/}
                 <Route exact path={'/registration'} render={() => <RegistrationContainer/>}/>
                 <Route exact path={'/profile'} render={() => <Profile/>}/>
                 <Route exact path={'/404'} render={() => <Page404/>}/>

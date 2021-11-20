@@ -15,6 +15,7 @@ export const Header = () => {
         <div className={s.header}>
             <NavLink to={'/profile'}><div className={s.logo}>BrightCards</div></NavLink>
             <div className={s.links}>
+                <NavLink className={s.item} to={'/table'}>Table</NavLink>
                 <NavLink className={s.item} to={'/login'}>Login</NavLink>
                 <NavLink className={s.item} to={'/registration'}>Registration</NavLink>
                 <NavLink className={s.item} to={'/profile'}>Profile</NavLink>
