@@ -9,7 +9,7 @@ const initialState: InitialStateType = {
 export const tableReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "SET-CARDS":
-            return {...state, cardPacks: [...action.cards]}
+            return {...state, cardPacks: action.cards}
         default:
             return state
     }
@@ -23,18 +23,41 @@ type InitialStateType = {
 export const setCardsAC = (cards: Array<CardType>) =>
     ({type: 'SET-CARDS', cards} as const)
 
-export const getCardsPackTC = () => {
+export const getCardsPackTC = (userId: string) => {
     return (dispatch: Dispatch<ActionType>) => {
-        cardsAPI.getCardsPack()
+        cardsAPI.getCardsPack(userId)
             .then((res) => {
-                setCardsAC(res.data.cardPacks)
-                debugger
+                dispatch(setCardsAC(res.data.cardPacks))
                 console.log('getCardsPack then:', res.data.cardPacks)
             })
             .catch((res) => {
                 console.log('getCardsPack catch:', res.response.data.error)
             })
 
+    }
+}
+
+export const addCardsPackTC = () => {
+    return (dispatch: Dispatch<ActionType>) => {
+        cardsAPI.addCardPack()
+            .then(res => {
+                console.log('addCardsPackTC then:', res)
+            })
+            .catch(res => {
+                console.log('addCardsPackTC catch:', res.response.data.error)
+            })
+    }
+}
+
+export const deleteCardsPackTC = () => {
+    return (dispatch: Dispatch<ActionType>) => {
+        cardsAPI.addCardPack()
+            .then(res => {
+                console.log('addCardsPackTC then:', res)
+            })
+            .catch(res => {
+                console.log('addCardsPackTC catch:', res.response.data.error)
+            })
     }
 }
 

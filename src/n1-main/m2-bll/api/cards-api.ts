@@ -15,16 +15,27 @@ export const cardsAPI = {
         const dataForPost = {
             email,
             from: "Briws <brightwiths@gmail.com>",
-            message: `<div>password recovery link:<a href='http://localhost:3000/#/passwordnew/$token$'>link</a></div>` //need to change this before yarn deploy
+            message: `<div>password recovery link:<a href='http://localhost:3000/#/passwordnew/$token$'>link</a></div>` // todo: need to change this before yarn deploy
         }
         return instance.post<ResponseType>('auth/forgot', dataForPost)
     },
     changePassword(password: string, resetPasswordToken: string) {
         return instance.post<ResponseType>('auth/set-new-password', {password, resetPasswordToken})
     },
-    getCardsPack() {
-        return instance.get<CardsResponseType>('cards/pack')
+    getCardsPack(userId: string) {
+        return instance.get<CardsResponseType>(`cards/pack?&user_id=${userId}`)
     },
+    addCardPack() {
+        const dataForPost: addCardPostType = {
+            cardsPack: {
+                name: 'BriwsPack'
+            }
+        }
+        return instance.post('cards/pack', dataForPost)
+    },
+    deleteCardPack(cardPackId: string) {
+        return instance.delete<CardsResponseType>(`cards/pack?id=${cardPackId}`)
+    }
 }
 
 type ResponseType = {
@@ -58,4 +69,16 @@ type CardsResponseType = {
     minCardsCount: number
     page: number // выбранная страница
     pageCount: number // количество элементов на странице
+}
+type addCardPostType = {
+    cardsPack: {
+        name?: string
+        path?: string
+        grade?: number
+        shots?: number
+        rating?: number
+        deckCover?: "url" | "base64"
+        private?: boolean
+        type?: string
+    }
 }
