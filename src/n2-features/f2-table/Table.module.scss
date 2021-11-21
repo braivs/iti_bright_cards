@@ -8,8 +8,9 @@
         align-self: center;
     }
     .settings {
-        //display: flex;
+        display: flex;
         flex-direction: column;
+        //border: 1px solid red;
         .settingEl {
             margin-top: 5px;
         }
@@ -21,12 +22,14 @@
         }
         .input {
             width: 40px;
-            width: 40px;
             margin-left: 5px;
             text-align: center;
+            //border: 1px solid red;
         }
         .dynamicLabel {
             border: 1px solid red;
+            display: flex;
+            max-width: 170px;
         }
     }
 

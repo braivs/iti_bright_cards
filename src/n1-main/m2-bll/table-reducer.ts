@@ -38,10 +38,11 @@ export const getCardsPackTC = (userId: string, pageCount: string, profileOrPubli
 }
 
 export const addCardsPackTC = (cardPackName: string) => {
-    return (dispatch: Dispatch<ActionType>) => {
+    return (dispatch: any) => {
         cardsAPI.addCardPack(cardPackName)
             .then(res => {
                 console.log('addCardsPackTC then:', res)
+                // dispatch(getCardsPackTC(userID, pageCount, profileOrPublic))
             })
             .catch(res => {
                 console.log('addCardsPackTC catch:', res.response.data.error)

@@ -60,10 +60,11 @@ export const Table: React.FC<TableProps> = () => {
                         className={s.radio}
                     />
                 </label>
-                <label>
+                <label className={`{s.dynamicLabel} ${s.settingEl}`}>
                     <SuperCheckbox
                         checked={dynamicUpdates}
                         onChangeChecked={setDynamicUpdated}
+                        className={s.checkbox}
                     >Dynamic updates</SuperCheckbox>
                 </label>
                 <SuperButton className={s.settingEl} onClick={updateButtonHandler}>Update</SuperButton>
