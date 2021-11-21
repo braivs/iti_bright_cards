@@ -1,6 +1,9 @@
 import React from 'react';
 import s from './CardsPack.module.scss'
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteCardsPackTC, getCardsPackTC, updateCardPackTC} from "../../../n1-main/m2-bll/table-reducer";
+import {AppStoreType} from "../../../n1-main/m2-bll/store";
 
 type PropsType = {
     _id: string
@@ -9,13 +12,20 @@ type PropsType = {
     updated: string
 }
 
+
 export const CardsPack: React.FC<PropsType> = (props) => {
+    const userID = useSelector<AppStoreType, string>(state => state.profile._id)
+
+    const dispatch = useDispatch()
 
     const delHandler = () => {
-        console.log('delHandler',`my id is: ${props._id}`)
+        dispatch(deleteCardsPackTC(props._id))
+        dispatch(getCardsPackTC(userID))
+
     }
     const updateHandler = () => {
-        console.log('updateHandler',`my id is: ${props._id}`)
+        dispatch(updateCardPackTC(props._id, 'BrightUpdatedName'))
+        dispatch(getCardsPackTC(userID))
     }
 
 

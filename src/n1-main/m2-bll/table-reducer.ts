@@ -37,9 +37,9 @@ export const getCardsPackTC = (userId: string) => {
     }
 }
 
-export const addCardsPackTC = () => {
+export const addCardsPackTC = (cardPackName: string) => {
     return (dispatch: Dispatch<ActionType>) => {
-        cardsAPI.addCardPack()
+        cardsAPI.addCardPack(cardPackName)
             .then(res => {
                 console.log('addCardsPackTC then:', res)
             })
@@ -49,14 +49,26 @@ export const addCardsPackTC = () => {
     }
 }
 
-export const deleteCardsPackTC = () => {
+export const deleteCardsPackTC = (cardPackId: string) => {
     return (dispatch: Dispatch<ActionType>) => {
-        cardsAPI.addCardPack()
+        cardsAPI.deleteCardPack(cardPackId)
             .then(res => {
-                console.log('addCardsPackTC then:', res)
+                console.log('deleteCardsPackTC then:', res)
             })
             .catch(res => {
-                console.log('addCardsPackTC catch:', res.response.data.error)
+                console.log('deleteCardsPackTC catch:', res.response.data.error)
+            })
+    }
+}
+
+export const updateCardPackTC = (cardPackId: string, newName: string) => {
+    return (dispatch: Dispatch<ActionType>) => {
+        cardsAPI.updateCardPack(cardPackId, newName)
+            .then(res => {
+                console.log('updateCardPackTC then:', res)
+            })
+            .catch(res => {
+                console.log('updateCardPackTC catch:', res.response.data.error)
             })
     }
 }

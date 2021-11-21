@@ -25,16 +25,25 @@ export const cardsAPI = {
     getCardsPack(userId: string) {
         return instance.get<CardsResponseType>(`cards/pack?&user_id=${userId}`)
     },
-    addCardPack() {
-        const dataForPost: addCardPostType = {
+    addCardPack(cardPackName: string) {
+        const dataForPost: addCardsPostType = {
             cardsPack: {
-                name: 'BriwsPack'
+                name: cardPackName
             }
         }
         return instance.post('cards/pack', dataForPost)
     },
     deleteCardPack(cardPackId: string) {
-        return instance.delete<CardsResponseType>(`cards/pack?id=${cardPackId}`)
+        return instance.delete(`cards/pack?id=${cardPackId}`)
+    },
+    updateCardPack(cardPackId: string, newName: string) {
+        const dataForPost: updateCardsPostType = {
+            cardsPack: {
+                _id: cardPackId,
+                name: newName,
+            }
+        }
+        return instance.put('cards/pack', dataForPost)
     }
 }
 
@@ -70,7 +79,7 @@ type CardsResponseType = {
     page: number // выбранная страница
     pageCount: number // количество элементов на странице
 }
-type addCardPostType = {
+type addCardsPostType = {
     cardsPack: {
         name?: string
         path?: string
@@ -80,5 +89,11 @@ type addCardPostType = {
         deckCover?: "url" | "base64"
         private?: boolean
         type?: string
+    }
+}
+type updateCardsPostType = {
+    cardsPack: {
+        _id: string
+        name?: string // не обязательно
     }
 }

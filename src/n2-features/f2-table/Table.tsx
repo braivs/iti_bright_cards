@@ -30,12 +30,13 @@ export const Table: React.FC<TableProps> = ({model, data}) => {
 
 
     const buttonHandler = () => {
-        dispatch(addCardsPackTC())
+        dispatch(addCardsPackTC('BrightPack'))
+        dispatch(getCardsPackTC(userID))
     }
 
     return (
         <div className={`${sContainer.container} ${s.table}`}>
-            <h1>This is table.</h1>
+            <h1>This is table of CardPacks.</h1>
 
             <div className={s.header}>
                 <div>Name</div>
