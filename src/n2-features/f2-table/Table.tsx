@@ -7,6 +7,7 @@ import {AppStoreType} from "../../n1-main/m2-bll/store";
 import {CardType} from "../../n1-main/m2-bll/api/cards-api";
 import {CardsPack} from "./CardsPack/CardsPack";
 import SuperButton from "../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
+import Pagination from "./Pagination/Pagination";
 
 export type TableModel = {
     title: (index: number) => ReactNode
@@ -60,6 +61,7 @@ export const Table: React.FC<TableProps> = ({model, data}) => {
                 {/*    </div>*/}
                 {/*))}*/}
             </div>
+            <Pagination/>
         </div>
     );
 };
