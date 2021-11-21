@@ -10,6 +10,8 @@ import SuperButton from "../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import SuperInputText from "../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperRadio from "../../n1-main/m1-ui/common/c6-SuperRadio/SuperRadio";
 import SuperCheckbox from "../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
+import Pagination from "./Pagination/Pagination";
+
 
 type TableProps = {
 }
@@ -82,6 +84,7 @@ export const Table: React.FC<TableProps> = () => {
                                                 dynamicUpdates={dynamicUpdates}
                                                 profileOrPublic={profileOrPublic}/>)}
             </div>
+            <Pagination/>
         </div>
     );
 };

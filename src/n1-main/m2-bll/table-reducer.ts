@@ -3,7 +3,11 @@ import {cardsAPI, CardType} from "./api/cards-api";
 import {authAPI} from "../../n2-features/f1-auth/a1-login/AuthApi";
 
 const initialState: InitialStateType = {
-    cardPacks: []
+    cardPacks: [],
+    cardPacksTotalCount: 19,
+    pageCount: 4,
+    page: 5,
+
 }
 
 export const tableReducer = (state = initialState, action: ActionType): InitialStateType => {
@@ -18,6 +22,9 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
 // todo: need to fix any
 type InitialStateType = {
     cardPacks: Array<CardType>
+    cardPacksTotalCount: number
+    pageCount: number
+    page: number
 }
 
 export const setCardsAC = (cards: Array<CardType>) =>
