@@ -1,20 +1,45 @@
+@import '../../n1-main/m1-ui/common/components/sass/variables';
+
 .table {
     margin: 0 10px;
     display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-
-    .button {
+    flex-direction: column;
+    h1 {
+        align-self: center;
     }
+    .settings {
+        //display: flex;
+        flex-direction: column;
+        .settingEl {
+            margin-top: 5px;
+        }
+        .radioLabel {
+            display: flex;
+            div {
+                margin-right: 5px;
+            }
+        }
+        .input {
+            width: 40px;
+            width: 40px;
+            margin-left: 5px;
+            text-align: center;
+        }
+        .dynamicLabel {
+            border: 1px solid red;
+        }
+    }
+
 
     .header {
         display: flex;
         width: 100%;
         justify-content: space-between;
         align-items: center;
-        border: 1px solid red;
-        height: 50px;
+        border: 3px solid $primaryColor;
+        height: 60px;
+        margin-top: 10px;
+
         div {
             width: 250px;
             display: flex;
@@ -23,24 +48,12 @@
     }
 
     .style1 {
-        border: 1px solid green;
+        border: 2px solid $primaryColor;
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
-
-    .style2 {
-        border: 1px solid lime;
-        width: 100%;
-
-        .style3 {
-            width: 100%;
-            display: flex;
-            flex-flow: row;
-            align-items: center;
-            justify-content: center;
-        }
+        padding: 10px 0;
     }
 }

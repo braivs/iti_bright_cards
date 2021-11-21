@@ -10,6 +10,9 @@ type PropsType = {
     Name: string
     cardsCount: number
     updated: string
+    pageCount: string
+    dynamicUpdates: boolean
+    profileOrPublic: string
 }
 
 
@@ -20,12 +23,12 @@ export const CardsPack: React.FC<PropsType> = (props) => {
 
     const delHandler = () => {
         dispatch(deleteCardsPackTC(props._id))
-        dispatch(getCardsPackTC(userID))
+        props.dynamicUpdates && dispatch(getCardsPackTC(userID, props.pageCount, props.profileOrPublic))
 
     }
     const updateHandler = () => {
         dispatch(updateCardPackTC(props._id, 'BrightUpdatedName'))
-        dispatch(getCardsPackTC(userID))
+        props.dynamicUpdates && dispatch(getCardsPackTC(userID, props.pageCount, props.profileOrPublic))
     }
 
 

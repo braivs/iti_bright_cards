@@ -23,9 +23,9 @@ type InitialStateType = {
 export const setCardsAC = (cards: Array<CardType>) =>
     ({type: 'SET-CARDS', cards} as const)
 
-export const getCardsPackTC = (userId: string) => {
+export const getCardsPackTC = (userId: string, pageCount: string, profileOrPublic: string) => {
     return (dispatch: Dispatch<ActionType>) => {
-        cardsAPI.getCardsPack(userId)
+        cardsAPI.getCardsPack(userId, pageCount, profileOrPublic)
             .then((res) => {
                 dispatch(setCardsAC(res.data.cardPacks))
                 console.log('getCardsPack then:', res.data.cardPacks)

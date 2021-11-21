@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import sContainer from '../../n1-main/m1-ui/common/components/Container.module.scss'
 import s from './Table.module.scss'
 import {useDispatch, useSelector} from "react-redux";
@@ -7,58 +7,79 @@ import {AppStoreType} from "../../n1-main/m2-bll/store";
 import {CardType} from "../../n1-main/m2-bll/api/cards-api";
 import {CardsPack} from "./CardsPack/CardsPack";
 import SuperButton from "../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
-
-export type TableModel = {
-    title: (index: number) => ReactNode
-    render: (dataItem: any, modelIndex: number, dataIndex: number) => ReactNode;
-}
+import SuperInputText from "../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
+import SuperRadio from "../../n1-main/m1-ui/common/c6-SuperRadio/SuperRadio";
+import SuperCheckbox from "../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 
 type TableProps = {
-    model?: TableModel[]
-    data?: any;
 }
 
-export const Table: React.FC<TableProps> = ({model, data}) => {
+export const Table: React.FC<TableProps> = () => {
 
     const dispatch = useDispatch()
     const cardsPacks = useSelector<AppStoreType, Array<CardType>>(state => state.table.cardPacks)
     const userID = useSelector<AppStoreType, string>(state => state.profile._id)
+    const [pageCount, setPageCount] = useState('6')
+    const [dynamicUpdates, setDynamicUpdated] = useState(false)
+
+    const superRadioArr = ['Profile', 'Public']  // for SuperRadio
+    const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperSelect & SuperRadio
+
 
     useEffect(() => {
-        dispatch(getCardsPackTC(userID))
+        dispatch(getCardsPackTC(userID, pageCount, profileOrPublic))
     }, [])
 
 
-    const buttonHandler = () => {
+    const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
-        dispatch(getCardsPackTC(userID))
+        dynamicUpdates && dispatch(getCardsPackTC(userID, pageCount, profileOrPublic))
     }
+
+    const updateButtonHandler = () => {
+        dispatch(getCardsPackTC(userID, pageCount, profileOrPublic))
+
+    }
+
 
     return (
         <div className={`${sContainer.container} ${s.table}`}>
-            <h1>This is table of CardPacks.</h1>
+            <h1>This is table of Card Packs.</h1>
+            <div className={s.settings}>
+                <h2>Settings:</h2>
+                <label className={s.settingEl}>
+                    How much Card Packs to show:
+                    <SuperInputText value={pageCount} onChangeText={setPageCount} className={s.input} type={"number"}/>
+                </label>
+                <label className={`${s.radioLabel} ${s.settingEl}`}>
+                    <div>Profile Card Packs only or Public:</div>
+                    <SuperRadio
+                        options={superRadioArr}
+                        value={profileOrPublic}
+                        onChangeOption={onChangeProfileOrPublic}
+                        className={s.radio}
+                    />
+                </label>
+                <label>
+                    <SuperCheckbox
+                        checked={dynamicUpdates}
+                        onChangeChecked={setDynamicUpdated}
+                    >Dynamic updates</SuperCheckbox>
+                </label>
+                <SuperButton className={s.settingEl} onClick={updateButtonHandler}>Update</SuperButton>
+            </div>
 
             <div className={s.header}>
                 <div>Name</div>
                 <div>cardsCount</div>
                 <div>updated</div>
-                <div><SuperButton className={s.button} onClick={buttonHandler}>Add CardPack</SuperButton></div>
+                <div><SuperButton className={s.button} onClick={addPackButtonHandler}>Add CardPack</SuperButton></div>
             </div>
             <div className={s.style1}>
-                {/*{model.map((m: ITableModel, index: number) => m.title(index))}*/}
                 {cardsPacks.map(m => <CardsPack key={m._id} _id={m._id} Name={m.name} cardsCount={m.cardsCount}
-                                                updated={m.updated}/>)}
-            </div>
-
-            <div className={s.style2}>
-                {/*{data.map((dataItem: any, dataIndex: number) => (*/}
-                {/*    <div*/}
-                {/*        key={dataItem._id || dataIndex}*/}
-                {/*        className={s.style3}*/}
-                {/*    >*/}
-                {/*        {model.map((m, modelIndex) => m.render(dataItem, modelIndex, dataIndex))}*/}
-                {/*    </div>*/}
-                {/*))}*/}
+                                                updated={m.updated} pageCount={pageCount}
+                                                dynamicUpdates={dynamicUpdates}
+                                                profileOrPublic={profileOrPublic}/>)}
             </div>
         </div>
     );
