@@ -38,11 +38,11 @@ export const Table = () => {
     useEffect(() => {
         if (profileOrPublic === 'Public') {
             dispatch(setUserIdAfterRadioAC(''))
-            dispatch(getCardsPackTC())
         } else {
             dispatch(setUserIdAfterRadioAC(userID))
-            dispatch(getCardsPackTC())
         }
+        dispatch(getCardsPackTC())
+
     }, [profileOrPublic]) // userIdAfterRadio this is 'UserID' depending on SuperRadio
 
     useEffect(() => {
