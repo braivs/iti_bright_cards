@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     addCardsPackTC,
     getCardsPackTC,
-    setCurrentPageAC,
     setPageCountAC,
     setUserIdAfterRadioAC
 } from "../../n1-main/m2-bll/table-reducer";
@@ -29,12 +28,10 @@ export const Table = () => {
 
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio
 
-    const [dynamicUpdates, setDynamicUpdated] = useState(false)
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio
 
 
     useEffect(() => {
-        debugger
         dispatch(getCardsPackTC(profileOrPublic === 'Profile' ? userID : '', pageCount))
     }, [])
 
@@ -47,7 +44,6 @@ export const Table = () => {
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
-        dynamicUpdates && dispatch(getCardsPackTC(userIdAfterRadio, pageCount))
     }
 
     const updateButtonHandler = () => {
@@ -78,13 +74,6 @@ export const Table = () => {
                         className={s.radio}
                     />
                 </label>
-                <label className={`{s.dynamicLabel} ${s.settingEl}`}>
-                    <SuperCheckbox
-                        checked={dynamicUpdates}
-                        onChangeChecked={setDynamicUpdated}
-                        className={s.checkbox}
-                    >Dynamic updates</SuperCheckbox>
-                </label>
                 <SuperButton className={s.settingEl} onClick={updateButtonHandler}>Update</SuperButton>
             </div>
 
@@ -97,7 +86,6 @@ export const Table = () => {
             <div className={s.style1}>
                 {cardsPacks.map(m => <CardsPack key={m._id} _id={m._id} Name={m.name} cardsCount={m.cardsCount}
                                                 updated={m.updated} pageCount={pageCount}
-                                                dynamicUpdates={dynamicUpdates}
                                                 userID={userIdAfterRadio}
                 />)}
             </div>

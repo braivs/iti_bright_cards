@@ -2,6 +2,7 @@ import {Dispatch} from "react";
 import {cardsAPI, CardType} from "./api/cards-api";
 import {AppStoreType} from "./store";
 import {useSelector} from "react-redux";
+import {ThunkAction} from "redux-thunk";
 
 const initialState: InitialStateType = {
     cardPacks: [],
@@ -69,18 +70,14 @@ export const getCardsPackTC = (userId: string, pageCount: string) => {
     }
 }
 
-
-
-export const addCardsPackTC = (cardPackName: string) => {
-    // const userIdAfterRadio = useSelector<AppStoreType, string>(state => state.table.userIdAfterRadio)
-    // const pageCount = useSelector<AppStoreType, number>(state => state.table.pageCount).toString()
-    // const state = getState();
-
-    return (dispatch: any) => {
+export const addCardsPackTC = (cardPackName: string): AppThunk => {
+    return (dispatch, getState: () => AppStoreType) => {
+        const userIdAfterRadio = getState().table.userIdAfterRadio
+        const pageCount = getState().table.pageCount
         cardsAPI.addCardPack(cardPackName)
             .then(res => {
                 console.log('addCardsPackTC then:', res)
-                // dispatch(getCardsPackTC(userIdAfterRadio, pageCount))
+                dispatch(getCardsPackTC(userIdAfterRadio, pageCount.toString()))
             })
             .catch(res => {
                 console.log('addCardsPackTC catch:', res.response.data.error)
@@ -88,11 +85,14 @@ export const addCardsPackTC = (cardPackName: string) => {
     }
 }
 
-export const deleteCardsPackTC = (cardPackId: string) => {
-    return (dispatch: Dispatch<ActionType>) => {
+export const deleteCardsPackTC = (cardPackId: string): AppThunk => {
+    return (dispatch, getState: () => AppStoreType) => {
+        const userIdAfterRadio = getState().table.userIdAfterRadio
+        const pageCount = getState().table.pageCount
         cardsAPI.deleteCardPack(cardPackId)
             .then(res => {
                 console.log('deleteCardsPackTC then:', res)
+                dispatch(getCardsPackTC(userIdAfterRadio, pageCount.toString()))
             })
             .catch(res => {
                 console.log('deleteCardsPackTC catch:', res.response.data.error)
@@ -100,11 +100,14 @@ export const deleteCardsPackTC = (cardPackId: string) => {
     }
 }
 
-export const updateCardPackTC = (cardPackId: string, newName: string) => {
-    return (dispatch: Dispatch<ActionType>) => {
+export const updateCardPackTC = (cardPackId: string, newName: string): AppThunk => {
+    return (dispatch, getState: () => AppStoreType) => {
+        const userIdAfterRadio = getState().table.userIdAfterRadio
+        const pageCount = getState().table.pageCount
         cardsAPI.updateCardPack(cardPackId, newName)
             .then(res => {
                 console.log('updateCardPackTC then:', res)
+                dispatch(getCardsPackTC(userIdAfterRadio, pageCount.toString()))
             })
             .catch(res => {
                 console.log('updateCardPackTC catch:', res.response.data.error)
@@ -118,3 +121,5 @@ type ActionType =
     | ReturnType<typeof setTotalCountAC>
     | ReturnType<typeof setPageCountAC>
     | ReturnType<typeof setUserIdAfterRadioAC>
+
+type AppThunk = ThunkAction<void, AppStoreType, unknown, ActionType>
