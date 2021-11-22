@@ -36,22 +36,26 @@ export const Table = () => {
     }, [])
 
     useEffect(() => {
-        profileOrPublic === 'Public'
-            ? dispatch(setUserIdAfterRadioAC(''))
-            : dispatch(setUserIdAfterRadioAC(userID))
-    },[profileOrPublic]) // userIdAfterRadio this is 'UserID' depending on SuperRadio
+        if (profileOrPublic === 'Public') {
+            dispatch(setUserIdAfterRadioAC(''))
+            dispatch(getCardsPackTC('', pageCount))
+        } else {
+            dispatch(setUserIdAfterRadioAC(userID))
+            dispatch(getCardsPackTC(userID, pageCount))
+        }
+    }, [profileOrPublic]) // userIdAfterRadio this is 'UserID' depending on SuperRadio
+
+    useEffect(() => {
+        dispatch(getCardsPackTC(userIdAfterRadio, pageCount))
+    },[pageCount]) // dynamic updated if pageCount changed
 
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
     }
 
-    const updateButtonHandler = () => {
-        dispatch(getCardsPackTC(userIdAfterRadio, pageCount))
-
-    }
-
     const setPageCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (Number(e.currentTarget.value) < 1) e.currentTarget.value = '1'
         dispatch(setPageCountAC(Number(e.currentTarget.value)))
     }
 
@@ -74,7 +78,6 @@ export const Table = () => {
                         className={s.radio}
                     />
                 </label>
-                <SuperButton className={s.settingEl} onClick={updateButtonHandler}>Update</SuperButton>
             </div>
 
             <div className={s.header}>
