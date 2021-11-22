@@ -30,11 +30,6 @@ export const Table = () => {
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio
 
-
-    useEffect(() => {
-        dispatch(getCardsPackTC())
-    }, [])
-
     useEffect(() => {
         if (profileOrPublic === 'Public') {
             dispatch(setUserIdAfterRadioAC(''))
@@ -43,12 +38,8 @@ export const Table = () => {
         }
         dispatch(getCardsPackTC())
 
-    }, [profileOrPublic]) // userIdAfterRadio this is 'UserID' depending on SuperRadio
 
-    useEffect(() => {
-        dispatch(getCardsPackTC())
-    },[pageCount]) // dynamic updated if pageCount changed
-
+    }, [profileOrPublic, pageCount])
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
