@@ -1,8 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import sContainer from '../../n1-main/m1-ui/common/components/Container.module.scss'
 import s from './Table.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {addCardsPackTC, getCardsPackTC} from "../../n1-main/m2-bll/table-reducer";
+import {
+    addCardsPackTC,
+    getCardsPackTC,
+    setCurrentPageAC,
+    setPageCountAC,
+    setUserIdAfterRadioAC
+} from "../../n1-main/m2-bll/table-reducer";
 import {AppStoreType} from "../../n1-main/m2-bll/store";
 import {CardType} from "../../n1-main/m2-bll/api/cards-api";
 import {CardsPack} from "./CardsPack/CardsPack";
@@ -12,37 +18,46 @@ import SuperRadio from "../../n1-main/m1-ui/common/c6-SuperRadio/SuperRadio";
 import SuperCheckbox from "../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import Pagination from "./Pagination/Pagination";
 
-
-type TableProps = {
-}
-
-export const Table: React.FC<TableProps> = () => {
+export const Table = () => {
 
     const dispatch = useDispatch()
+
     const cardsPacks = useSelector<AppStoreType, Array<CardType>>(state => state.table.cardPacks)
     const userID = useSelector<AppStoreType, string>(state => state.profile._id)
-    const [pageCount, setPageCount] = useState('6')
-    const [dynamicUpdates, setDynamicUpdated] = useState(false)
+    const pageCount = useSelector<AppStoreType, number>(state => state.table.pageCount).toString()
+    const userIdAfterRadio = useSelector<AppStoreType, string>(state => state.table.userIdAfterRadio)
 
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio
-    const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperSelect & SuperRadio
+
+    const [dynamicUpdates, setDynamicUpdated] = useState(false)
+    const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio
 
 
     useEffect(() => {
-        dispatch(getCardsPackTC(userID, pageCount, profileOrPublic))
+        debugger
+        dispatch(getCardsPackTC(profileOrPublic === 'Profile' ? userID : '', pageCount))
     }, [])
+
+    useEffect(() => {
+        profileOrPublic === 'Public'
+            ? dispatch(setUserIdAfterRadioAC(''))
+            : dispatch(setUserIdAfterRadioAC(userID))
+    },[profileOrPublic]) // userIdAfterRadio this is 'UserID' depending on SuperRadio
 
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
-        dynamicUpdates && dispatch(getCardsPackTC(userID, pageCount, profileOrPublic))
+        dynamicUpdates && dispatch(getCardsPackTC(userIdAfterRadio, pageCount))
     }
 
     const updateButtonHandler = () => {
-        dispatch(getCardsPackTC(userID, pageCount, profileOrPublic))
+        dispatch(getCardsPackTC(userIdAfterRadio, pageCount))
 
     }
 
+    const setPageCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setPageCountAC(Number(e.currentTarget.value)))
+    }
 
     return (
         <div className={`${sContainer.container} ${s.table}`}>
@@ -51,7 +66,8 @@ export const Table: React.FC<TableProps> = () => {
                 <h2>Settings:</h2>
                 <label className={s.settingEl}>
                     How much Card Packs to show:
-                    <SuperInputText value={pageCount} onChangeText={setPageCount} className={s.input} type={"number"}/>
+                    <SuperInputText value={pageCount} onChange={setPageCountHandler} className={s.input}
+                                    type={"number"}/>
                 </label>
                 <label className={`${s.radioLabel} ${s.settingEl}`}>
                     <div>Profile Card Packs only or Public:</div>
@@ -82,9 +98,10 @@ export const Table: React.FC<TableProps> = () => {
                 {cardsPacks.map(m => <CardsPack key={m._id} _id={m._id} Name={m.name} cardsCount={m.cardsCount}
                                                 updated={m.updated} pageCount={pageCount}
                                                 dynamicUpdates={dynamicUpdates}
-                                                profileOrPublic={profileOrPublic}/>)}
+                                                userID={userIdAfterRadio}
+                />)}
             </div>
-            <Pagination profileOrPublic={profileOrPublic}/>
+            <Pagination/>
         </div>
     );
 };

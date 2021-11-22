@@ -12,25 +12,22 @@ type PropsType = {
     updated: string
     pageCount: string
     dynamicUpdates: boolean
-    profileOrPublic: string
+    userID: string
 }
 
 
 export const CardsPack: React.FC<PropsType> = (props) => {
-    const userID = useSelector<AppStoreType, string>(state => state.profile._id)
-
     const dispatch = useDispatch()
 
     const delHandler = () => {
         dispatch(deleteCardsPackTC(props._id))
-        props.dynamicUpdates && dispatch(getCardsPackTC(userID, props.pageCount, props.profileOrPublic))
+        props.dynamicUpdates && dispatch(getCardsPackTC(props.userID, props.pageCount))
 
     }
     const updateHandler = () => {
         dispatch(updateCardPackTC(props._id, 'BrightUpdatedName'))
-        props.dynamicUpdates && dispatch(getCardsPackTC(userID, props.pageCount, props.profileOrPublic))
+        props.dynamicUpdates && dispatch(getCardsPackTC(props.userID, props.pageCount))
     }
-
 
 
     return <div className={s.cardsPack}>
