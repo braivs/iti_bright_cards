@@ -5,10 +5,7 @@ import style from './Pagination.module.css'
 import {getCardsPackTC, setCurrentPageAC} from "../../../n1-main/m2-bll/table-reducer";
 import SuperButton from '../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton';
 
-type PropsType = {
-    profileOrPublic: string
-}
-const Pagination = (props: PropsType) => {
+const Pagination = () => {
     let pageCount = useSelector<AppStoreType, any>(state => state.table.pageCount) // кол-во элементов на одной стр
     let cardPacksTotalCount = useSelector<AppStoreType, number>(state => state.table.cardPacksTotalCount)// кол-во колод
     let page = useSelector<AppStoreType, number>(state => state.table.page)// выбранная страница
@@ -16,7 +13,6 @@ const Pagination = (props: PropsType) => {
 
     const currentPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
-        dispatch(getCardsPackTC('', pageCount))
     }
 
     let pagesCount = Math.ceil(cardPacksTotalCount / pageCount); //количество страниц всех!!! до пагинатора
@@ -32,22 +28,21 @@ const Pagination = (props: PropsType) => {
     const rightNumber = portion * portionSize
     const correctValue = pages.filter((p) => p ? p >= leftNumber && p <= rightNumber : '')
 
-
     return (
         <div className={style.pagination}> {portion > 1 &&
-
         <SuperButton onClick={() => {
             setPortion(portion - 1)
         }} className={style.btn}>Prev
         </SuperButton>
         }
-
             {correctValue.map(p => {
-                return <span
-                    key={p}
-                    className={`${style.item} ${page === p ? style.select : style.item}`}
-                    onClick={() => currentPageHandler(p)}>{p}
+                return (
+                    <span
+                        key={p}
+                        className={`${style.item} ${page === p ? style.select : style.item}`}
+                        onClick={() => currentPageHandler(p)}>{p}
                     </span>
+                )
 
             })}
             {portionCount > portion && <SuperButton onClick={() => {

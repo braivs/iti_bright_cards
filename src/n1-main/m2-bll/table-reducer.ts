@@ -8,6 +8,7 @@ const initialState: InitialStateType = {
     cardPacksTotalCount: 10,
     pageCount: 5,
     page: 1,
+    packName: ''
 
 }
 
@@ -19,6 +20,8 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
             return {...state, page: action.page}
         case "SET-TOTAL-COUNT":
             return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
+        case "SET-SEARCH-PACK-NAME":
+            return {...state, packName: action.packName}
         default:
             return state
     }
@@ -30,8 +33,11 @@ type InitialStateType = {
     cardPacksTotalCount: number
     pageCount: number
     page: number
+    packName: string
 }
 
+export const setSearchPackNameAC = (packName: string) =>
+    ({type: 'SET-SEARCH-PACK-NAME', packName} as const)
 export const setCardsAC = (cards: Array<CardType>) =>
     ({type: 'SET-CARDS', cards} as const)
 
@@ -45,11 +51,12 @@ export const getCardsPackTC = (userId: string, pageCount: string, profileOrPubli
     return (dispatch: Dispatch<ActionType>, getState: () => AppStoreType) => {
         const page = getState().table.page
         const cardPacksTotalCount = getState().table.cardPacksTotalCount
-        cardsAPI.getCardsPack(userId, pageCount, profileOrPublic, page, cardPacksTotalCount)
+        const packName = getState().table.packName
+        cardsAPI.getCardsPack(userId, pageCount, profileOrPublic, page, cardPacksTotalCount, packName)
             .then((res) => {
                 dispatch(setCardsAC(res.data.cardPacks))
                 dispatch(setTotalCountAC(res.data.cardPacksTotalCount))
-                dispatch(setCurrentPageAC(res.data.page))
+                //dispatch(setCurrentPageAC(res.data.page))
                 console.log('getCardsPack then:', res.data.cardPacks)
             })
             .catch((res) => {
@@ -100,3 +107,4 @@ type ActionType =
     ReturnType<typeof setCardsAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalCountAC>
+    |ReturnType<typeof setSearchPackNameAC>

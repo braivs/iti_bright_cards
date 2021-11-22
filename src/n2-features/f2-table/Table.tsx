@@ -11,6 +11,7 @@ import SuperInputText from "../../n1-main/m1-ui/common/c1-SuperInputText/SuperIn
 import SuperRadio from "../../n1-main/m1-ui/common/c6-SuperRadio/SuperRadio";
 import SuperCheckbox from "../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import Pagination from "./Pagination/Pagination";
+import Search from "./Search/Search";
 
 
 type TableProps = {
@@ -23,14 +24,15 @@ export const Table: React.FC<TableProps> = () => {
     const userID = useSelector<AppStoreType, string>(state => state.profile._id)
     const [pageCount, setPageCount] = useState('6')
     const [dynamicUpdates, setDynamicUpdated] = useState(false)
-
+    const page = useSelector<AppStoreType, number>(state => state.table.page)
+    const packName = useSelector<AppStoreType, string>(state => state.table.packName)
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperSelect & SuperRadio
 
 
     useEffect(() => {
         dispatch(getCardsPackTC(userID, pageCount, profileOrPublic))
-    }, [])
+    }, [page,packName])
 
 
     const addPackButtonHandler = () => {
@@ -71,7 +73,7 @@ export const Table: React.FC<TableProps> = () => {
                 </label>
                 <SuperButton className={s.settingEl} onClick={updateButtonHandler}>Update</SuperButton>
             </div>
-
+<Search/>
             <div className={s.header}>
                 <div>Name</div>
                 <div>cardsCount</div>
@@ -84,7 +86,7 @@ export const Table: React.FC<TableProps> = () => {
                                                 dynamicUpdates={dynamicUpdates}
                                                 profileOrPublic={profileOrPublic}/>)}
             </div>
-            <Pagination profileOrPublic={profileOrPublic}/>
+            <Pagination/>
         </div>
     );
 };
