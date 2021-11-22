@@ -32,21 +32,21 @@ export const Table = () => {
 
 
     useEffect(() => {
-        dispatch(getCardsPackTC(profileOrPublic === 'Profile' ? userID : '', pageCount))
+        dispatch(getCardsPackTC())
     }, [])
 
     useEffect(() => {
         if (profileOrPublic === 'Public') {
             dispatch(setUserIdAfterRadioAC(''))
-            dispatch(getCardsPackTC('', pageCount))
+            dispatch(getCardsPackTC())
         } else {
             dispatch(setUserIdAfterRadioAC(userID))
-            dispatch(getCardsPackTC(userID, pageCount))
+            dispatch(getCardsPackTC())
         }
     }, [profileOrPublic]) // userIdAfterRadio this is 'UserID' depending on SuperRadio
 
     useEffect(() => {
-        dispatch(getCardsPackTC(userIdAfterRadio, pageCount))
+        dispatch(getCardsPackTC())
     },[pageCount]) // dynamic updated if pageCount changed
 
 

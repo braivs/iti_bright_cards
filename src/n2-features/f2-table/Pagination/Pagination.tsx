@@ -13,7 +13,7 @@ const Pagination = () => {
 
     const currentPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))
-        dispatch(getCardsPackTC('', pageCount))
+        dispatch(getCardsPackTC())
     }
 
     let pagesCount = Math.ceil(cardPacksTotalCount / pageCount); //количество страниц всех!!! до пагинатора

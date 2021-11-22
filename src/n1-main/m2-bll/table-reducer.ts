@@ -52,11 +52,13 @@ export const setPageCountAC = (pageCount: number) =>
 export const setUserIdAfterRadioAC = (userIdAfterRadio: string) =>
     ({type: 'TABLE/SET-USER-ID-AFTER-RADIO', userIdAfterRadio} as const)
 
-export const getCardsPackTC = (userId: string, pageCount: string) => {
+export const getCardsPackTC = () => {
     return (dispatch: Dispatch<ActionType>, getState: () => AppStoreType) => {
         const page = getState().table.page
         const cardPacksTotalCount = getState().table.cardPacksTotalCount
-        cardsAPI.getCardsPack(userId, pageCount, page, cardPacksTotalCount)
+        const pageCount = getState().table.pageCount.toString()
+        const userIdAfterRadio = getState().table.userIdAfterRadio
+        cardsAPI.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount)
             .then((res) => {
                 dispatch(setCardsAC(res.data.cardPacks))
                 dispatch(setTotalCountAC(res.data.cardPacksTotalCount))
@@ -72,12 +74,10 @@ export const getCardsPackTC = (userId: string, pageCount: string) => {
 
 export const addCardsPackTC = (cardPackName: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        const userIdAfterRadio = getState().table.userIdAfterRadio
-        const pageCount = getState().table.pageCount
         cardsAPI.addCardPack(cardPackName)
             .then(res => {
                 console.log('addCardsPackTC then:', res)
-                dispatch(getCardsPackTC(userIdAfterRadio, pageCount.toString()))
+                dispatch(getCardsPackTC())
             })
             .catch(res => {
                 console.log('addCardsPackTC catch:', res.response.data.error)
@@ -87,12 +87,10 @@ export const addCardsPackTC = (cardPackName: string): AppThunk => {
 
 export const deleteCardsPackTC = (cardPackId: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        const userIdAfterRadio = getState().table.userIdAfterRadio
-        const pageCount = getState().table.pageCount
         cardsAPI.deleteCardPack(cardPackId)
             .then(res => {
                 console.log('deleteCardsPackTC then:', res)
-                dispatch(getCardsPackTC(userIdAfterRadio, pageCount.toString()))
+                dispatch(getCardsPackTC())
             })
             .catch(res => {
                 console.log('deleteCardsPackTC catch:', res.response.data.error)
@@ -102,12 +100,10 @@ export const deleteCardsPackTC = (cardPackId: string): AppThunk => {
 
 export const updateCardPackTC = (cardPackId: string, newName: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        const userIdAfterRadio = getState().table.userIdAfterRadio
-        const pageCount = getState().table.pageCount
         cardsAPI.updateCardPack(cardPackId, newName)
             .then(res => {
                 console.log('updateCardPackTC then:', res)
-                dispatch(getCardsPackTC(userIdAfterRadio, pageCount.toString()))
+                dispatch(getCardsPackTC())
             })
             .catch(res => {
                 console.log('updateCardPackTC catch:', res.response.data.error)
