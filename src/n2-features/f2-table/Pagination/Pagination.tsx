@@ -29,22 +29,21 @@ const Pagination = () => {
     const rightNumber = portion * portionSize
     const correctValue = pages.filter((p) => p ? p >= leftNumber && p <= rightNumber : '')
 
-
     return (
         <div className={style.pagination}> {portion > 1 &&
-
         <SuperButton onClick={() => {
             setPortion(portion - 1)
         }} className={style.btn}>Prev
         </SuperButton>
         }
-
             {correctValue.map(p => {
-                return <span
-                    key={p}
-                    className={`${style.item} ${page === p ? style.select : style.item}`}
-                    onClick={() => currentPageHandler(p)}>{p}
+                return (
+                    <span
+                        key={p}
+                        className={`${style.item} ${page === p ? style.select : style.item}`}
+                        onClick={() => currentPageHandler(p)}>{p}
                     </span>
+                )
 
             })}
             {portionCount > portion && <SuperButton onClick={() => {

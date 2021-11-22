@@ -1,7 +1,6 @@
 import {Dispatch} from "react";
 import {cardsAPI, CardType} from "./api/cards-api";
 import {AppStoreType} from "./store";
-import {useSelector} from "react-redux";
 import {ThunkAction} from "redux-thunk";
 
 const initialState: InitialStateType = {
@@ -10,6 +9,8 @@ const initialState: InitialStateType = {
     pageCount: 5,
     page: 1,
     userIdAfterRadio: '',
+    packName: ''
+
 }
 
 export const tableReducer = (state = initialState, action: ActionType): InitialStateType => {
@@ -24,6 +25,8 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
             return {...state, pageCount: action.pageCount}
         case "TABLE/SET-USER-ID-AFTER-RADIO":
             return {...state, userIdAfterRadio: action.userIdAfterRadio}
+        case "SET-SEARCH-PACK-NAME":
+            return {...state, packName: action.packName}
         default:
             return state
     }
@@ -35,8 +38,11 @@ type InitialStateType = {
     pageCount: number
     page: number
     userIdAfterRadio: string
+    packName: string
 }
 
+export const setSearchPackNameAC = (packName: string) =>
+    ({type: 'SET-SEARCH-PACK-NAME', packName} as const)
 export const setCardsAC = (cards: Array<CardType>) =>
     ({type: 'TABLE/SET-CARDS', cards} as const)
 
@@ -56,9 +62,10 @@ export const getCardsPackTC = () => {
     return (dispatch: Dispatch<ActionType>, getState: () => AppStoreType) => {
         const page = getState().table.page
         const cardPacksTotalCount = getState().table.cardPacksTotalCount
+        const packName = getState().table.packName
         const pageCount = getState().table.pageCount.toString()
         const userIdAfterRadio = getState().table.userIdAfterRadio
-        cardsAPI.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount)
+        cardsAPI.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount, packName)
             .then((res) => {
                 dispatch(setCardsAC(res.data.cardPacks))
                 dispatch(setTotalCountAC(res.data.cardPacksTotalCount))
@@ -117,5 +124,6 @@ type ActionType =
     | ReturnType<typeof setTotalCountAC>
     | ReturnType<typeof setPageCountAC>
     | ReturnType<typeof setUserIdAfterRadioAC>
+    |ReturnType<typeof setSearchPackNameAC>
 
 type AppThunk = ThunkAction<void, AppStoreType, unknown, ActionType>

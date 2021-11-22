@@ -16,6 +16,7 @@ import SuperInputText from "../../n1-main/m1-ui/common/c1-SuperInputText/SuperIn
 import SuperRadio from "../../n1-main/m1-ui/common/c6-SuperRadio/SuperRadio";
 import SuperCheckbox from "../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import Pagination from "./Pagination/Pagination";
+import Search from "./Search/Search";
 
 export const Table = () => {
 
@@ -25,7 +26,8 @@ export const Table = () => {
     const userID = useSelector<AppStoreType, string>(state => state.profile._id)
     const pageCount = useSelector<AppStoreType, number>(state => state.table.pageCount).toString()
     const userIdAfterRadio = useSelector<AppStoreType, string>(state => state.table.userIdAfterRadio)
-
+    const page = useSelector<AppStoreType, number>(state => state.table.page)
+    const packName = useSelector<AppStoreType, string>(state => state.table.packName)
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio
@@ -39,7 +41,7 @@ export const Table = () => {
         dispatch(getCardsPackTC())
 
 
-    }, [profileOrPublic, pageCount])
+    }, [profileOrPublic, pageCount, page, packName])
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
@@ -70,7 +72,7 @@ export const Table = () => {
                     />
                 </label>
             </div>
-
+<Search/>
             <div className={s.header}>
                 <div>Name</div>
                 <div>cardsCount</div>
