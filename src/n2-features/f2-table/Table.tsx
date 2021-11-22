@@ -84,7 +84,7 @@ export const Table: React.FC<TableProps> = () => {
                                                 dynamicUpdates={dynamicUpdates}
                                                 profileOrPublic={profileOrPublic}/>)}
             </div>
-            <Pagination/>
+            <Pagination profileOrPublic={profileOrPublic}/>
         </div>
     );
 };

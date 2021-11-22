@@ -22,9 +22,9 @@ export const cardsAPI = {
     changePassword(password: string, resetPasswordToken: string) {
         return instance.post<ResponseType>('auth/set-new-password', {password, resetPasswordToken})
     },
-    getCardsPack(userId: string, pageCount: string, profileOrPublic: string) {
+    getCardsPack(userId: string, pageCount: string, profileOrPublic: string, page: number, cardPacksTotalCount: number  ) {
             return instance.get<CardsResponseType>(`cards/pack`, {params: {
-                user_id: (profileOrPublic === 'Profile') ? userId : '', pageCount
+                user_id: (profileOrPublic === 'Profile') ? userId : '', pageCount, page, cardPacksTotalCount,
             }})
     },
     addCardPack(cardPackName: string) {

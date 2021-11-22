@@ -1,12 +1,13 @@
 import {Dispatch} from "react";
 import {cardsAPI, CardType} from "./api/cards-api";
 import {authAPI} from "../../n2-features/f1-auth/a1-login/AuthApi";
+import {AppStoreType} from "./store";
 
 const initialState: InitialStateType = {
     cardPacks: [],
-    cardPacksTotalCount: 19,
-    pageCount: 4,
-    page: 5,
+    cardPacksTotalCount: 10,
+    pageCount: 5,
+    page: 1,
 
 }
 
@@ -14,6 +15,10 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
     switch (action.type) {
         case "SET-CARDS":
             return {...state, cardPacks: action.cards}
+        case "SET-CURRENT-PAGE":
+            return {...state, page: action.page}
+        case "SET-TOTAL-COUNT":
+            return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
         default:
             return state
     }
@@ -30,11 +35,21 @@ type InitialStateType = {
 export const setCardsAC = (cards: Array<CardType>) =>
     ({type: 'SET-CARDS', cards} as const)
 
-export const getCardsPackTC = (userId: string, pageCount: string, profileOrPublic: string) => {
-    return (dispatch: Dispatch<ActionType>) => {
-        cardsAPI.getCardsPack(userId, pageCount, profileOrPublic)
+export const setCurrentPageAC = (page: number) =>
+    ({type: 'SET-CURRENT-PAGE', page} as const)
+
+export const setTotalCountAC = (cardPacksTotalCount: number) =>
+    ({type: 'SET-TOTAL-COUNT', cardPacksTotalCount,} as const)
+
+export const getCardsPackTC = (userId: string, pageCount: string, profileOrPublic: string = '') => {
+    return (dispatch: Dispatch<ActionType>, getState: () => AppStoreType) => {
+        const page = getState().table.page
+        const cardPacksTotalCount = getState().table.cardPacksTotalCount
+        cardsAPI.getCardsPack(userId, pageCount, profileOrPublic, page, cardPacksTotalCount)
             .then((res) => {
                 dispatch(setCardsAC(res.data.cardPacks))
+                dispatch(setTotalCountAC(res.data.cardPacksTotalCount))
+                dispatch(setCurrentPageAC(res.data.page))
                 console.log('getCardsPack then:', res.data.cardPacks)
             })
             .catch((res) => {
@@ -81,4 +96,7 @@ export const updateCardPackTC = (cardPackId: string, newName: string) => {
     }
 }
 
-type ActionType = ReturnType<typeof setCardsAC>
+type ActionType =
+    ReturnType<typeof setCardsAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalCountAC>
