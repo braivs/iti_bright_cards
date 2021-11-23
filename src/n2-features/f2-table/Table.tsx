@@ -31,6 +31,8 @@ export const Table = () => {
     const packName = useSelector<AppStoreType, string>(state => state.table.packName)
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio
     const sortPacks = useSelector<AppStoreType, string>(state => state.table.sortPacks)
+    const minCardsCount = useSelector<AppStoreType, number>(state => state.table.minCardsCount)
+    const maxCardsCount = useSelector<AppStoreType, number>(state => state.table.maxCardsCount)
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio
 
     useEffect(() => {
@@ -42,7 +44,7 @@ export const Table = () => {
         dispatch(getCardsPackTC())
 
 
-    }, [profileOrPublic, pageCount, page, packName,sortPacks])
+    }, [profileOrPublic, pageCount, page, packName, sortPacks, minCardsCount, maxCardsCount ])
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
@@ -56,6 +58,7 @@ export const Table = () => {
     return (
         <div className={`${sContainer.container} ${s.table}`}>
             <h1>This is table of Card Packs.</h1>
+            <Search/>
             <div className={s.settings}>
                 <h2>Settings:</h2>
                 <label className={s.settingEl}>
@@ -73,7 +76,7 @@ export const Table = () => {
                     />
                 </label>
             </div>
-<Search/>
+
             <div className={s.header}>
                 <div>Name</div>
                 <div>cardsCount</div>

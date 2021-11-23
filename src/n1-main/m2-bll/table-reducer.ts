@@ -11,8 +11,8 @@ const initialState: InitialStateType = {
     userIdAfterRadio: '',
     packName: '',
     sortPacks:'',
-    maxCardsCount: 0,
-    minCardsCount: 3,
+    maxCardsCount: 9,
+    minCardsCount: 0,
 
 }
 
@@ -33,7 +33,7 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
         case "TABLE/SORT-PACKS":
             return {...state, sortPacks: action.sortPacks}
         case "TABLE/SET-CARDS-COUNT":
-            return {...state, maxCardsCount: action.maxCardsCount, minCardsCount: action.maxCardsCount}
+            return {...state, maxCardsCount: action.maxCardsCount, minCardsCount: action.minCardsCount}
         default:
             return state
     }
@@ -96,7 +96,6 @@ export const getCardsPackTC = () => {
             .catch((res) => {
                 console.log('getCardsPack catch:', res.response.data.error)
             })
-
     }
 }
 
