@@ -46,7 +46,29 @@ export const cardsAPI = {
             }
         }
         return instance.put('cards/pack', dataForPost)
-    }
+    },
+    getCards(cardsPack_id: string) {
+        return instance.get('/cards/card', {params: {cardsPack_id}})
+    },
+    addCard(cardsPack_id: string) {
+        const dataForPost = {
+            card: {
+                cardsPack_id
+            }
+        }
+        return instance.post('cards/card', dataForPost)
+    },
+    deleteCard(cardsPack_id: string) {
+        return instance.delete(`cards/card?id=${cardsPack_id}`)
+    },
+    updateCard(cardsPack_id: string) {
+        const dataForPost: updateCardsPostType = {
+            cardsPack: {
+                _id: cardsPack_id
+            }
+        }
+        return instance.put('cards/pack', dataForPost)
+    },
 }
 
 type ResponseType = {

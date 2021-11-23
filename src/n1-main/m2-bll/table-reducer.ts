@@ -118,12 +118,64 @@ export const updateCardPackTC = (cardPackId: string, newName: string): AppThunk 
     }
 }
 
+export const getCardsTC = (): AppThunk => {
+    return (dispatch, getState: () => AppStoreType) => {
+        const cardsPack_id = 'needToGetId' // need to get it from redux
+        cardsAPI.getCards(cardsPack_id)
+            .then(res => {
+                console.log('getCardsTC then:', res)
+            })
+            .catch(res => {
+                console.log('getCardsTC catch:', res.response.data.error)
+            })
+    }
+}
+
+export const addCardTC = (): AppThunk => {
+    return (dispatch, getState: () => AppStoreType) => {
+        const cardsPack_id = 'needToGetId' // need to get it from redux
+        cardsAPI.addCard(cardsPack_id)
+            .then(res => {
+                console.log('addCardTC then:', res)
+            })
+            .catch(res => {
+                console.log('addCardTC catch:', res.response.data.error)
+            })
+    }
+}
+
+export const deleteCardTC = (): AppThunk => {
+    return (dispatch, getState: () => AppStoreType) => {
+        const cardsPack_id = 'needToGetId' // need to get it from redux
+        cardsAPI.deleteCard(cardsPack_id)
+            .then(res => {
+                console.log('deleteCardTC then:', res)
+            })
+            .catch(res => {
+                console.log('deleteCardTC catch:', res.response.data.error)
+            })
+    }
+}
+
+export const updateCardTC = (): AppThunk => {
+    return (dispatch, getState: () => AppStoreType) => {
+        const cardsPack_id = 'needToGetId' // need to get it from redux
+        cardsAPI.updateCard(cardsPack_id)
+            .then(res => {
+                console.log('updateCardTC then:', res)
+            })
+            .catch(res => {
+                console.log('updateCardTC catch:', res.response.data.error)
+            })
+    }
+}
+
 type ActionType =
     | ReturnType<typeof setCardsAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalCountAC>
     | ReturnType<typeof setPageCountAC>
     | ReturnType<typeof setUserIdAfterRadioAC>
-    |ReturnType<typeof setSearchPackNameAC>
+    | ReturnType<typeof setSearchPackNameAC>
 
 type AppThunk = ThunkAction<void, AppStoreType, unknown, ActionType>

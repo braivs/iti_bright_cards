@@ -1,7 +1,6 @@
 import React from 'react';
 import {Header} from "../p1-header/Header";
 import {Redirect, Route, Switch} from "react-router-dom";
-import {Login} from "../../../n2-features/f1-auth/a1-login/Login";
 import {RegistrationContainer} from "../../../n2-features/f1-auth/a2-register/RegistrationContainer";
 import {Profile} from "../../../n2-features/f1-auth/a3-profile/Profile";
 import {Page404} from "../../../n2-features/f1-auth/Page404";
@@ -16,7 +15,7 @@ export const Main = () => {
         <div>
             <Header/>
             <Switch>
-                <Route exact path={'/table'} render={() => <Table />}/>
+                <Route path={'/table/:packid?'} render={() => <Table />}/>
                 <Route exact path={'/login'} render={() => <LoginContainer/>}/>
                 <Route exact path={'/registration'} render={() => <RegistrationContainer/>}/>
                 <Route exact path={'/profile'} render={() => <Profile/>}/>

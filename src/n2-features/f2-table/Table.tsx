@@ -15,6 +15,8 @@ import Pagination from "./Pagination/Pagination";
 import Search from "./Search/Search";
 import {Settings} from "./Settings/Settings";
 import {TableContent} from "./TableContent/TableContent";
+import SuperInputText from "../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
+import {useParams} from "react-router-dom";
 
 
 export const Table = () => {
@@ -29,6 +31,9 @@ export const Table = () => {
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio in Settings
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
+    const {packid} = useParams<{ packid: string }>();
+
+    const selectedPack = cardsPacks.find(e => e._id === packid)
 
     useEffect(() => {
         if (profileOrPublic === 'Public') {
@@ -69,6 +74,26 @@ export const Table = () => {
             <Search/>
             <TableContent headerModel={CardsPackHeader} bodyModel={cardsPacks} />
             <Pagination/>
+
+            <h1>This is table of Cards for selected Card Pack.</h1>
+            <div className={s.selectedCardPackInfo}>
+                <label className={s.settingEl}>
+                    Selected CardPack Name:
+                    <SuperInputText value={selectedPack ? selectedPack.name : ''} className={s.input} disabled={true}/>
+                    {/*<SuperInputText value={''} className={s.input} disabled={true}/>*/}
+                </label>
+                <label className={s.settingEl}>
+                    Selected CardPack updated:
+                    <SuperInputText value={selectedPack ? selectedPack.updated : ''} className={s.input} disabled={true}/>
+                    {/*<SuperInputText value={''} className={s.input} disabled={true}/>*/}
+                </label>
+                <label className={s.settingEl}>
+                    Selected CardPack id:
+                    <SuperInputText value={packid} className={s.input} disabled={true}/>
+                    {/*<SuperInputText value={''} className={s.input} disabled={true}/>*/}
+                </label>
+            </div>
+
         </div>
     );
 };
