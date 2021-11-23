@@ -7,13 +7,13 @@ import {AppStoreType} from "../m2-bll/store";
 
 export const App = () => {
     const dispatch = useDispatch()
-const isInitialize = useSelector<AppStoreType, boolean>(state => state.auth.isInitilize)
+    const isInitialize = useSelector<AppStoreType, boolean>(state => state.auth.isInitilize)
     useEffect(() => {
         dispatch(InitializeTC())
     }, [])
     return (
         <div className="App">
-            {isInitialize && <Main />}
+            {isInitialize && <Main/>}
         </div>
     );
 }

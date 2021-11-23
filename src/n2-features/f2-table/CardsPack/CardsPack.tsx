@@ -1,9 +1,8 @@
 import React from 'react';
 import s from './CardsPack.module.scss'
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteCardsPackTC, getCardsPackTC, updateCardPackTC} from "../../../n1-main/m2-bll/table-reducer";
-import {AppStoreType} from "../../../n1-main/m2-bll/store";
+import {useDispatch} from "react-redux";
+import {deleteCardsPackTC, updateCardPackTC} from "../../../n1-main/m2-bll/table-reducer";
 
 type PropsType = {
     _id: string
