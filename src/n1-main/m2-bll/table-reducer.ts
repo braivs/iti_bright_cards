@@ -9,8 +9,7 @@ const initialState: InitialStateType = {
     pageCount: 5,
     page: 1,
     userIdAfterRadio: '',
-    packName: ''
-
+    packName: '',
 }
 
 export const tableReducer = (state = initialState, action: ActionType): InitialStateType => {
@@ -25,7 +24,7 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
             return {...state, pageCount: action.pageCount}
         case "TABLE/SET-USER-ID-AFTER-RADIO":
             return {...state, userIdAfterRadio: action.userIdAfterRadio}
-        case "SET-SEARCH-PACK-NAME":
+        case "TABLE/SET-SEARCH-PACK-NAME":
             return {...state, packName: action.packName}
         default:
             return state
@@ -42,7 +41,8 @@ type InitialStateType = {
 }
 
 export const setSearchPackNameAC = (packName: string) =>
-    ({type: 'SET-SEARCH-PACK-NAME', packName} as const)
+    ({type: 'TABLE/SET-SEARCH-PACK-NAME', packName} as const)
+
 export const setCardsAC = (cards: Array<CardType>) =>
     ({type: 'TABLE/SET-CARDS', cards} as const)
 
@@ -114,58 +114,6 @@ export const updateCardPackTC = (cardPackId: string, newName: string): AppThunk 
             })
             .catch(res => {
                 console.log('updateCardPackTC catch:', res.response.data.error)
-            })
-    }
-}
-
-export const getCardsTC = (): AppThunk => {
-    return (dispatch, getState: () => AppStoreType) => {
-        const cardsPack_id = 'needToGetId' // need to get it from redux
-        cardsAPI.getCards(cardsPack_id)
-            .then(res => {
-                console.log('getCardsTC then:', res)
-            })
-            .catch(res => {
-                console.log('getCardsTC catch:', res.response.data.error)
-            })
-    }
-}
-
-export const addCardTC = (): AppThunk => {
-    return (dispatch, getState: () => AppStoreType) => {
-        const cardsPack_id = 'needToGetId' // need to get it from redux
-        cardsAPI.addCard(cardsPack_id)
-            .then(res => {
-                console.log('addCardTC then:', res)
-            })
-            .catch(res => {
-                console.log('addCardTC catch:', res.response.data.error)
-            })
-    }
-}
-
-export const deleteCardTC = (): AppThunk => {
-    return (dispatch, getState: () => AppStoreType) => {
-        const cardsPack_id = 'needToGetId' // need to get it from redux
-        cardsAPI.deleteCard(cardsPack_id)
-            .then(res => {
-                console.log('deleteCardTC then:', res)
-            })
-            .catch(res => {
-                console.log('deleteCardTC catch:', res.response.data.error)
-            })
-    }
-}
-
-export const updateCardTC = (): AppThunk => {
-    return (dispatch, getState: () => AppStoreType) => {
-        const cardsPack_id = 'needToGetId' // need to get it from redux
-        cardsAPI.updateCard(cardsPack_id)
-            .then(res => {
-                console.log('updateCardTC then:', res)
-            })
-            .catch(res => {
-                console.log('updateCardTC catch:', res.response.data.error)
             })
     }
 }

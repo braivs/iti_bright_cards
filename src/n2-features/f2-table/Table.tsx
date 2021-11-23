@@ -17,6 +17,7 @@ import {Settings} from "./Settings/Settings";
 import {TableContent} from "./TableContent/TableContent";
 import SuperInputText from "../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import {useParams} from "react-router-dom";
+import {getCardsTC, setActiveCardPackAC} from "../../n1-main/m2-bll/cards-reducer";
 
 
 export const Table = () => {
@@ -33,7 +34,7 @@ export const Table = () => {
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
     const {packid} = useParams<{ packid: string }>();
 
-    const selectedPack = cardsPacks.find(e => e._id === packid)
+    const selectedCardsPack = cardsPacks.find(e => e._id === packid)
 
     useEffect(() => {
         if (profileOrPublic === 'Public') {
@@ -42,9 +43,15 @@ export const Table = () => {
             dispatch(setUserIdAfterRadioAC(userID))
         }
         dispatch(getCardsPackTC())
-
-
-    }, [profileOrPublic, pageCount, page, packName])
+        if (packid !== '') {
+            /*dispatch(setActiveCardPackAC(packid))
+            dispatch(getCardsTC())
+            console.log(packid)*/ // temporally disabled because I have pain about no authorize error.
+                                  // And I have made a decision to do with hardcode cardPackId:
+                                  // _id: "619ccba94f185200047ad5ad". Later will fix.
+            getCardsTC()
+        }
+    }, [profileOrPublic, pageCount, page, packName, packid])
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
@@ -72,25 +79,25 @@ export const Table = () => {
                       onChangeProfileOrPublic={onChangeProfileOrPublic}
             />
             <Search/>
-            <TableContent headerModel={CardsPackHeader} bodyModel={cardsPacks} />
+            <TableContent headerModel={CardsPackHeader} bodyModel={cardsPacks}/>
             <Pagination/>
 
             <h1>This is table of Cards for selected Card Pack.</h1>
             <div className={s.selectedCardPackInfo}>
                 <label className={s.settingEl}>
                     Selected CardPack Name:
-                    <SuperInputText value={selectedPack ? selectedPack.name : ''} className={s.input} disabled={true}/>
-                    {/*<SuperInputText value={''} className={s.input} disabled={true}/>*/}
+                    <SuperInputText value={selectedCardsPack ? selectedCardsPack.name : ''} onChange={() => {
+                    }} className={s.input} disabled={true}/>
                 </label>
                 <label className={s.settingEl}>
                     Selected CardPack updated:
-                    <SuperInputText value={selectedPack ? selectedPack.updated : ''} className={s.input} disabled={true}/>
-                    {/*<SuperInputText value={''} className={s.input} disabled={true}/>*/}
+                    <SuperInputText value={selectedCardsPack ? selectedCardsPack.updated : ''} onChange={() => {
+                    }} className={s.input} disabled={true}/>
                 </label>
                 <label className={s.settingEl}>
                     Selected CardPack id:
-                    <SuperInputText value={packid} className={s.input} disabled={true}/>
-                    {/*<SuperInputText value={''} className={s.input} disabled={true}/>*/}
+                    <SuperInputText value={packid} className={s.input} onChange={() => {
+                    }} disabled={true}/>
                 </label>
             </div>
 
