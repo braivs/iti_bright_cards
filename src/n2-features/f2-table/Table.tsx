@@ -14,8 +14,7 @@ import SuperButton from "../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import Pagination from "./Pagination/Pagination";
 import Search from "./Search/Search";
 import {Settings} from "./Settings/Settings";
-import {TableBody} from "./TableBody/TableBody";
-import {TableHeader} from "./TableHeader/TableHeader";
+import {TableContent} from "./TableContent/TableContent";
 
 
 export const Table = () => {
@@ -52,12 +51,12 @@ export const Table = () => {
     }
 
 
-    const TableHeaderData: TableHeaderModelType = [
-        'Name', 'cardsCount', 'updated',
-        <SuperButton className={s.button} onClick={addPackButtonHandler}>Add CardPack</SuperButton>
+    const CardsPackHeader: TableHeaderModelType = [
+        {id: '1', element: 'Name'},
+        {id: '2', element: 'cardsCount'},
+        {id: '3', element: 'updated'},
+        {id: '4', element: <SuperButton className={s.button} onClick={addPackButtonHandler}>Add CardPack</SuperButton>},
     ]
-
-
 
     return (
         <div className={`${sContainer.container} ${s.table}`}>
@@ -68,11 +67,14 @@ export const Table = () => {
                       onChangeProfileOrPublic={onChangeProfileOrPublic}
             />
             <Search/>
-            <TableHeader model={TableHeaderData}/>
-            <TableBody model={cardsPacks}/>
+            <TableContent headerModel={CardsPackHeader} bodyModel={cardsPacks} />
             <Pagination/>
         </div>
     );
 };
 
-export type TableHeaderModelType = Array<string | JSX.Element>
+type HeaderModelElementType = {
+    id: string,
+    element: string | JSX.Element
+}
+export type TableHeaderModelType = Array<HeaderModelElementType>
