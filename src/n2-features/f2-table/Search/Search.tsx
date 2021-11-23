@@ -4,6 +4,7 @@ import {setSearchPackNameAC} from "../../../n1-main/m2-bll/table-reducer";
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import style from './Search.module.css'
+import PriceRange from "../Range/Range";
 
 const Search = () => {
     const dispatch = useDispatch()
@@ -25,12 +26,12 @@ const Search = () => {
     }
 
     return (
-        <div>
+        <div className={style.block}>
             <SuperInputText
                 value={state}
                 onChange={currentHandler}
                 onKeyPress={onKeyPressHandler}/>
-
+            <PriceRange/>
             <SuperButton
                 onClick={onClickHandler}
                 className={style.search}>Search

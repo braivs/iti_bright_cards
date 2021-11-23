@@ -6,14 +6,14 @@ import {LogoutTC, setIsLoggedId} from "../../m2-bll/authReducer";
 import {AppStoreType} from "../../m2-bll/store";
 
 export const Header = () => {
-    const setIsLoggedIn = useSelector<AppStoreType, boolean>(state=>state.auth.isLoggedIn)
+    //const setIsLoggedIn = useSelector<AppStoreType, boolean>(state=>state.auth.isLoggedIn)
     const dispatch = useDispatch()
     const logout = () => {
         dispatch(LogoutTC())
     }
-    if (!setIsLoggedIn){
+    /*if (!setIsLoggedIn){
         return <Redirect to={'login'}/>
-    }
+    }*/
 
     return (
         <div className={s.header}>
