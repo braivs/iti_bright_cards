@@ -16,7 +16,6 @@ const SortPacks = () => {
     }
     return (
         <div>
-            updated
             <div className={style.block}>
                 <SuperButton className={style.btn} onClick={upperSortHandler}>
                     ^

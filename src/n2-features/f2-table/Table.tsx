@@ -77,7 +77,9 @@ export const Table = () => {
             <div className={s.header}>
                 <div>Name</div>
                 <div>cardsCount</div>
-                    <SortPacks/>
+                <div>updated
+                <SortPacks/>
+                </div>
                 <div><SuperButton className={s.button} onClick={addPackButtonHandler}>Add CardPack</SuperButton></div>
             </div>
             <div className={s.style1}>
