@@ -1,14 +1,18 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import s from './Header.module.scss'
-import {useDispatch} from "react-redux";
-import {LogoutTC} from "../../m2-bll/authReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {LogoutTC, setIsLoggedId} from "../../m2-bll/authReducer";
+import {AppStoreType} from "../../m2-bll/store";
 
 export const Header = () => {
-
+const setIsLoggedIn = useSelector((state: AppStoreType)=>state.auth.isLoggedIn)
     const dispatch = useDispatch()
     const logout = () => {
         dispatch(LogoutTC())
+    }
+    if (!setIsLoggedIn){
+        return <Redirect to={'login'}/>
     }
 
     return (

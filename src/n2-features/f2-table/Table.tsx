@@ -17,6 +17,7 @@ import SuperRadio from "../../n1-main/m1-ui/common/c6-SuperRadio/SuperRadio";
 import SuperCheckbox from "../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import Pagination from "./Pagination/Pagination";
 import Search from "./Search/Search";
+import SortPacks from "./SortPacks/SortPacks";
 
 export const Table = () => {
 
@@ -29,7 +30,7 @@ export const Table = () => {
     const page = useSelector<AppStoreType, number>(state => state.table.page)
     const packName = useSelector<AppStoreType, string>(state => state.table.packName)
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio
-
+    const sortPacks = useSelector<AppStoreType, string>(state => state.table.sortPacks)
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio
 
     useEffect(() => {
@@ -41,7 +42,7 @@ export const Table = () => {
         dispatch(getCardsPackTC())
 
 
-    }, [profileOrPublic, pageCount, page, packName])
+    }, [profileOrPublic, pageCount, page, packName,sortPacks])
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
@@ -76,7 +77,7 @@ export const Table = () => {
             <div className={s.header}>
                 <div>Name</div>
                 <div>cardsCount</div>
-                <div>updated</div>
+                    <SortPacks/>
                 <div><SuperButton className={s.button} onClick={addPackButtonHandler}>Add CardPack</SuperButton></div>
             </div>
             <div className={s.style1}>
