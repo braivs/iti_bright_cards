@@ -1,5 +1,5 @@
 import {Dispatch} from "react";
-import {cardsAPI, CardType} from "./api/cards-api";
+import {cardsAPI, CardsPackType} from "./api/cards-api";
 import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
 
@@ -18,8 +18,8 @@ const initialState: InitialStateType = {
 
 export const tableReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case "TABLE/SET-CARDS":
-            return {...state, cardPacks: action.cards}
+        case "TABLE/SET-CARD-PACKS":
+            return {...state, cardPacks: action.cardPacs}
         case "TABLE/SET-CURRENT-PAGE":
             return {...state, page: action.page}
         case "TABLE/SET-TOTAL-COUNT":
@@ -40,7 +40,7 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
 }
 
 type InitialStateType = {
-    cardPacks: Array<CardType>
+    cardPacks: Array<CardsPackType>
     cardPacksTotalCount: number
     pageCount: number
     page: number
@@ -55,8 +55,8 @@ type InitialStateType = {
 export const setSearchPackNameAC = (packName: string) =>
     ({type: 'TABLE/SET-SEARCH-PACK-NAME', packName} as const)
 
-export const setCardsAC = (cards: Array<CardType>) =>
-    ({type: 'TABLE/SET-CARDS', cards} as const)
+export const setCardPacksAC = (cardPacs: Array<CardsPackType>) =>
+    ({type: 'TABLE/SET-CARD-PACKS', cardPacs} as const)
 
 export const setCurrentPageAC = (page: number) =>
     ({type: 'TABLE/SET-CURRENT-PAGE', page} as const)
@@ -90,7 +90,7 @@ export const getCardsPackTC = () => {
         cardsAPI.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount,
             packName, sortPacks, min, max,)
             .then((res) => {
-                dispatch(setCardsAC(res.data.cardPacks))
+                dispatch(setCardPacksAC(res.data.cardPacks))
                 dispatch(setTotalCountAC(res.data.cardPacksTotalCount))
                 dispatch(setCurrentPageAC(res.data.page))
                 console.log('getCardsPack then:', res.data.cardPacks)
@@ -142,14 +142,14 @@ export const updateCardPackTC = (cardPackId: string, newName: string): AppThunk 
 }
 
 type ActionType =
-    | ReturnType<typeof setCardsAC>
+    | ReturnType<typeof setCardPacksAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalCountAC>
     | ReturnType<typeof setPageCountAC>
     | ReturnType<typeof setUserIdAfterRadioAC>
-    |ReturnType<typeof setSearchPackNameAC>
-    |ReturnType<typeof sortPacksAC>
-    |ReturnType<typeof setCardsCountAC>
+    | ReturnType<typeof setSearchPackNameAC>
+    | ReturnType<typeof sortPacksAC>
+    | ReturnType<typeof setCardsCountAC>
     | ReturnType<typeof setSearchPackNameAC>
 
 type AppThunk = ThunkAction<void, AppStoreType, unknown, ActionType>

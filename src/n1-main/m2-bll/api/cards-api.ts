@@ -50,7 +50,7 @@ export const cardsAPI = {
         return instance.put('cards/pack', dataForPost)
     },
     getCards(cardsPack_id: string) {
-        return instance.get<ResponseType>('/cards/card', {params: {cardsPack_id}})
+        return instance.get<ResponseType<cardDataType>>('/cards/card', {params: {cardsPack_id}})
     },
     addCard(cardsPack_id: string) {
         const dataForPost = {
@@ -80,7 +80,7 @@ type ResponseType<D = {}> = {
     }
 }
 
-export type CardType = {
+export type CardsPackType = {
     _id: string
     user_id: string
     name: string
@@ -96,7 +96,7 @@ export type CardType = {
 }
 
 type CardsResponseType = {
-    cardPacks: Array<CardType>
+    cardPacks: Array<CardsPackType>
     cardPacksTotalCount: number // количество колод
     maxCardsCount: number
     minCardsCount: number
@@ -122,7 +122,19 @@ type updateCardsPostType = {
     }
 }
 
-type cardType = {
+type cardDataType = {
+    cards: Array<CardsPackType>
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    packUserId: string
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+
+export type CardType = {
     answer: string
     cardsPack_id: string
     comments: string

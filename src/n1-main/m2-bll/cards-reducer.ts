@@ -1,15 +1,15 @@
-import {cardsAPI, CardType} from "./api/cards-api";
+import {cardsAPI, CardsPackType, CardType} from "./api/cards-api";
 import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
 
 const initialState: InitialStateType = {
-    activeCardsPackId: '619ccba94f185200047ad5ad', //temp hardcoded
+    cards: []
 }
 
 export const cardsReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case "CARDS/SET-ACTIVE-CARD-PACK":
-            return {...state, activeCardsPackId: action.activeCardsPackId}
+        case "CARDS/SET-CARDS":
+            return {...state, cards: action.cards}
         default:
             return state
     }
@@ -17,21 +17,18 @@ export const cardsReducer = (state = initialState, action: ActionType): InitialS
 }
 
 type InitialStateType = {
-    activeCardsPackId: string
+    cards: Array<CardType>
 }
 
-export const setActiveCardPackAC = (activeCardsPackId: string) =>
-    ({type: 'CARDS/SET-ACTIVE-CARD-PACK', activeCardsPackId} as const)
+export const setCardsAC = (cards: Array<CardType>) =>
+    ({type: 'CARDS/SET-CARDS', cards} as const)
 
-
-
-export const getCardsTC = (): AppThunk => {
+export const getCardsTC = (cardsPack_id: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        const cardsPack_id = getState().cards.activeCardsPackId
         cardsAPI.getCards(cardsPack_id)
             .then(res => {
 
-                    console.log('getCardsTC then:', res)
+                    console.log('getCardsTC then:', res.data)
             })
             .catch(res => {
                 console.log('getCardsTC catch:', res.response.data.error)
@@ -39,9 +36,8 @@ export const getCardsTC = (): AppThunk => {
     }
 }
 
-export const updateCardTC = (): AppThunk => {
+export const updateCardTC = (cardsPack_id: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        const cardsPack_id = getState().cards.activeCardsPackId
         cardsAPI.updateCard(cardsPack_id)
             .then(res => {
                 console.log('updateCardTC then:', res)
@@ -51,9 +47,8 @@ export const updateCardTC = (): AppThunk => {
             })
     }
 }
-export const addCardTC = (): AppThunk => {
+export const addCardTC = (cardsPack_id: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        const cardsPack_id = 'needToGetId' // need to get it from redux
         cardsAPI.addCard(cardsPack_id)
             .then(res => {
                 console.log('addCardTC then:', res)
@@ -66,9 +61,8 @@ export const addCardTC = (): AppThunk => {
 
 
 
-export const deleteCardTC = (): AppThunk => {
+export const deleteCardTC = (cardsPack_id: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        const cardsPack_id = 'needToGetId' // need to get it from redux
         cardsAPI.deleteCard(cardsPack_id)
             .then(res => {
                 console.log('deleteCardTC then:', res)
@@ -80,6 +74,6 @@ export const deleteCardTC = (): AppThunk => {
 }
 
 type ActionType =
-    | ReturnType<typeof setActiveCardPackAC>
+    | ReturnType<typeof setCardsAC>
 
 type AppThunk = ThunkAction<void, AppStoreType, unknown, ActionType>

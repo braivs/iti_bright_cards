@@ -1,5 +1,5 @@
 import React from 'react';
-import {CardType} from "../../../n1-main/m2-bll/api/cards-api";
+import {CardsPackType, CardType} from "../../../n1-main/m2-bll/api/cards-api";
 import {useSelector} from "react-redux";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import {CardsPack} from "../CardsPack/CardsPack";
@@ -8,7 +8,7 @@ import {TableHeaderModelType} from "../Table";
 
 type PropsType = {
     headerModel: TableHeaderModelType
-    bodyModel: Array<CardType>
+    bodyModel: Array<CardsPackType> /*| Array<CardType>*/
 }
 
 export const TableContent: React.FC<PropsType> = (props) => {
@@ -27,6 +27,9 @@ export const TableContent: React.FC<PropsType> = (props) => {
                                                  updated={m.updated} pageCount={pageCount}
                                                  userID={userIdAfterRadio}
                 />)}
+                {/*{props.bodyModel.map(m => <div key={m._id}>
+                    {m.element}
+                </div>)}*/}
             </div>
         </div>
     )

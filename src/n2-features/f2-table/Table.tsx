@@ -9,23 +9,20 @@ import {
     setUserIdAfterRadioAC
 } from "../../n1-main/m2-bll/table-reducer";
 import {AppStoreType} from "../../n1-main/m2-bll/store";
-import {CardType} from "../../n1-main/m2-bll/api/cards-api";
+import {CardsPackType} from "../../n1-main/m2-bll/api/cards-api";
 import SuperButton from "../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import Pagination from "./Pagination/Pagination";
 import Search from "./Search/Search";
 import {Settings} from "./Settings/Settings";
 import {TableContent} from "./TableContent/TableContent";
-import SuperInputText from "../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import {useParams} from "react-router-dom";
-import {getCardsTC, setActiveCardPackAC} from "../../n1-main/m2-bll/cards-reducer";
-
-import SortPacks from "./SortPacks/SortPacks";
+import {getCardsTC} from "../../n1-main/m2-bll/cards-reducer";
 
 export const Table = () => {
 
     const dispatch = useDispatch()
 
-    const cardsPacks = useSelector<AppStoreType, Array<CardType>>(state => state.table.cardPacks)
+    const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
     const userID = useSelector<AppStoreType, string>(state => state.profile._id)
     const pageCount = useSelector<AppStoreType, number>(state => state.table.pageCount).toString()
     const page = useSelector<AppStoreType, number>(state => state.table.page)
@@ -47,16 +44,17 @@ export const Table = () => {
             dispatch(setUserIdAfterRadioAC(userID))
         }
         dispatch(getCardsPackTC())
-        if (packid !== '') {
-            /*dispatch(setActiveCardPackAC(packid))
-            dispatch(getCardsTC())
-            console.log(packid)*/ // temporally disabled because I have pain about no authorize error.
-                                  // And I have made a decision to do with hardcode cardPackId:
-                                  // _id: "619ccba94f185200047ad5ad". Later will fix.
-            getCardsTC()
+
+        // dispatch(getCardsTC())
+    }, [profileOrPublic, pageCount, page, packName, sortPacks, min, max])
+
+    useEffect(() => {
+
+        if (!!packid) {
+            console.log('packid', packid)
+            dispatch(getCardsTC(packid))
         }
-        dispatch(getCardsTC())
-    }, [profileOrPublic, pageCount, page, packName, packid, sortPacks, min, max])
+    }, [packid])
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
@@ -75,6 +73,12 @@ export const Table = () => {
         {id: '4', element: <SuperButton className={s.button} onClick={addPackButtonHandler}>Add CardPack</SuperButton>},
     ]
 
+    const CardsHeader: TableHeaderModelType = [
+        {id: '1', element: 'answer'},
+        {id: '2', element: 'question'},
+        {id: '3', element: 'created'},
+    ]
+
     return (
         <div className={`${sContainer.container} ${s.table}`}>
             <h1>This is table of Card Packs.</h1>
@@ -86,24 +90,27 @@ export const Table = () => {
             />
             <TableContent headerModel={CardsPackHeader} bodyModel={cardsPacks}/>
             <Pagination/>
+
             <h1>This is table of Cards for selected Card Pack.</h1>
+
             <div className={s.selectedCardPackInfo}>
-                <label className={s.settingEl}>
-                    Selected CardPack Name:
-                    <SuperInputText value={selectedCardsPack ? selectedCardsPack.name : ''} onChange={() => {
-                    }} className={s.input} disabled={true}/>
-                </label>
-                <label className={s.settingEl}>
-                    Selected CardPack updated:
-                    <SuperInputText value={selectedCardsPack ? selectedCardsPack.updated : ''} onChange={() => {
-                    }} className={s.input} disabled={true}/>
-                </label>
-                <label className={s.settingEl}>
-                    Selected CardPack id:
-                    <SuperInputText value={packid} className={s.input} onChange={() => {
-                    }} disabled={true}/>
-                </label>
+                <div className={s.element}>
+                    <div className={s.elementHeader}>Selected CardPack Name:</div>
+                    <div className={s.elementValue}>{selectedCardsPack ? selectedCardsPack.name : ''}</div>
+                </div>
+                <div className={s.element}>
+                    <div className={s.elementHeader}>Selected CardPack updated:</div>
+                    <div className={s.elementValue}>{selectedCardsPack ? selectedCardsPack.updated : ''}</div>
+                </div>
+                <div className={s.element}>
+                    <div className={s.elementHeader}>Selected CardPack id:</div>
+                    <div className={s.elementValue}>{packid}</div>
+                </div>
             </div>
+
+
+
+            {/*<TableContent headerModel={CardsPackHeader} bodyModel={cardsPacks}/>*/}
 
         </div>
     );
@@ -113,4 +120,5 @@ type HeaderModelElementType = {
     id: string,
     element: string | JSX.Element
 }
+
 export type TableHeaderModelType = Array<HeaderModelElementType>

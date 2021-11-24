@@ -13,4 +13,21 @@
         margin-left: 10px;
         width: 300px;
     }
+
+
+    .selectedCardPackInfo {
+        display: flex;
+
+        .element {
+            display: flex;
+            .elementHeader {
+                margin-left: 5px;
+            }
+            .elementValue {
+                margin-left: 5px;
+                background: $primaryColor;
+            }
+        }
+    }
+
 }
