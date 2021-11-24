@@ -19,6 +19,7 @@ import SuperInputText from "../../n1-main/m1-ui/common/c1-SuperInputText/SuperIn
 import {useParams} from "react-router-dom";
 import {getCardsTC, setActiveCardPackAC} from "../../n1-main/m2-bll/cards-reducer";
 
+import SortPacks from "./SortPacks/SortPacks";
 
 export const Table = () => {
 
@@ -30,6 +31,9 @@ export const Table = () => {
     const page = useSelector<AppStoreType, number>(state => state.table.page)
     const packName = useSelector<AppStoreType, string>(state => state.table.packName)
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio in Settings
+    const sortPacks = useSelector<AppStoreType, string>(state => state.table.sortPacks)
+    const min = useSelector<AppStoreType, number>(state => state.table.min)
+    const max = useSelector<AppStoreType, number>(state => state.table.max)
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
     const {packid} = useParams<{ packid: string }>();
@@ -52,7 +56,7 @@ export const Table = () => {
             getCardsTC()
         }
         dispatch(getCardsTC())
-    }, [profileOrPublic, pageCount, page, packName, packid])
+    }, [profileOrPublic, pageCount, page, packName, packid, sortPacks, min, max])
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
@@ -74,15 +78,14 @@ export const Table = () => {
     return (
         <div className={`${sContainer.container} ${s.table}`}>
             <h1>This is table of Card Packs.</h1>
+            <Search/>
             <Settings setPageCountHandler={setPageCountHandler}
                       superRadioArr={superRadioArr}
                       profileOrPublic={profileOrPublic}
                       onChangeProfileOrPublic={onChangeProfileOrPublic}
             />
-            <Search/>
             <TableContent headerModel={CardsPackHeader} bodyModel={cardsPacks}/>
             <Pagination/>
-
             <h1>This is table of Cards for selected Card Pack.</h1>
             <div className={s.selectedCardPackInfo}>
                 <label className={s.settingEl}>

@@ -10,6 +10,10 @@ const initialState: InitialStateType = {
     page: 1,
     userIdAfterRadio: '',
     packName: '',
+    sortPacks:'',
+    max: 4,
+    min: 0,
+
 }
 
 export const tableReducer = (state = initialState, action: ActionType): InitialStateType => {
@@ -26,6 +30,10 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
             return {...state, userIdAfterRadio: action.userIdAfterRadio}
         case "TABLE/SET-SEARCH-PACK-NAME":
             return {...state, packName: action.packName}
+        case "TABLE/SORT-PACKS":
+            return {...state, sortPacks: action.sortPacks}
+        case "TABLE/SET-CARDS-COUNT":
+            return {...state, max: action.max, min: action.min}
         default:
             return state
     }
@@ -38,6 +46,10 @@ type InitialStateType = {
     page: number
     userIdAfterRadio: string
     packName: string
+    sortPacks: string
+    min: number
+    max: number
+
 }
 
 export const setSearchPackNameAC = (packName: string) =>
@@ -58,6 +70,12 @@ export const setPageCountAC = (pageCount: number) =>
 export const setUserIdAfterRadioAC = (userIdAfterRadio: string) =>
     ({type: 'TABLE/SET-USER-ID-AFTER-RADIO', userIdAfterRadio} as const)
 
+export const sortPacksAC = (sortPacks: string) =>
+    ({type: 'TABLE/SORT-PACKS', sortPacks} as const)
+
+export const setCardsCountAC = (min: number,max: number ) =>  //минимальное и максимальное число карт
+    ({type: 'TABLE/SET-CARDS-COUNT', min, max,} as const)
+
 export const getCardsPackTC = () => {
     return (dispatch: Dispatch<ActionType>, getState: () => AppStoreType) => {
         const page = getState().table.page
@@ -65,7 +83,12 @@ export const getCardsPackTC = () => {
         const packName = getState().table.packName
         const pageCount = getState().table.pageCount.toString()
         const userIdAfterRadio = getState().table.userIdAfterRadio
-        cardsAPI.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount, packName)
+        const sortPacks = getState().table.sortPacks
+        const min = getState().table.min
+        const max = getState().table.max
+
+        cardsAPI.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount,
+            packName, sortPacks, min, max,)
             .then((res) => {
                 dispatch(setCardsAC(res.data.cardPacks))
                 dispatch(setTotalCountAC(res.data.cardPacksTotalCount))
@@ -124,6 +147,9 @@ type ActionType =
     | ReturnType<typeof setTotalCountAC>
     | ReturnType<typeof setPageCountAC>
     | ReturnType<typeof setUserIdAfterRadioAC>
+    |ReturnType<typeof setSearchPackNameAC>
+    |ReturnType<typeof sortPacksAC>
+    |ReturnType<typeof setCardsCountAC>
     | ReturnType<typeof setSearchPackNameAC>
 
 type AppThunk = ThunkAction<void, AppStoreType, unknown, ActionType>

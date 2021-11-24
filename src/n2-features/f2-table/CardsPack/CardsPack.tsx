@@ -37,4 +37,4 @@ export const CardsPack: React.FC<PropsType> = (props) => {
         </div>
     </div>
 
-}
+};

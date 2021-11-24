@@ -5,7 +5,6 @@ import {useDispatch} from "react-redux";
 import {LogoutTC} from "../../m2-bll/authReducer";
 
 export const Header = () => {
-
     const dispatch = useDispatch()
     const logout = () => {
         dispatch(LogoutTC())
