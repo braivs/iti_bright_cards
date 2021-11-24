@@ -31,8 +31,8 @@ export const Table = () => {
     const packName = useSelector<AppStoreType, string>(state => state.table.packName)
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio
     const sortPacks = useSelector<AppStoreType, string>(state => state.table.sortPacks)
-    const minCardsCount = useSelector<AppStoreType, number>(state => state.table.minCardsCount)
-    const maxCardsCount = useSelector<AppStoreType, number>(state => state.table.maxCardsCount)
+    const min = useSelector<AppStoreType, number>(state => state.table.min)
+    const max = useSelector<AppStoreType, number>(state => state.table.max)
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export const Table = () => {
         dispatch(getCardsPackTC())
 
 
-    }, [profileOrPublic, pageCount, page, packName, sortPacks, minCardsCount, maxCardsCount ])
+    }, [profileOrPublic, pageCount, page, packName, sortPacks, min, max ])
 
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))

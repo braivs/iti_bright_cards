@@ -15,7 +15,7 @@ const PriceRange: React.FC<PropsType> =props=> {
             values={values}
             step={0.1}
             min={0}
-            max={10}
+            max={100}
             onChange={values => setValues(values)}
             renderTrack={({props, children}) => (
                 <div
@@ -33,7 +33,7 @@ const PriceRange: React.FC<PropsType> =props=> {
                                 values: values,
                                 colors: ['#ccc', 'yellow', '#ccc'],
                                 min: 0,
-                                max: 10,
+                                max: 100,
                             }),
                             alignSelf: 'center'}}>
                         {children}

@@ -11,8 +11,8 @@ const initialState: InitialStateType = {
     userIdAfterRadio: '',
     packName: '',
     sortPacks:'',
-    maxCardsCount: 9,
-    minCardsCount: 0,
+    max: 4,
+    min: 0,
 
 }
 
@@ -33,7 +33,7 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
         case "TABLE/SORT-PACKS":
             return {...state, sortPacks: action.sortPacks}
         case "TABLE/SET-CARDS-COUNT":
-            return {...state, maxCardsCount: action.maxCardsCount, minCardsCount: action.minCardsCount}
+            return {...state, max: action.max, min: action.min}
         default:
             return state
     }
@@ -47,8 +47,8 @@ type InitialStateType = {
     userIdAfterRadio: string
     packName: string
     sortPacks: string
-    minCardsCount: number
-    maxCardsCount: number
+    min: number
+    max: number
 
 }
 
@@ -72,8 +72,8 @@ export const setUserIdAfterRadioAC = (userIdAfterRadio: string) =>
 export const sortPacksAC = (sortPacks: string) =>
     ({type: 'TABLE/SORT-PACKS', sortPacks} as const)
 
-export const setCardsCountAC = (minCardsCount: number,maxCardsCount: number ) =>  //минимальное и максимальное число карт
-    ({type: 'TABLE/SET-CARDS-COUNT', minCardsCount, maxCardsCount,} as const)
+export const setCardsCountAC = (min: number,max: number ) =>  //минимальное и максимальное число карт
+    ({type: 'TABLE/SET-CARDS-COUNT', min, max,} as const)
 
 export const getCardsPackTC = () => {
     return (dispatch: Dispatch<ActionType>, getState: () => AppStoreType) => {
@@ -83,10 +83,11 @@ export const getCardsPackTC = () => {
         const pageCount = getState().table.pageCount.toString()
         const userIdAfterRadio = getState().table.userIdAfterRadio
         const sortPacks = getState().table.sortPacks
-        const minCardsCount = getState().table.minCardsCount
-        const maxCardsCount = getState().table.maxCardsCount
+        const min = getState().table.min
+        const max = getState().table.max
+
         cardsAPI.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount,
-            packName, sortPacks, minCardsCount, maxCardsCount,)
+            packName, sortPacks, min, max,)
             .then((res) => {
                 dispatch(setCardsAC(res.data.cardPacks))
                 dispatch(setTotalCountAC(res.data.cardPacksTotalCount))

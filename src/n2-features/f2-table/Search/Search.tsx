@@ -9,7 +9,8 @@ import PriceRange from "../Range/Range";
 const Search = () => {
     const dispatch = useDispatch()
     const [state, setState] = useState('')
-    const [values, setValues] = useState([0, 10]);
+
+    const [values, setValues] = useState([0, 100]);
     const currentHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setState(e.currentTarget.value)
     }
