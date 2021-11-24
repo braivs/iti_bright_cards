@@ -51,6 +51,7 @@ export const Table = () => {
                                   // _id: "619ccba94f185200047ad5ad". Later will fix.
             getCardsTC()
         }
+        dispatch(getCardsTC())
     }, [profileOrPublic, pageCount, page, packName, packid])
 
     const addPackButtonHandler = () => {

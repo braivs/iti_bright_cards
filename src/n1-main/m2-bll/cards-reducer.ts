@@ -28,10 +28,10 @@ export const setActiveCardPackAC = (activeCardsPackId: string) =>
 export const getCardsTC = (): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
         const cardsPack_id = getState().cards.activeCardsPackId
-        debugger
         cardsAPI.getCards(cardsPack_id)
             .then(res => {
-                console.log('getCardsTC then:', res)
+
+                    console.log('getCardsTC then:', res)
             })
             .catch(res => {
                 console.log('getCardsTC catch:', res.response.data.error)

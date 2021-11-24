@@ -48,7 +48,7 @@ export const cardsAPI = {
         return instance.put('cards/pack', dataForPost)
     },
     getCards(cardsPack_id: string) {
-        return instance.get('/cards/card', {params: {cardsPack_id}})
+        return instance.get<ResponseType>('/cards/card', {params: {cardsPack_id}})
     },
     addCard(cardsPack_id: string) {
         const dataForPost = {
@@ -71,12 +71,10 @@ export const cardsAPI = {
     },
 }
 
-type ResponseType = {
+type ResponseType<D = {}> = {
     info: string
     response: {
-        data: {
-            error: string
-        }
+        data: D
     }
 }
 
@@ -120,4 +118,21 @@ type updateCardsPostType = {
         _id: string
         name?: string // не обязательно
     }
+}
+
+type cardType = {
+    answer: string
+    cardsPack_id: string
+    comments: string
+    created: string
+    grade: number
+    more_id: string
+    question: string
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    __v: number
+    _id: string
 }
