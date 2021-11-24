@@ -13,7 +13,7 @@ const PriceRange: React.FC<PropsType> =props=> {
             <h3>amount of cards</h3>
         <Range
             values={values}
-            step={0.1}
+            step={1}
             min={0}
             max={100}
             onChange={values => setValues(values)}
