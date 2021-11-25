@@ -15,7 +15,7 @@ import Pagination from "./Pagination/Pagination";
 import Search from "./Search/Search";
 import {Settings} from "./Settings/Settings";
 import {TableContent} from "./TableContent/TableContent";
-import {useParams} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import {getCardsTC} from "../../n1-main/m2-bll/cards-reducer";
 import {v1} from "uuid";
 
@@ -134,7 +134,7 @@ export const Table = () => {
         return {
             id: e._id,
             element: [
-                e.name,
+                <NavLink className={s.item} exact to={`table/1`}>{e.name}</NavLink>,
                 e.cardsCount,
                 e.updated,
                 <div><SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
