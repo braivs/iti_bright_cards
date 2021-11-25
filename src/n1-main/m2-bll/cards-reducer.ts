@@ -23,12 +23,15 @@ type InitialStateType = {
 export const setCardsAC = (cards: Array<CardType>) =>
     ({type: 'CARDS/SET-CARDS', cards} as const)
 
+//todo: need to fix @ts-ignore here
 export const getCardsTC = (cardsPack_id: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
         cardsAPI.getCards(cardsPack_id)
             .then(res => {
+                console.log('getCardsTC then:', res.data)
+                // @ts-ignore
+                setCardsAC(res.data.cards)
 
-                    console.log('getCardsTC then:', res.data)
             })
             .catch(res => {
                 console.log('getCardsTC catch:', res.response.data.error)
@@ -58,7 +61,6 @@ export const addCardTC = (cardsPack_id: string): AppThunk => {
             })
     }
 }
-
 
 
 export const deleteCardTC = (cardsPack_id: string): AppThunk => {

@@ -32,11 +32,13 @@ export const Table = () => {
     const sortPacks = useSelector<AppStoreType, string>(state => state.table.sortPacks)
     const min = useSelector<AppStoreType, number>(state => state.table.min)
     const max = useSelector<AppStoreType, number>(state => state.table.max)
+    const cards = useSelector<AppStoreType, Array<CardType>>(state => state.cards.cards)
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
     const {packid} = useParams<{ packid: string }>();
 
     const selectedCardsPack = cardsPacks.find(e => e._id === packid)
+
 
     useEffect(() => {
         if (profileOrPublic === 'Public') {
@@ -55,6 +57,7 @@ export const Table = () => {
             console.log('packid', packid)
             dispatch(getCardsTC(packid))
         }
+        console.log('!!!cards',cards)
     }, [packid])
 
     const addPackButtonHandler = () => {
@@ -134,7 +137,7 @@ export const Table = () => {
         return {
             id: e._id,
             element: [
-                <NavLink className={s.item} exact to={`table/1`}>{e.name}</NavLink>,
+                <NavLink className={s.item} exact to={`/table/${e._id}`}>{e.name}</NavLink>,
                 e.cardsCount,
                 e.updated,
                 <div><SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
@@ -144,7 +147,11 @@ export const Table = () => {
         }
     })
 
-    const cardsHardMapped = cardsHard.map(e => {
+    /*const cardsHardMapped = cardsHard.map(e => {
+        return {id: e._id, element: [e.question, e.answer, e.created]}
+    })*/
+
+    const cardsHardMapped = cards.map(e => {
         return {id: e._id, element: [e.question, e.answer, e.created]}
     })
 
