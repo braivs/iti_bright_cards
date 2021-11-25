@@ -81,18 +81,22 @@ type ResponseType<D = {}> = {
 }
 
 export type CardsPackType = {
-    _id: string
-    user_id: string
+    cardsCount: number
+    created: string
+    deckCover?: string
+    grade: number // средняя оценка карточек
+    more_id: string
     name: string
     path: string // папка
-    cardsCount: number
-    grade: number // средняя оценка карточек
-    shots: number // количество попыток
+    private: boolean
     rating: number // лайки
+    shots: number // количество попыток
     type: string // ещё будет "folder" (папка)
-    created: string
     updated: string
+    user_id: string
+    user_name: string
     __v: number
+    _id: string
 }
 
 type CardsResponseType = {
