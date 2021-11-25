@@ -51,8 +51,9 @@ export const Table = () => {
         // dispatch(getCardsTC())
     }, [profileOrPublic, pageCount, page, packName, sortPacks, min, max])
 
+    // this doesn't work, when packId changed in the
     useEffect(() => {
-
+        console.log(packid)
         if (!!packid) {
             console.log('packid', packid)
             dispatch(getCardsTC(packid))
@@ -146,10 +147,6 @@ export const Table = () => {
             ]
         }
     })
-
-    /*const cardsHardMapped = cardsHard.map(e => {
-        return {id: e._id, element: [e.question, e.answer, e.created]}
-    })*/
 
     const cardsHardMapped = cards.map(e => {
         return {id: e._id, element: [e.question, e.answer, e.created]}

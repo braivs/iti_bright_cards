@@ -30,7 +30,7 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => {
             .then(res => {
                 console.log('getCardsTC then:', res.data)
                 // @ts-ignore
-                setCardsAC(res.data.cards)
+                dispatch(setCardsAC(res.data.cards))
 
             })
             .catch(res => {
