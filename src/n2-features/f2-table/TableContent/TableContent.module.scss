@@ -29,6 +29,13 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
+
+            div {
+                width: 200px;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
         }
     }
 }

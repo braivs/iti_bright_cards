@@ -3,10 +3,10 @@ import sContainer from '../../n1-main/m1-ui/common/components/Container.module.s
 import s from './Table.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {
-    addCardsPackTC,
+    addCardsPackTC, deleteCardsPackTC,
     getCardsPackTC,
     setPageCountAC,
-    setUserIdAfterRadioAC
+    setUserIdAfterRadioAC, updateCardPackTC
 } from "../../n1-main/m2-bll/table-reducer";
 import {AppStoreType} from "../../n1-main/m2-bll/store";
 import {CardsPackType, CardType} from "../../n1-main/m2-bll/api/cards-api";
@@ -71,7 +71,7 @@ export const Table = () => {
         {id: '1', element: 'Name'},
         {id: '2', element: 'cardsCount'},
         {id: '3', element: 'updated'},
-        {id: '4', element: <SuperButton className={s.button} onClick={addPackButtonHandler}>Add CardPack</SuperButton>},
+        {id: '4', element: <SuperButton onClick={addPackButtonHandler}>Add CardPack</SuperButton>},
     ]
 
     const CardsHeader: TableHeaderModelType = [
@@ -87,42 +87,6 @@ export const Table = () => {
 
     // hardcoded arrays of card packs and cards, just for practice
 
-    const cardsPackHard: Array<CardsPackType> = [
-        {
-            cardsCount: 0,
-            created: "2021-11-25T14:16:15.666Z",
-            grade: 0,
-            more_id: "618d3fbc2e34470004348291",
-            name: "Dimasik",
-            path: "/master",
-            private: false,
-            rating: 0,
-            shots: 0,
-            type: "pack",
-            updated: "2021-11-25T14:16:15.666Z",
-            user_id: "618d3fbc2e34470004348291",
-            user_name: "Dva stula",
-            __v: 0,
-            _id: "619f9aaf23b2bc000423bcfa"
-        },
-        {
-            cardsCount: 0,
-            created: "2021-11-24T16:32:15.931Z",
-            grade: 0,
-            more_id: "618f7b3ada4cff00045585f6",
-            name: "BrightPack",
-            path: "/def",
-            private: false,
-            rating: 0,
-            shots: 0,
-            type: "pack",
-            updated: "2021-11-24T16:32:15.931Z",
-            user_id: "618f7b3ada4cff00045585f6",
-            user_name: "brightwiths@gmail.com",
-            __v: 0,
-            _id: "619e690f77b5760fa0b42b3b"
-        }
-    ]
     const cardsHard: Array<CardType> = [
         {
             answer: "no answer",
@@ -158,17 +122,34 @@ export const Table = () => {
         }
     ]
 
+    const delCardsPackHandler = (cardPackId: string) => {
+        dispatch(deleteCardsPackTC(cardPackId))
+    }
+    const updateCardsPackHandler = (cardPackId: string) => {
+        dispatch(updateCardPackTC(cardPackId, 'BrightUpdatedName'))
+    }
+
     // remapping arrays for TableContent
-    const cardsPackHardMapped = cardsPacks.map(e => {
-        return { id: e._id, element: [e.name, e.cardsCount, e.updated] }
+    const cardsPackMapped = cardsPacks.map(e => {
+        return {
+            id: e._id,
+            element: [
+                e.name,
+                e.cardsCount,
+                e.updated,
+                <div><SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
+                    <SuperButton className={s.button} onClick={() => updateCardsPackHandler(e._id)}>update</SuperButton>
+                </div>
+            ]
+        }
     })
 
     const cardsHardMapped = cardsHard.map(e => {
-        return { id: e._id, element: [e.question, e.answer, e.created] }
+        return {id: e._id, element: [e.question, e.answer, e.created]}
     })
 
 
-    console.log('cardsPackHardMapped', cardsPackHardMapped)
+    console.log('cardsPackMapped', cardsPackMapped)
     console.log('cardsHardMapped', cardsHardMapped)
 
 
@@ -182,7 +163,7 @@ export const Table = () => {
                       onChangeProfileOrPublic={onChangeProfileOrPublic}
             />
 
-            <TableContent headerModel={CardsPackHeader} bodyModel={cardsPackHardMapped}/>
+            <TableContent headerModel={CardsPackHeader} bodyModel={cardsPackMapped}/>
             <Pagination/>
 
             <h1>This is table of Cards for selected Card Pack.</h1>

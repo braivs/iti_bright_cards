@@ -7,7 +7,7 @@ import {v1} from "uuid";
 
 type BodyType = {
     id: string,
-    element: Array<string | number>
+    element: Array<string | number | JSX.Element>
 }
 type PropsType = {
     headerModel: TableHeaderModelType
@@ -27,10 +27,6 @@ export const TableContent: React.FC<PropsType> = (props) => {
                 </div>)}
             </div>
             <div className={s.tableBody}>
-                {/*{props.bodyModel.map(m => <CardsPack key={m._id} _id={m._id} Name={m.name} cardsCount={m.cardsCount}
-                                                 updated={m.updated} pageCount={pageCount}
-                                                 userID={userIdAfterRadio}
-                />)}*/}
                 {props.bodyModel.map(e => {
                     return <div className={s.bodyModel} key={e.id}>{
                         e.element.map(e => {
