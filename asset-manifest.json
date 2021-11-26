@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/iti_bright_cards/static/css/main.7e9a4267.chunk.css",
-    "main.js": "/iti_bright_cards/static/js/main.c579568e.chunk.js",
-    "main.js.map": "/iti_bright_cards/static/js/main.c579568e.chunk.js.map",
+    "main.css": "/iti_bright_cards/static/css/main.5b042b2a.chunk.css",
+    "main.js": "/iti_bright_cards/static/js/main.9ceebed5.chunk.js",
+    "main.js.map": "/iti_bright_cards/static/js/main.9ceebed5.chunk.js.map",
     "runtime-main.js": "/iti_bright_cards/static/js/runtime-main.de0f1e27.js",
     "runtime-main.js.map": "/iti_bright_cards/static/js/runtime-main.de0f1e27.js.map",
     "static/js/2.ccf50281.chunk.js": "/iti_bright_cards/static/js/2.ccf50281.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.b3bd048e.chunk.js": "/iti_bright_cards/static/js/3.b3bd048e.chunk.js",
     "static/js/3.b3bd048e.chunk.js.map": "/iti_bright_cards/static/js/3.b3bd048e.chunk.js.map",
     "index.html": "/iti_bright_cards/index.html",
-    "static/css/main.7e9a4267.chunk.css.map": "/iti_bright_cards/static/css/main.7e9a4267.chunk.css.map",
+    "static/css/main.5b042b2a.chunk.css.map": "/iti_bright_cards/static/css/main.5b042b2a.chunk.css.map",
     "static/js/2.ccf50281.chunk.js.LICENSE.txt": "/iti_bright_cards/static/js/2.ccf50281.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.de0f1e27.js",
     "static/js/2.ccf50281.chunk.js",
-    "static/css/main.7e9a4267.chunk.css",
-    "static/js/main.c579568e.chunk.js"
+    "static/css/main.5b042b2a.chunk.css",
+    "static/js/main.9ceebed5.chunk.js"
   ]
 }
