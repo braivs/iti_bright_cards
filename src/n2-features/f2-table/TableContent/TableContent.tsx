@@ -22,10 +22,9 @@ export const TableContent: React.FC<PropsType> = (props) => {
     const pageCount = useSelector<AppStoreType, number>(state => state.table.pageCount).toString()
     return (
         <div className={s.tableContent}>
-            <SortPacks/>
             <div className={s.tableHeader}>
                 {props.headerModel.map(m => <div key={m.id}>
-                    {m.element}
+                    {m.element === 'updated' ? <SortPacks/> : m.element}
                 </div>)}
             </div>
             <div className={s.tableBody}>
