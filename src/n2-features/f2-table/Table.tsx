@@ -16,7 +16,7 @@ import Search from "./Search/Search";
 import {Settings} from "./Settings/Settings";
 import {TableContent} from "./TableContent/TableContent";
 import {NavLink, useParams} from "react-router-dom";
-import {getCardsTC} from "../../n1-main/m2-bll/cards-reducer";
+import {addCardTC, deleteCardTC, getCardsTC, updateCardTC} from "../../n1-main/m2-bll/cards-reducer";
 import {v1} from "uuid";
 
 export const Table = () => {
@@ -65,6 +65,10 @@ export const Table = () => {
         dispatch(addCardsPackTC('BrightPack'))
     }
 
+    const addCardButtonHandler = () => {
+        dispatch(addCardTC(packid))
+    }
+
     const setPageCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (Number(e.currentTarget.value) < 1) e.currentTarget.value = '1'
         dispatch(setPageCountAC(Number(e.currentTarget.value)))
@@ -82,55 +86,26 @@ export const Table = () => {
         {id: '1', element: 'answer'},
         {id: '2', element: 'question'},
         {id: '3', element: 'created'},
+        {id: '4', element: <SuperButton onClick={addCardButtonHandler}>Add Card</SuperButton>}
     ]
 
     let cardHeader = CardsHeader.map(el => {
         return {id: v1(), element: el.element}
     })
 
-
-    // hardcoded arrays of card packs and cards, just for practice
-
-    const cardsHard: Array<CardType> = [
-        {
-            answer: "no answer",
-            cardsPack_id: "619e58f925d1300ce7e09a17",
-            comments: "",
-            created: "2021-11-25T11:56:00.841Z",
-            grade: 0,
-            more_id: "6194e16524fbdc00040782c2",
-            question: "hgjhghf",
-            rating: 0,
-            shots: 0,
-            type: "card",
-            updated: "2021-11-25T11:56:00.841Z",
-            user_id: "6194e16524fbdc00040782c2",
-            __v: 0,
-            _id: "619f79d0fef41c1604601d9b",
-        },
-        {
-            answer: "no answer",
-            cardsPack_id: "619e58f925d1300ce7e09a17",
-            comments: "",
-            created: "2021-11-25T11:55:52.910Z",
-            grade: 0,
-            more_id: "6194e16524fbdc00040782c2",
-            question: "What is it?",
-            rating: 0,
-            shots: 0,
-            type: "card",
-            updated: "2021-11-25T11:55:52.910Z",
-            user_id: "6194e16524fbdc00040782c2",
-            __v: 0,
-            _id: "619f79c8fef41c1604601d9a",
-        }
-    ]
-
     const delCardsPackHandler = (cardPackId: string) => {
         dispatch(deleteCardsPackTC(cardPackId))
     }
     const updateCardsPackHandler = (cardPackId: string) => {
         dispatch(updateCardPackTC(cardPackId, 'BrightUpdatedName'))
+    }
+
+    const delCardsHandler = (cardId: string) => {
+        dispatch(deleteCardTC(cardId))
+    }
+
+    const updateCardsHandler = (cardId: string) => {
+        dispatch(updateCardTC(cardId))
     }
 
     // remapping arrays for TableContent
@@ -148,13 +123,22 @@ export const Table = () => {
         }
     })
 
-    const cardsHardMapped = cards.map(e => {
-        return {id: e._id, element: [e.question, e.answer, e.created]}
+    const cardsMapped = cards.map(e => {
+        return {id: e._id,
+            element: [
+                e.question,
+                e.answer,
+                e.created,
+                <div>
+                    <SuperButton className={s.button} onClick={() => delCardsHandler(e._id)}>del</SuperButton>
+                    <SuperButton className={s.button} onClick={() => updateCardsHandler(e._id)}>update</SuperButton>
+                </div>
+            ]}
     })
 
 
     console.log('cardsPackMapped', cardsPackMapped)
-    console.log('cardsHardMapped', cardsHardMapped)
+    console.log('cardsMapped', cardsMapped)
 
 
     return (
@@ -186,7 +170,7 @@ export const Table = () => {
                     <div className={s.elementValue}>{packid}</div>
                 </div>
             </div>
-            <TableContent headerModel={cardHeader} bodyModel={cardsHardMapped}/>
+            <TableContent headerModel={cardHeader} bodyModel={cardsMapped}/>
 
 
             {/**/}
