@@ -13,7 +13,9 @@ import {TableContent} from "./TableContent";
 const Cards = () => {
     const {packid} = useParams<{ packid: string }>();
     const dispatch = useDispatch()
+
     const cards = useSelector<AppStoreType, Array<CardType>>(state => state.cards.cards)
+    const userID = useSelector<AppStoreType, string>(state => state.profile._id)
 
     useEffect(() => {
         if (!!packid) {
@@ -34,7 +36,6 @@ const Cards = () => {
     }
 
 
-
     const CardsHeader: TableHeaderModelType = [
         {id: '1', element: 'answer'},
         {id: '2', element: 'question'},
@@ -46,16 +47,20 @@ const Cards = () => {
         return {id: v1(), element: el.element}
     })
     const cardsMapped = cards.map(e => {
-        return {id: e._id,
+        return {
+            id: e._id,
             element: [
                 e.question,
                 e.answer,
                 e.created,
-                <div>
-                    <SuperButton className={s.button} onClick={() => delCardsHandler(e._id)}>del</SuperButton>
-                    <SuperButton className={s.button} onClick={() => updateCardsHandler(e._id)}>update</SuperButton>
-                </div>
-            ]}
+                e.user_id === userID
+                    ? <div>
+                        <SuperButton className={s.button} onClick={() => delCardsHandler(e._id)}>del</SuperButton>
+                        <SuperButton className={s.button} onClick={() => updateCardsHandler(e._id)}>update</SuperButton>
+                    </div>
+                    : <div></div>
+            ]
+        }
     })
     return (
         <div>

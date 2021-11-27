@@ -44,8 +44,6 @@ export const Table = () => {
 
     }, [profileOrPublic, pageCount, page, packName, sortPacks, min, max])
 
-    // this doesn't work, when packId changed in the
-
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
     }
@@ -79,9 +77,13 @@ export const Table = () => {
                 <NavLink className={s.item} exact to={`/cards/${e._id}`}>{e.name}</NavLink>,
                 e.cardsCount,
                 e.updated,
-                <div><SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
-                    <SuperButton className={s.button} onClick={() => updateCardsPackHandler(e._id)}>update</SuperButton>
-                </div>
+                e.user_id === userID
+                    ?  <div>
+                            <SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
+                            <SuperButton className={s.button} onClick={() => updateCardsPackHandler(e._id)}>update</SuperButton>
+                       </div>
+                    : <div> </div>
+
             ]
         }
     })

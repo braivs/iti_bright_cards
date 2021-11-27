@@ -70,7 +70,6 @@ export const updateCardTC = (cardId: string): AppThunk => {
 export const deleteCardTC = (cardId: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
         // const packId = getState().table
-
         cardsAPI.deleteCard(cardId)
             .then(res => {
                 dispatch(getCardsTC(cardId))
