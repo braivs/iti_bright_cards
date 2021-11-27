@@ -1,7 +1,6 @@
-import {cardsAPI, CardsPackType, CardType} from "./api/cards-api";
+import {cardsAPI, CardType} from "./api/cards-api";
 import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
-import {getCardsPackTC} from "./table-reducer";
 
 const initialState: InitialStateType = {
     cards: []
@@ -46,7 +45,6 @@ export const addCardTC = (cardsPack_id: string): AppThunk => {
             .then(res => {
                 console.log('addCardTC then:', res)
                 dispatch(getCardsTC(cardsPack_id))
-                dispatch(getCardsPackTC())
             })
             .catch(res => {
                 console.log('addCardTC catch:', res.response.data.error)
@@ -60,6 +58,7 @@ export const updateCardTC = (cardId: string): AppThunk => {
             .then(res => {
                 // dispatch(getCardsTC(cardsPack_id))
                 console.log('updateCardTC then:', res)
+
             })
             .catch(res => {
                 console.log('updateCardTC catch:', res.response.data.error)
@@ -72,7 +71,7 @@ export const deleteCardTC = (cardId: string): AppThunk => {
         // const packId = getState().table
         cardsAPI.deleteCard(cardId)
             .then(res => {
-                dispatch(getCardsTC(cardId))
+                //dispatch(getCardsTC(cardsPack_id))
                 console.log('deleteCardTC then:', res)
             })
             .catch(res => {

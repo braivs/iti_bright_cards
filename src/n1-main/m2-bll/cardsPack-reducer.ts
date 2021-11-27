@@ -1,7 +1,7 @@
 import {Dispatch} from "react";
-import {cardsAPI, CardsPackType} from "./api/cards-api";
 import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
+import {cardsPackAPI, CardsPackType} from "./api/cards-pack-api";
 
 const initialState: InitialStateType = {
     cardPacks: [],
@@ -13,10 +13,11 @@ const initialState: InitialStateType = {
     sortPacks:'',
     max: 4,
     min: 0,
+    selectedCardPackId: ''
 
 }
 
-export const tableReducer = (state = initialState, action: ActionType): InitialStateType => {
+export const cardsPackReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "TABLE/SET-CARD-PACKS":
             return {...state, cardPacks: action.cardPacs}
@@ -34,6 +35,8 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
             return {...state, sortPacks: action.sortPacks}
         case "TABLE/SET-CARDS-COUNT":
             return {...state, max: action.max, min: action.min}
+        case "TABLE/SET-SELECTED-CARD-PACK":
+            return {...state, selectedCardPackId: action.cardPackId}
         default:
             return state
     }
@@ -49,7 +52,7 @@ type InitialStateType = {
     sortPacks: string
     min: number
     max: number
-
+    selectedCardPackId: string
 }
 
 export const setSearchPackNameAC = (packName: string) =>
@@ -76,6 +79,9 @@ export const sortPacksAC = (sortPacks: string) =>
 export const setCardsCountAC = (min: number,max: number ) =>  //минимальное и максимальное число карт
     ({type: 'TABLE/SET-CARDS-COUNT', min, max,} as const)
 
+export const setSelectedCardPack = (cardPackId: string) =>
+    ({type: 'TABLE/SET-SELECTED-CARD-PACK', cardPackId} as const)
+
 export const getCardsPackTC = () => {
     return (dispatch: Dispatch<ActionType>, getState: () => AppStoreType) => {
         const page = getState().table.page
@@ -87,7 +93,7 @@ export const getCardsPackTC = () => {
         const min = getState().table.min
         const max = getState().table.max
 
-        cardsAPI.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount,
+        cardsPackAPI.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount,
             packName, sortPacks, min, max,)
             .then((res) => {
                 dispatch(setCardPacksAC(res.data.cardPacks))
@@ -104,7 +110,7 @@ export const getCardsPackTC = () => {
 
 export const addCardsPackTC = (cardPackName: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        cardsAPI.addCardPack(cardPackName)
+        cardsPackAPI.addCardPack(cardPackName)
             .then(res => {
                 console.log('addCardsPackTC then:', res)
                 dispatch(getCardsPackTC())
@@ -117,7 +123,7 @@ export const addCardsPackTC = (cardPackName: string): AppThunk => {
 
 export const deleteCardsPackTC = (cardPackId: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        cardsAPI.deleteCardPack(cardPackId)
+        cardsPackAPI.deleteCardPack(cardPackId)
             .then(res => {
                 console.log('deleteCardsPackTC then:', res)
                 dispatch(getCardsPackTC())
@@ -130,7 +136,7 @@ export const deleteCardsPackTC = (cardPackId: string): AppThunk => {
 
 export const updateCardPackTC = (cardPackId: string, newName: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        cardsAPI.updateCardPack(cardPackId, newName)
+        cardsPackAPI.updateCardPack(cardPackId, newName)
             .then(res => {
                 console.log('updateCardPackTC then:', res)
                 dispatch(getCardsPackTC())
@@ -151,5 +157,6 @@ type ActionType =
     | ReturnType<typeof sortPacksAC>
     | ReturnType<typeof setCardsCountAC>
     | ReturnType<typeof setSearchPackNameAC>
+    | ReturnType<typeof setSelectedCardPack>
 
 type AppThunk = ThunkAction<void, AppStoreType, unknown, ActionType>

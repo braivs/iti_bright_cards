@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useDispatch} from "react-redux";
-import {setCardsCountAC, setSearchPackNameAC} from "../../../n1-main/m2-bll/table-reducer";
+import {setCardsCountAC, setSearchPackNameAC} from "../../../n1-main/m2-bll/cardsPack-reducer";
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import style from './Search.module.css'

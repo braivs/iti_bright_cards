@@ -1,7 +1,7 @@
 import React from 'react';
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import style from './SortPacks.module.css';
-import {sortPacksAC} from "../../../n1-main/m2-bll/table-reducer";
+import {sortPacksAC} from "../../../n1-main/m2-bll/cardsPack-reducer";
 import {useDispatch} from "react-redux";
 
 const SortPacks = () => {

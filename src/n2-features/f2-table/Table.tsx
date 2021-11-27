@@ -9,15 +9,15 @@ import {
     setPageCountAC,
     setUserIdAfterRadioAC,
     updateCardPackTC
-} from "../../n1-main/m2-bll/table-reducer";
+} from "../../n1-main/m2-bll/cardsPack-reducer";
 import {AppStoreType} from "../../n1-main/m2-bll/store";
-import {CardsPackType} from "../../n1-main/m2-bll/api/cards-api";
 import SuperButton from "../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import Pagination from "./Pagination/Pagination";
 import Search from "./Search/Search";
 import {Settings} from "./Settings/Settings";
 import {TableContent} from "./TableContent/TableContent";
 import {NavLink} from "react-router-dom";
+import {CardsPackType} from "../../n1-main/m2-bll/api/cards-pack-api";
 
 export const Table = () => {
 
@@ -33,6 +33,9 @@ export const Table = () => {
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
     const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
+
+    //need to add selectedCardPack to redux
+
 
     useEffect(() => {
         if (profileOrPublic === 'Public') {
