@@ -47,6 +47,10 @@ export const Table = () => {
 
     }, [profileOrPublic, pageCount, page, packName, sortPacks, min, max])
 
+    /*useEffect(() => {
+        if
+    },[])*/
+
     const addPackButtonHandler = () => {
         dispatch(addCardsPackTC('BrightPack'))
     }

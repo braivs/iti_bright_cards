@@ -9,6 +9,7 @@ import {addCardTC, deleteCardTC, getCardsTC, updateCardTC} from "../../../n1-mai
 import {TableHeaderModelType} from "../Table";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {TableContent} from "./TableContent";
+import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
 
 const Cards = () => {
     const {packid} = useParams<{ packid: string }>();
@@ -19,12 +20,13 @@ const Cards = () => {
 
     useEffect(() => {
         if (!!packid) {
-            dispatch(getCardsTC(packid))
+            dispatch(setSelectedCardPack(packid))
+            dispatch(getCardsTC())
         }
     }, [packid])
 
     const addCardButtonHandler = () => {
-        dispatch(addCardTC(packid))
+        dispatch(addCardTC())
     }
 
     const delCardsHandler = (cardId: string) => {

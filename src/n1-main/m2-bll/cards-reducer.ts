@@ -24,8 +24,10 @@ export const setCardsAC = (cards: Array<CardType>) =>
     ({type: 'CARDS/SET-CARDS', cards} as const)
 
 //todo: need to fix @ts-ignore here
-export const getCardsTC = (cardsPack_id: string): AppThunk => {
+export const getCardsTC = (): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
+        const cardsPack_id = getState().table.selectedCardPackId;
+
         cardsAPI.getCards(cardsPack_id)
             .then(res => {
                 console.log('getCardsTC then:', res.data)
@@ -39,12 +41,14 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => {
     }
 }
 
-export const addCardTC = (cardsPack_id: string): AppThunk => {
+export const addCardTC = (): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
+        const cardsPack_id = getState().table.selectedCardPackId;
+
         cardsAPI.addCard(cardsPack_id)
             .then(res => {
                 console.log('addCardTC then:', res)
-                dispatch(getCardsTC(cardsPack_id))
+                dispatch(getCardsTC())
             })
             .catch(res => {
                 console.log('addCardTC catch:', res.response.data.error)
@@ -68,10 +72,10 @@ export const updateCardTC = (cardId: string): AppThunk => {
 
 export const deleteCardTC = (cardId: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        // const packId = getState().table
+
         cardsAPI.deleteCard(cardId)
             .then(res => {
-                //dispatch(getCardsTC(cardsPack_id))
+                dispatch(getCardsTC())
                 console.log('deleteCardTC then:', res)
             })
             .catch(res => {
