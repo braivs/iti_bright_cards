@@ -81,7 +81,12 @@ export const Table = () => {
                 e.updated,
                 <div><SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
                     <SuperButton className={s.button} onClick={() => updateCardsPackHandler(e._id)}>update</SuperButton>
-                </div>
+                    <NavLink className={s.item} exact to={`/learn/${e._id}`}> <SuperButton
+                        className={s.button}>Learn</SuperButton>
+                    </NavLink>
+                </div>,
+
+
             ]
         }
     })

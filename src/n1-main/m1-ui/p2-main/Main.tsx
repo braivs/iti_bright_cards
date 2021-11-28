@@ -10,6 +10,7 @@ import {Examples} from "../../../n2-features/f0-test/Examples/Examples";
 import {LoginContainer} from "../../../n2-features/f1-auth/a1-login/LoginContainer";
 import {Table} from "../../../n2-features/f2-table/Table";
 import Cards from "../../../n2-features/f2-table/TableContent/Cards";
+import { LearnContainer } from '../../../n2-features/f2-table/Learn/LearnContainer';
 
 export const Main = () => {
     return (
@@ -18,6 +19,7 @@ export const Main = () => {
             <Switch>
                 <Route path={'/table/:packid?'} render={() => <Table />}/>
                 <Route path={'/cards/:packid?'} render={() => <Cards />}/>
+                <Route path={'/learn/:packid?'} render={() => <LearnContainer />}/>
                 <Route exact path={'/login'} render={() => <LoginContainer/>}/>
                 <Route exact path={'/registration'} render={() => <RegistrationContainer/>}/>
                 <Route exact path={'/profile'} render={() => <Profile/>}/>
