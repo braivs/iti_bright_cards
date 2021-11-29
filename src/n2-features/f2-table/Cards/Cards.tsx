@@ -67,18 +67,6 @@ const Cards = () => {
     return (
         <div>
             <h1>This is table of Cards for selected Card Pack.</h1>
-
-            <div className={s.selectedCardPackInfo}>
-                <div className={s.element}>
-                    <div className={s.elementHeader}>Selected CardPack Name:</div>
-                </div>
-                <div className={s.element}>
-                    <div className={s.elementHeader}>Selected CardPack updated:</div>
-                </div>
-                <div className={s.element}>
-                    <div className={s.elementHeader}>Selected CardPack id:</div>
-                </div>
-            </div>
             <TableContent headerModel={cardHeader} bodyModel={cardsMapped}/>
         </div>
     );
