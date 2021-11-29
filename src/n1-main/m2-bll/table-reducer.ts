@@ -3,6 +3,8 @@ import {cardsAPI, CardsPackType} from "./api/cards-api";
 import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
 
+
+ export type SortPackType = '0name' | '1name' | '0cardsCount' | '1cardsCount' | '0updated'| '1updated'| null
 const initialState: InitialStateType = {
     cardPacks: [],
     cardPacksTotalCount: 10,
@@ -10,7 +12,7 @@ const initialState: InitialStateType = {
     page: 1,
     userIdAfterRadio: '',
     packName: '',
-    sortPacks:'',
+    sortPacks:null,
     max: 4,
     min: 0,
 
@@ -46,7 +48,7 @@ type InitialStateType = {
     page: number
     userIdAfterRadio: string
     packName: string
-    sortPacks: string
+    sortPacks: SortPackType
     min: number
     max: number
 
@@ -70,7 +72,7 @@ export const setPageCountAC = (pageCount: number) =>
 export const setUserIdAfterRadioAC = (userIdAfterRadio: string) =>
     ({type: 'TABLE/SET-USER-ID-AFTER-RADIO', userIdAfterRadio} as const)
 
-export const sortPacksAC = (sortPacks: string) =>
+export const sortPacksAC = (sortPacks: SortPackType) =>
     ({type: 'TABLE/SORT-PACKS', sortPacks} as const)
 
 export const setCardsCountAC = (min: number,max: number ) =>  //минимальное и максимальное число карт

@@ -7,7 +7,7 @@ import {
     deleteCardsPackTC,
     getCardsPackTC,
     setPageCountAC,
-    setUserIdAfterRadioAC,
+    setUserIdAfterRadioAC, SortPackType,
     updateCardPackTC
 } from "../../n1-main/m2-bll/table-reducer";
 import {AppStoreType} from "../../n1-main/m2-bll/store";
@@ -18,6 +18,8 @@ import Search from "./Search/Search";
 import {Settings} from "./Settings/Settings";
 import {TableContent} from "./TableContent/TableContent";
 import {NavLink} from "react-router-dom";
+import SortPacks from "./SortPacks/SortPacks";
+import {isStepDivisible} from "react-range/lib/utils";
 
 export const Table = () => {
 
@@ -27,7 +29,7 @@ export const Table = () => {
     const page = useSelector<AppStoreType, number>(state => state.table.page)
     const packName = useSelector<AppStoreType, string>(state => state.table.packName)
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio in Settings
-    const sortPacks = useSelector<AppStoreType, string>(state => state.table.sortPacks)
+    const sortPacks = useSelector<AppStoreType, SortPackType>(state => state.table.sortPacks)
     const min = useSelector<AppStoreType, number>(state => state.table.min)
     const max = useSelector<AppStoreType, number>(state => state.table.max)
 
@@ -55,11 +57,11 @@ export const Table = () => {
         dispatch(setPageCountAC(Number(e.currentTarget.value)))
     }
 
-    const CardsPackHeader: TableHeaderModelType = [
-        {id: '1', element: 'Name'},
-        {id: '2', element: 'cardsCount'},
-        {id: '3', element: 'updated'},
-        {id: '4', element: <SuperButton onClick={addPackButtonHandler}>Add CardPack</SuperButton>},
+    const CardsPackHeader: HeaderModelElementType[] = [
+        {id: '1', element: <div><span>Name</span><SortPacks upperSort={'0name'} lowerCount={'1name'}/></div>},
+        {id: '2', element: <div><span>cardsCount</span><SortPacks upperSort={'0cardsCount'} lowerCount={'1cardsCount'}/></div>},
+        {id: '3', element: <div><span>updated</span><SortPacks upperSort={'0updated'} lowerCount={'1updated'}/></div>},
+        {id: '4', element:  <SuperButton onClick={addPackButtonHandler}>Add CardPack</SuperButton>},
     ]
     /*const selectedCardsPack = cardsPacks.find(e => e._id === packid)*/
 

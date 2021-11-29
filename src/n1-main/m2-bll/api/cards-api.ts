@@ -1,4 +1,5 @@
 import axios from "axios";
+import {SortPackType} from "../table-reducer";
 
 const settings = {
     withCredentials: true
@@ -23,7 +24,7 @@ export const cardsAPI = {
         return instance.post<ResponseType>('auth/set-new-password', {password, resetPasswordToken})
     },
     getCardsPack(userId: string, pageCount: string, page: number, cardPacksTotalCount: number,
-                 packName: string,sortPacks: string, min: number, max: number) {
+                 packName: string,sortPacks: SortPackType, min: number, max: number) {
         return instance.get<CardsResponseType>(`cards/pack`, {params: {
                 user_id: userId, pageCount, page, cardPacksTotalCount,packName,
                 sortPacks, min, max,
