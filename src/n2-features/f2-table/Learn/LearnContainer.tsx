@@ -49,7 +49,7 @@ export const LearnContainer = () => {
     useEffect(() => {
 
         if (!initial) {
-            dispatch(getCardsTC(packid))
+            dispatch(getCardsTC())
             setInitial(true)
         }
         if (cards.length > 0) {

@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import style from './Pagination.module.css'
-import {setCurrentPageAC} from "../../../n1-main/m2-bll/table-reducer";
+// import {setCurrentPageAC} from "../../../n1-main/m2-bll/table-reducer";
 import SuperButton from '../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton';
+import {setCurrentPageAC} from "../../../n1-main/m2-bll/cardsPack-reducer";
 
 
 type PropsType = {

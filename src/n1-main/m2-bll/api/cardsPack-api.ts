@@ -1,4 +1,5 @@
 import axios from "axios";
+import {SortPackType} from "../cardsPack-reducer";
 
 const settings = {
     withCredentials: true
@@ -12,7 +13,7 @@ export const cardsPackInstance = axios.create({
 
 export const cardsPackApi = {
     getCardsPack(userId: string, pageCount: string, page: number, cardPacksTotalCount: number,
-                 packName: string,sortPacks: string, min: number, max: number) {
+                 packName: string,sortPacks: SortPackType, min: number, max: number) {
         return cardsPackInstance.get<CardsPackResponseType>(`cards/pack`, {params: {
                 user_id: userId, pageCount, page, cardPacksTotalCount,packName,
                 sortPacks, min, max,
