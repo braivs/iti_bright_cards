@@ -1,18 +1,24 @@
 import React from 'react';
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import style from './SortPacks.module.css';
-import {sortPacksAC} from "../../../n1-main/m2-bll/cardsPack-reducer";
-import {useDispatch} from "react-redux";
+import {sortPacksAC, SortPackType} from "../../../n1-main/m2-bll/cardsPack-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStoreType} from "../../../n1-main/m2-bll/store";
 
-const SortPacks = () => {
+
+type PropsType = {
+    upperSort: SortPackType
+    lowerCount: SortPackType
+}
+const SortPacks = (props: PropsType) => {
     const dispatch = useDispatch()
-
-
+    const sortPack = useSelector<AppStoreType, SortPackType>((state)=> state.table.sortPacks)
     const upperSortHandler = () => {
-        dispatch(sortPacksAC('0created'))
+        dispatch(sortPacksAC(props.upperSort))
     }
     const lowerSortHandler = () => {
-        dispatch(sortPacksAC('1created'))
+            dispatch(sortPacksAC(props.lowerCount))
+
     }
     return (
         <div className={style.container}>

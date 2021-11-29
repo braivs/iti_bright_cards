@@ -10,6 +10,7 @@ import {TableHeaderModelType} from "../Table/Table";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {TableContent} from "../TableContent/TableContent";
 import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
+import CardsPagination from "../Pagination/CardsPagination";
 
 const Cards = () => {
     const {packid} = useParams<{ packid: string }>();
@@ -18,12 +19,15 @@ const Cards = () => {
     const cards = useSelector<AppStoreType, Array<CardType>>(state => state.cards.cards)
     const userID = useSelector<AppStoreType, string>(state => state.profile._id)
 
+    let pageCount = useSelector<AppStoreType, number>(state => state.cards.pageCount) // кол-во элементов на одной стр
+    let cardsTotalCount = useSelector<AppStoreType, number>(state => state.cards.cardsTotalCount)// кол-во карт
+    let page = useSelector<AppStoreType, number>(state => state.cards.page)// выбранная страница
     useEffect(() => {
         if (!!packid) {
             dispatch(setSelectedCardPack(packid))
             dispatch(getCardsTC())
         }
-    }, [packid])
+    }, [packid, pageCount, cardsTotalCount, page  ])
 
     const addCardButtonHandler = () => {
         dispatch(addCardTC())
@@ -36,6 +40,7 @@ const Cards = () => {
     const updateCardsHandler = (cardId: string) => {
         dispatch(updateCardTC(cardId, 'UpdatedQuestion'))
     }
+
 
 
     const CardsHeader: TableHeaderModelType = [
@@ -68,6 +73,7 @@ const Cards = () => {
         <div>
             <h1>This is table of Cards for selected Card Pack.</h1>
             <TableContent headerModel={cardHeader} bodyModel={cardsMapped}/>
+            <CardsPagination page={page} pageCount={pageCount} cardsTotalCount={cardsTotalCount}/>
         </div>
     );
 };

@@ -17,9 +17,8 @@ export const TableContent: React.FC<PropsType> = (props) => {
     return (
         <div className={s.tableContent}>
             <div className={s.tableHeader}>
-                {props.headerModel.map(m => <div key={m.id}>
-                    {m.element === 'updated' ? <SortPacks/> : m.element}
-                </div>)}
+                {props.headerModel.map(m =>  <div key={m.id}>
+                    {m.element}</div>)}
             </div>
             <div className={s.tableBody}>
                 {props.bodyModel.map(e => {

@@ -3,6 +3,8 @@ import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
 import {cardsPackApi, CardsPackType} from "./api/cardsPack-api";
 
+
+ export type SortPackType = '0name' | '1name' | '0cardsCount' | '1cardsCount' | '0updated'| '1updated'| null
 const initialState: InitialStateType = {
     cardPacks: [],
     cardPacksTotalCount: 10,
@@ -10,7 +12,7 @@ const initialState: InitialStateType = {
     page: 1,
     userIdAfterRadio: '',
     packName: '',
-    sortPacks:'',
+    sortPacks:null,
     max: 4,
     min: 0,
     selectedCardPackId: ''
@@ -20,7 +22,7 @@ const initialState: InitialStateType = {
 export const cardsPackReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "TABLE/SET-CARD-PACKS":
-            return {...state, cardPacks: action.cardPacs}
+            return {...state, cardPacks: action.cardPack}
         case "TABLE/SET-CURRENT-PAGE":
             return {...state, page: action.page}
         case "TABLE/SET-TOTAL-COUNT":
@@ -49,7 +51,7 @@ type InitialStateType = {
     page: number
     userIdAfterRadio: string
     packName: string
-    sortPacks: string
+    sortPacks: SortPackType
     min: number
     max: number
     selectedCardPackId: string
@@ -58,8 +60,8 @@ type InitialStateType = {
 export const setSearchPackNameAC = (packName: string) =>
     ({type: 'TABLE/SET-SEARCH-PACK-NAME', packName} as const)
 
-export const setCardPacksAC = (cardPacs: Array<CardsPackType>) =>
-    ({type: 'TABLE/SET-CARD-PACKS', cardPacs} as const)
+export const setCardPacksAC = (cardPack: Array<CardsPackType>) =>
+    ({type: 'TABLE/SET-CARD-PACKS', cardPack} as const)
 
 export const setCurrentPageAC = (page: number) =>
     ({type: 'TABLE/SET-CURRENT-PAGE', page} as const)
@@ -73,7 +75,7 @@ export const setPageCountAC = (pageCount: number) =>
 export const setUserIdAfterRadioAC = (userIdAfterRadio: string) =>
     ({type: 'TABLE/SET-USER-ID-AFTER-RADIO', userIdAfterRadio} as const)
 
-export const sortPacksAC = (sortPacks: string) =>
+export const sortPacksAC = (sortPacks: SortPackType) =>
     ({type: 'TABLE/SORT-PACKS', sortPacks} as const)
 
 export const setCardsCountAC = (min: number,max: number ) =>  //минимальное и максимальное число карт
