@@ -13,16 +13,17 @@ export const cardsAPI = {
         }
         return cardsPackInstance.post('cards/card', dataForPost)
     },
-    deleteCard(cardsPack_id: string) {
-        return cardsPackInstance.delete(`cards/card?id=${cardsPack_id}`)
+    deleteCard(card_id: string) {
+        return cardsPackInstance.delete(`cards/card?id=${card_id}`)
     },
-    updateCard(cardsPack_id: string) {
+    updateCard(card_id: string, newQuestion: string) {
         const dataForPost = {
-            cardsPack: {
-                _id: cardsPack_id
+            card: {
+                _id: card_id,
+                question: newQuestion
             }
         }
-        return cardsPackInstance.put('cards/pack', dataForPost)
+        return cardsPackInstance.put('cards/card', dataForPost)
     },
 }
 

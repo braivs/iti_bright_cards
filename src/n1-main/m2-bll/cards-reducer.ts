@@ -56,11 +56,11 @@ export const addCardTC = (): AppThunk => {
     }
 }
 
-export const updateCardTC = (cardId: string): AppThunk => {
-    return (dispatch, getState: () => AppStoreType) => {
-        cardsAPI.updateCard(cardId)
+export const updateCardTC = (cardId: string, newQuestion: string): AppThunk => {
+    return (dispatch) => {
+        cardsAPI.updateCard(cardId, newQuestion)
             .then(res => {
-                // dispatch(getCardsTC(cardsPack_id))
+                dispatch(getCardsTC())
                 console.log('updateCardTC then:', res)
 
             })
@@ -71,7 +71,7 @@ export const updateCardTC = (cardId: string): AppThunk => {
 }
 
 export const deleteCardTC = (cardId: string): AppThunk => {
-    return (dispatch, getState: () => AppStoreType) => {
+    return (dispatch) => {
 
         cardsAPI.deleteCard(cardId)
             .then(res => {

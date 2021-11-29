@@ -34,7 +34,7 @@ const Cards = () => {
     }
 
     const updateCardsHandler = (cardId: string) => {
-        dispatch(updateCardTC(cardId))
+        dispatch(updateCardTC(cardId, 'UpdatedQuestion'))
     }
 
 
@@ -60,7 +60,7 @@ const Cards = () => {
                         <SuperButton className={s.button} onClick={() => delCardsHandler(e._id)}>del</SuperButton>
                         <SuperButton className={s.button} onClick={() => updateCardsHandler(e._id)}>update</SuperButton>
                     </div>
-                    : <div></div>
+                    : <div> </div>
             ]
         }
     })
@@ -71,7 +71,6 @@ const Cards = () => {
             <div className={s.selectedCardPackInfo}>
                 <div className={s.element}>
                     <div className={s.elementHeader}>Selected CardPack Name:</div>
-                    {/*   <div className={s.elementValue}>{selectedCardsPack ? selectedCardsPack.name : ''}</div>*/}
                 </div>
                 <div className={s.element}>
                     <div className={s.elementHeader}>Selected CardPack updated:</div>
