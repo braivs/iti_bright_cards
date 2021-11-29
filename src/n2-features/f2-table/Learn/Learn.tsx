@@ -19,16 +19,22 @@ export const Learn = (props: LearnPropsType) => {
     return <div className={s.body}>
 
         <span>{props.card.question}</span>
-        <div>{hidden ? <SuperButton onClick={() => setHidden(false)}>Answer</SuperButton> : <span>{props.card.answer}</span>}</div>
-<div className={s.grade}><SuperButton className={s.gradeBtn} onClick={()=> ('')}>1</SuperButton>
-    <SuperButton className={s.gradeBtn} onClick={()=> ('')}>2</SuperButton>
-    <SuperButton className={s.gradeBtn} onClick={()=> ('')}>3</SuperButton>
-    <SuperButton className={s.gradeBtn} onClick={()=> ('')}>4</SuperButton>
-    <SuperButton className={s.gradeBtn} onClick={()=> ('')}>5</SuperButton>
 
-</div>
-        <div className={s.btn}><NavLink exact to={`/table`}><SuperButton>Cancel</SuperButton></NavLink>
+        <div>
+            {hidden ? <SuperButton onClick={() => setHidden(false)}>Answer</SuperButton> :
+            <span>{props.card.answer}</span>}
+        </div>
 
+        <div className={s.grade}>
+            <SuperButton className={s.gradeBtn} onClick={() => ('')}>1</SuperButton>
+            <SuperButton className={s.gradeBtn} onClick={() => ('')}>2</SuperButton>
+            <SuperButton className={s.gradeBtn} onClick={() => ('')}>3</SuperButton>
+            <SuperButton className={s.gradeBtn} onClick={() => ('')}>4</SuperButton>
+            <SuperButton className={s.gradeBtn} onClick={() => ('')}>5</SuperButton>
+        </div>
+
+        <div className={s.btn}>
+            <NavLink exact to={`/table`}><SuperButton>Cancel</SuperButton></NavLink>
             <SuperButton onClick={nextCard}>Next</SuperButton>
         </div>
 
