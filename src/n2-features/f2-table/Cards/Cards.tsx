@@ -73,7 +73,7 @@ const Cards = () => {
         <div>
             <h1>This is table of Cards for selected Card Pack.</h1>
             <TableContent headerModel={cardHeader} bodyModel={cardsMapped}/>
-            <CardsPagination page={page} pageCount={pageCount} cardsTotalCount={cardsTotalCount}/>
+            <CardsPagination pageCard={page} pageCountCards={pageCount} cardsTotalCountCards={cardsTotalCount}/>
         </div>
     );
 };

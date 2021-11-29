@@ -6,7 +6,7 @@ import {getCardsPackTC, setCurrentPageAC} from "./cardsPack-reducer";
 
 const initialState: InitialStateType = {
     cards: [],
-    pageCount: 1,
+    pageCount: 3,
     page: 1,
     cardsTotalCount: 20,
 }
@@ -58,9 +58,9 @@ export const getCardsTC = (): AppThunk => {
                 console.log('getCardsTC then:', res.data)
                 // @ts-ignore
                 dispatch(setCardsAC(res.data.cards))
-                dispatch(setTotalCountCardsAC(res.data.cardsTotalCount))
                 dispatch(setCurrentPageCardsAC(res.data.page))
                 dispatch(setPageCountCardsAC(res.data.pageCount))
+                dispatch(setTotalCountCardsAC(res.data.cardsTotalCount))
             })
             .catch(res => {
                 console.log('getCardsTC catch:', res.response.data.error)

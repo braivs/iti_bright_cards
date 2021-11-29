@@ -5,6 +5,7 @@ import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import {CardType} from "../../../n1-main/m2-bll/api/cards-api";
 import {getCardsTC} from "../../../n1-main/m2-bll/cards-reducer";
 import {Learn} from "./Learn";
+import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
 
 
 const getCard = (cards: CardType[]) => {
@@ -38,6 +39,7 @@ export const LearnContainer = () => {
     const {packid} = useParams<{ packid: string }>();
     const dispatch = useDispatch()
     const cards = useSelector<AppStoreType, Array<CardType>>(state => state.cards.cards)
+    let pageCount = useSelector<AppStoreType, number>(state => state.cards.pageCount) // кол-во элементов на одной стр
 
     let [card, setCards] = useState<CardType>(initialCard)
     let [initial, setInitial] = useState(false)
@@ -49,14 +51,17 @@ export const LearnContainer = () => {
     useEffect(() => {
 
         if (!initial) {
+            dispatch(setSelectedCardPack(packid))
             dispatch(getCardsTC())
+
+
             setInitial(true)
         }
         if (cards.length > 0) {
             setCards(getCard(cards))
         }
 
-    }, [packid, cards])
+    }, [packid])
 
 
     return <Learn card={card} nextCard={nextCard}/>

@@ -22,7 +22,6 @@ const SortPacks = (props: PropsType) => {
     }
     return (
         <div className={style.container}>
-            <span className={style.elem}>updated  </span>
             <div className={style.block}>
                 <SuperButton className={style.btn} onClick={upperSortHandler}>
                     ^
