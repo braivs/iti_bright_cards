@@ -74,7 +74,8 @@ export const Table = () => {
     }
 
     const delCardsPackHandler = (cardPackId: string) => {
-        dispatch(deleteCardsPackTC(cardPackId))
+        // dispatch(deleteCardsPackTC(cardPackId))
+        setModalShowHide(true)
     }
 
     const updateCardsPackHandler = (cardPackId: string) => {
@@ -98,12 +99,18 @@ export const Table = () => {
                     ? <div>
                         <SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
                         <SuperButton className={s.button} onClick={() => updateCardsPackHandler(e._id)}>update</SuperButton>
-
+                        <NavLink className={s.item} exact to={`/learn/${e._id}`}> <SuperButton
+                            className={s.button}>Learn</SuperButton>
+                        </NavLink>
                     </div>
-                    : <div> </div>,
-                <NavLink className={s.item} exact to={`/learn/${e._id}`}> <SuperButton
+                    : <div>
+                        <NavLink className={s.item} exact to={`/learn/${e._id}`}> <SuperButton
+                            className={s.button}>Learn</SuperButton>
+                        </NavLink>
+                    </div>,
+                /*<NavLink className={s.item} exact to={`/learn/${e._id}`}> <SuperButton
                     className={s.button}>Learn</SuperButton>
-                </NavLink>
+                </NavLink>*/
 
             ]
         }
@@ -121,8 +128,6 @@ export const Table = () => {
                     <SuperInputText value={cardPackNameInModal} onChangeText={setCardPackNameInModal}/>
                 </div>
                 <SuperButton onClick={addCardPackInModalButtonHandler}>Add Card Pack</SuperButton>
-
-
             </Modal>
             <h1>This is table of Card Packs.</h1>
             <Search/>

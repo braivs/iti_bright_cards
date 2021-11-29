@@ -5,6 +5,7 @@ import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import {CardType} from "../../../n1-main/m2-bll/api/cards-api";
 import {getCardsTC} from "../../../n1-main/m2-bll/cards-reducer";
 import {Learn} from "./Learn";
+import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
 
 
 const getCard = (cards: CardType[]) => {
@@ -49,6 +50,7 @@ export const LearnContainer = () => {
     useEffect(() => {
 
         if (!initial) {
+            dispatch(setSelectedCardPack(packid))
             dispatch(getCardsTC())
             setInitial(true)
         }
