@@ -3,8 +3,9 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import {CardType} from "../../../n1-main/m2-bll/api/cards-api";
-import {getCardsTC} from "../../../n1-main/m2-bll/cards-reducer";
+import {getCardsTC, setPageCountCardsAC} from "../../../n1-main/m2-bll/cards-reducer";
 import {Learn} from "./Learn";
+import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
 
 
 const getCard = (cards: CardType[]) => {
@@ -39,6 +40,7 @@ export const LearnContainer = () => {
     const dispatch = useDispatch()
     const cards = useSelector<AppStoreType, Array<CardType>>(state => state.cards.cards)
 
+
     let [card, setCards] = useState<CardType>(initialCard)
     let [initial, setInitial] = useState(false)
 
@@ -47,8 +49,9 @@ export const LearnContainer = () => {
     }
 
     useEffect(() => {
-
         if (!initial) {
+            dispatch(setPageCountCardsAC(1000))
+            dispatch(setSelectedCardPack(packid))
             dispatch(getCardsTC())
             setInitial(true)
         }
