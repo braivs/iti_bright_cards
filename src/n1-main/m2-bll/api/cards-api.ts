@@ -1,5 +1,5 @@
 import axios from "axios";
-import {cardsPackInstance, CardsPackType} from "./cards-pack-api";
+import {cardsPackInstance, CardsPackType} from "./cardsPack-api";
 
 export const cardsAPI = {
     getCards(cardsPack_id: string) {

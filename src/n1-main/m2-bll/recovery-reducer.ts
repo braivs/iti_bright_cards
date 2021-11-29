@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {cardsPackAPI} from "./api/cards-pack-api";
+import {passwordRecoveryApi} from "./api/passwordRecovery-api";
 
 const initialState = {
     forgot: {
@@ -30,7 +30,7 @@ export const setNewShowInfoAndErrorAC = (infoText: string, errorText: string) =>
 
 export const forgotPasswordTC = (email: string) => {
     return (dispatch: Dispatch<ActionType>) => {
-        cardsPackAPI.recoveryPassword(email)
+        passwordRecoveryApi.recoveryPassword(email)
             .then(res => {
                 dispatch(forgotShowInfoAndErrorAC(res.data.info, ''))
             })
@@ -42,7 +42,7 @@ export const forgotPasswordTC = (email: string) => {
 
 export const setNewPasswordTC = (password: string, resetPasswordToken: string) => {
     return (dispatch: Dispatch<ActionType>) => {
-        cardsPackAPI.changePassword(password, resetPasswordToken)
+        passwordRecoveryApi.changePassword(password, resetPasswordToken)
             .then(res => {
                 dispatch(setNewShowInfoAndErrorAC(res.data.info, ''))
             })

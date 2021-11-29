@@ -1,7 +1,7 @@
 import {Dispatch} from "react";
 import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
-import {cardsPackAPI, CardsPackType} from "./api/cards-pack-api";
+import {cardsPackApi, CardsPackType} from "./api/cardsPack-api";
 
 const initialState: InitialStateType = {
     cardPacks: [],
@@ -93,7 +93,7 @@ export const getCardsPackTC = () => {
         const min = getState().table.min
         const max = getState().table.max
 
-        cardsPackAPI.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount,
+        cardsPackApi.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount,
             packName, sortPacks, min, max,)
             .then((res) => {
                 dispatch(setCardPacksAC(res.data.cardPacks))
@@ -110,7 +110,7 @@ export const getCardsPackTC = () => {
 
 export const addCardsPackTC = (cardPackName: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        cardsPackAPI.addCardPack(cardPackName)
+        cardsPackApi.addCardPack(cardPackName)
             .then(res => {
                 console.log('addCardsPackTC then:', res)
                 dispatch(getCardsPackTC())
@@ -123,7 +123,7 @@ export const addCardsPackTC = (cardPackName: string): AppThunk => {
 
 export const deleteCardsPackTC = (cardPackId: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        cardsPackAPI.deleteCardPack(cardPackId)
+        cardsPackApi.deleteCardPack(cardPackId)
             .then(res => {
                 console.log('deleteCardsPackTC then:', res)
                 dispatch(getCardsPackTC())
@@ -136,7 +136,7 @@ export const deleteCardsPackTC = (cardPackId: string): AppThunk => {
 
 export const updateCardPackTC = (cardPackId: string, newName: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
-        cardsPackAPI.updateCardPack(cardPackId, newName)
+        cardsPackApi.updateCardPack(cardPackId, newName)
             .then(res => {
                 console.log('updateCardPackTC then:', res)
                 dispatch(getCardsPackTC())

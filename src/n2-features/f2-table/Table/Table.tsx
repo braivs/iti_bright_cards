@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import sContainer from '../../n1-main/m1-ui/common/components/Container.module.scss'
+import sContainer from '../../../n1-main/m1-ui/common/components/Container.module.scss'
 import s from './Table.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -9,15 +9,16 @@ import {
     setPageCountAC,
     setUserIdAfterRadioAC,
     updateCardPackTC
-} from "../../n1-main/m2-bll/cardsPack-reducer";
-import {AppStoreType} from "../../n1-main/m2-bll/store";
-import SuperButton from "../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
-import Pagination from "./Pagination/Pagination";
-import Search from "./Search/Search";
-import {Settings} from "./Settings/Settings";
-import {TableContent} from "./TableContent/TableContent";
+} from "../../../n1-main/m2-bll/cardsPack-reducer";
+import {AppStoreType} from "../../../n1-main/m2-bll/store";
+import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
+import Pagination from "../Pagination/Pagination";
+import Search from "../Search/Search";
+import {Settings} from "../Settings/Settings";
+import {TableContent} from "../TableContent/TableContent";
 import {NavLink} from "react-router-dom";
-import {CardsPackType} from "../../n1-main/m2-bll/api/cards-pack-api";
+import {CardsPackType} from "../../../n1-main/m2-bll/api/cardsPack-api";
+import {v1} from "uuid";
 
 export const Table = () => {
 
@@ -61,10 +62,10 @@ export const Table = () => {
     }
 
     const CardsPackHeader: TableHeaderModelType = [
-        {id: '1', element: 'Name'},
-        {id: '2', element: 'cardsCount'},
-        {id: '3', element: 'updated'},
-        {id: '4', element: <SuperButton onClick={addPackButtonHandler}>Add CardPack</SuperButton>},
+        {id: v1(), element: 'Name'},
+        {id: v1(), element: 'cardsCount'},
+        {id: v1(), element: 'updated'},
+        {id: v1(), element: <SuperButton onClick={addPackButtonHandler}>Add CardPack</SuperButton>},
     ]
     /*const selectedCardsPack = cardsPacks.find(e => e._id === packid)*/
 

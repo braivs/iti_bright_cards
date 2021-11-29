@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './TableContent.module.scss'
-import {TableHeaderModelType} from "../Table";
-import {v1} from "uuid";
+import {TableHeaderModelType} from "../Table/Table";
 import SortPacks from "../SortPacks/SortPacks";
 
 type BodyType = {
@@ -24,9 +23,10 @@ export const TableContent: React.FC<PropsType> = (props) => {
             </div>
             <div className={s.tableBody}>
                 {props.bodyModel.map(e => {
+                    let cardPackId = e.id
                     return <div className={s.bodyModel} key={e.id}>{
-                        e.element.map(e => {
-                            return <div key={v1()}>{e}</div>
+                        e.element.map((e, index) => {
+                            return <div key={cardPackId + index}>{e}</div>
                         })
                     }</div>
                 })

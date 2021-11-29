@@ -10,18 +10,7 @@ export const cardsPackInstance = axios.create({
     ...settings
 })
 
-export const cardsPackAPI = {
-    recoveryPassword(email: string) {
-        const dataForPost = {
-            email,
-            from: "Briws <brightwiths@gmail.com>",
-            message: `<div>password recovery link:<a href='http://localhost:3000/#/passwordnew/$token$'>link</a></div>` // todo: need to change this before yarn deploy
-        }
-        return cardsPackInstance.post<ResponseType>('auth/forgot', dataForPost)
-    },
-    changePassword(password: string, resetPasswordToken: string) {
-        return cardsPackInstance.post<ResponseType>('auth/set-new-password', {password, resetPasswordToken})
-    },
+export const cardsPackApi = {
     getCardsPack(userId: string, pageCount: string, page: number, cardPacksTotalCount: number,
                  packName: string,sortPacks: string, min: number, max: number) {
         return cardsPackInstance.get<CardsPackResponseType>(`cards/pack`, {params: {
@@ -51,7 +40,7 @@ export const cardsPackAPI = {
     },
 }
 
-type ResponseType<D = {}> = {
+export type ResponseType<D = {}> = {
     info: string
     response: {
         data: D

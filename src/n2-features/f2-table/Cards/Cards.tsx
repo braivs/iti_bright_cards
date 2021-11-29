@@ -2,13 +2,13 @@ import React, {useEffect} from 'react';
 import {v1} from "uuid";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import s from "../Table.module.scss";
+import s from "../Table/Table.module.scss";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import {CardType} from "../../../n1-main/m2-bll/api/cards-api";
 import {addCardTC, deleteCardTC, getCardsTC, updateCardTC} from "../../../n1-main/m2-bll/cards-reducer";
-import {TableHeaderModelType} from "../Table";
+import {TableHeaderModelType} from "../Table/Table";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
-import {TableContent} from "./TableContent";
+import {TableContent} from "../TableContent/TableContent";
 import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
 
 const Cards = () => {
@@ -39,10 +39,10 @@ const Cards = () => {
 
 
     const CardsHeader: TableHeaderModelType = [
-        {id: '1', element: 'answer'},
-        {id: '2', element: 'question'},
-        {id: '3', element: 'created'},
-        {id: '4', element: <SuperButton onClick={addCardButtonHandler}>Add Card</SuperButton>}
+        {id: v1(), element: 'answer'},
+        {id: v1(), element: 'question'},
+        {id: v1(), element: 'created'},
+        {id: v1(), element: <SuperButton onClick={addCardButtonHandler}>Add Card</SuperButton>}
     ]
 
     let cardHeader = CardsHeader.map(el => {

@@ -8,8 +8,8 @@ import {PasswordRecovery} from "../../../n2-features/f1-auth/a3-passwordRecovery
 import {PasswordNew} from "../../../n2-features/f1-auth/a4-passwordNew/PasswordNew";
 import {Examples} from "../../../n2-features/f0-test/Examples/Examples";
 import {LoginContainer} from "../../../n2-features/f1-auth/a1-login/LoginContainer";
-import {Table} from "../../../n2-features/f2-table/Table";
-import Cards from "../../../n2-features/f2-table/TableContent/Cards";
+import {Table} from "../../../n2-features/f2-table/Table/Table";
+import Cards from "../../../n2-features/f2-table/Cards/Cards";
 
 export const Main = () => {
     return (
