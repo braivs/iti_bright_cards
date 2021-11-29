@@ -50,8 +50,8 @@ export const cardsAPI = {
         }
         return instance.put('cards/pack', dataForPost)
     },
-    getCards(cardsPack_id: string) {
-        return instance.get<ResponseType<cardDataType>>('/cards/card', {params: {cardsPack_id}})
+    getCards(cardsPack_id: string, page: number, pageCount: number, cardsTotalCount: number) {
+        return instance.get<any>('/cards/card', {params: {cardsPack_id, page, pageCount, cardsTotalCount }})
     },
     addCard(cardsPack_id: string) {
         const dataForPost = {

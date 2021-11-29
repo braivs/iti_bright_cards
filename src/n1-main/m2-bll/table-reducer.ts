@@ -21,7 +21,7 @@ const initialState: InitialStateType = {
 export const tableReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "TABLE/SET-CARD-PACKS":
-            return {...state, cardPacks: action.cardPacs}
+            return {...state, cardPacks: action.cardPack}
         case "TABLE/SET-CURRENT-PAGE":
             return {...state, page: action.page}
         case "TABLE/SET-TOTAL-COUNT":
@@ -57,8 +57,8 @@ type InitialStateType = {
 export const setSearchPackNameAC = (packName: string) =>
     ({type: 'TABLE/SET-SEARCH-PACK-NAME', packName} as const)
 
-export const setCardPacksAC = (cardPacs: Array<CardsPackType>) =>
-    ({type: 'TABLE/SET-CARD-PACKS', cardPacs} as const)
+export const setCardPacksAC = (cardPack: Array<CardsPackType>) =>
+    ({type: 'TABLE/SET-CARD-PACKS', cardPack} as const)
 
 export const setCurrentPageAC = (page: number) =>
     ({type: 'TABLE/SET-CURRENT-PAGE', page} as const)

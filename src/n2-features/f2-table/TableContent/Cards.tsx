@@ -9,17 +9,20 @@ import {addCardTC, deleteCardTC, getCardsTC, updateCardTC} from "../../../n1-mai
 import {TableHeaderModelType} from "../Table";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {TableContent} from "./TableContent";
+import CardsPagination from "../Pagination/CardsPagination";
 
 const Cards = () => {
     const {packid} = useParams<{ packid: string }>();
     const dispatch = useDispatch()
     const cards = useSelector<AppStoreType, Array<CardType>>(state => state.cards.cards)
-
+    let pageCount = useSelector<AppStoreType, number>(state => state.cards.pageCount) // кол-во элементов на одной стр
+    let cardsTotalCount = useSelector<AppStoreType, number>(state => state.cards.cardsTotalCount)// кол-во карт
+    let page = useSelector<AppStoreType, number>(state => state.cards.page)// выбранная страница
     useEffect(() => {
         if (!!packid) {
             dispatch(getCardsTC(packid))
         }
-    }, [packid])
+    }, [packid, pageCount, cardsTotalCount, page  ])
 
     const addCardButtonHandler = () => {
         dispatch(addCardTC(packid))
@@ -74,6 +77,7 @@ const Cards = () => {
                 </div>
             </div>
             <TableContent headerModel={cardHeader} bodyModel={cardsMapped}/>
+            <CardsPagination page={page} pageCount={pageCount} cardsTotalCount={cardsTotalCount}/>
         </div>
     );
 };
