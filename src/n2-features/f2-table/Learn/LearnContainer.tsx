@@ -6,6 +6,7 @@ import {CardType} from "../../../n1-main/m2-bll/api/cards-api";
 import {getCardsTC, setPageCountCardsAC} from "../../../n1-main/m2-bll/cards-reducer";
 import {Learn} from "./Learn";
 import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
+import {CardsPackType} from "../../../n1-main/m2-bll/api/cardsPack-api";
 
 
 const getCard = (cards: CardType[]) => {
@@ -39,8 +40,15 @@ export const LearnContainer = () => {
     const {packid} = useParams<{ packid: string }>();
     const dispatch = useDispatch()
     const cards = useSelector<AppStoreType, Array<CardType>>(state => state.cards.cards)
+    const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
 
 
+    const cardsIndex = cardsPacks.find(cp => cp._id === packid)
+    let cardsCount = 0
+    if (cardsIndex) {
+        cardsCount = cardsIndex.cardsCount
+    }
+    console.log(cardsIndex)
     let [card, setCards] = useState<CardType>(initialCard)
     let [initial, setInitial] = useState(false)
 
@@ -50,7 +58,7 @@ export const LearnContainer = () => {
 
     useEffect(() => {
         if (!initial) {
-            dispatch(setPageCountCardsAC(1000))
+            dispatch(setPageCountCardsAC(cardsCount))
             dispatch(setSelectedCardPack(packid))
             dispatch(getCardsTC())
             setInitial(true)
