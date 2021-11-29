@@ -19,6 +19,7 @@ import {TableContent} from "../TableContent/TableContent";
 import {NavLink} from "react-router-dom";
 import {CardsPackType} from "../../../n1-main/m2-bll/api/cardsPack-api";
 import {v1} from "uuid";
+import {Modal} from "../../../n1-main/m1-ui/common/c7-Modal/Modal";
 
 export const Table = () => {
 
@@ -98,6 +99,7 @@ export const Table = () => {
 
     return (
         <div className={`${sContainer.container} ${s.table}`}>
+
             <h1>This is table of Card Packs.</h1>
             <Search/>
             <Settings setPageCountHandler={setPageCountHandler}
