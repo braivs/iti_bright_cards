@@ -21,7 +21,7 @@ import {CardsPackType} from "../../../n1-main/m2-bll/api/cardsPack-api";
 import {v1} from "uuid";
 import {Modal} from "../../../n1-main/m1-ui/common/c7-Modal/Modal";
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
-import SortPacks from "./SortPacks/SortPacks";
+import SortPacks from "../SortPacks/SortPacks";
 import {isStepDivisible} from "react-range/lib/utils";
 
 export const Table = () => {
@@ -43,7 +43,6 @@ export const Table = () => {
     const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
 
 
-
     useEffect(() => {
         if (profileOrPublic === 'Public') {
             dispatch(setUserIdAfterRadioAC(''))
@@ -61,7 +60,10 @@ export const Table = () => {
 
     const CardsPackHeader: TableHeaderModelType = [
         {id: v1(), element: <div><span>Name</span><SortPacks upperSort={'0name'} lowerCount={'1name'}/></div>},
-        {id: v1(), element: <div><span>cardsCount</span><SortPacks upperSort={'0cardsCount'} lowerCount={'1cardsCount'}/></div>},
+        {
+            id: v1(),
+            element: <div><span>cardsCount</span><SortPacks upperSort={'0cardsCount'} lowerCount={'1cardsCount'}/></div>
+        },
         {id: v1(), element: <div><span>updated</span><SortPacks upperSort={'0updated'} lowerCount={'1updated'}/></div>},
         {id: v1(), element: <SuperButton onClick={addCardPackButtonHandler}>Add CardPack</SuperButton>},
     ]
@@ -96,8 +98,12 @@ export const Table = () => {
                     ? <div>
                         <SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
                         <SuperButton className={s.button} onClick={() => updateCardsPackHandler(e._id)}>update</SuperButton>
+
                     </div>
-                    : <div> </div>
+                    : <div> </div>,
+                <NavLink className={s.item} exact to={`/learn/${e._id}`}> <SuperButton
+                    className={s.button}>Learn</SuperButton>
+                </NavLink>
 
             ]
         }
