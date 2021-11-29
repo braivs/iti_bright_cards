@@ -20,6 +20,7 @@ import {NavLink} from "react-router-dom";
 import {CardsPackType} from "../../../n1-main/m2-bll/api/cardsPack-api";
 import {v1} from "uuid";
 import {Modal} from "../../../n1-main/m1-ui/common/c7-Modal/Modal";
+import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 
 export const Table = () => {
 
@@ -34,9 +35,11 @@ export const Table = () => {
     const max = useSelector<AppStoreType, number>(state => state.table.max)
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
+    const [modalShowHide, setModalShowHide] = useState(false)
+    const [cardPackNameInModal, setCardPackNameInModal] = useState('')
+
     const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
 
-    //need to add selectedCardPack to redux
 
 
     useEffect(() => {
@@ -49,34 +52,35 @@ export const Table = () => {
 
     }, [profileOrPublic, pageCount, page, packName, sortPacks, min, max])
 
-    /*useEffect(() => {
-        if
-    },[])*/
-
-    const addPackButtonHandler = () => {
-        dispatch(addCardsPackTC('BrightPack'))
-    }
-
-    const setPageCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (Number(e.currentTarget.value) < 1) e.currentTarget.value = '1'
-        dispatch(setPageCountAC(Number(e.currentTarget.value)))
+    const addCardPackButtonHandler = () => {
+        // dispatch(addCardsPackTC('BrightPack'))
+        setModalShowHide(true)
     }
 
     const CardsPackHeader: TableHeaderModelType = [
         {id: v1(), element: 'Name'},
         {id: v1(), element: 'cardsCount'},
         {id: v1(), element: 'updated'},
-        {id: v1(), element: <SuperButton onClick={addPackButtonHandler}>Add CardPack</SuperButton>},
+        {id: v1(), element: <SuperButton onClick={addCardPackButtonHandler}>Add CardPack</SuperButton>},
     ]
-    /*const selectedCardsPack = cardsPacks.find(e => e._id === packid)*/
+
+    const setPageCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (Number(e.currentTarget.value) < 1) e.currentTarget.value = '1'
+        dispatch(setPageCountAC(Number(e.currentTarget.value)))
+    }
 
     const delCardsPackHandler = (cardPackId: string) => {
         dispatch(deleteCardsPackTC(cardPackId))
     }
+
     const updateCardsPackHandler = (cardPackId: string) => {
         dispatch(updateCardPackTC(cardPackId, 'BrightUpdatedName'))
     }
 
+    const addCardPackInModalButtonHandler = () => {
+        dispatch(addCardsPackTC(cardPackNameInModal))
+        setModalShowHide(false)
+    }
 
     // remapping arrays for TableContent
     const cardsPackMapped = cardsPacks.map(e => {
@@ -87,11 +91,11 @@ export const Table = () => {
                 e.cardsCount,
                 e.updated,
                 e.user_id === userID
-                    ?  <div>
-                            <SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
-                            <SuperButton className={s.button} onClick={() => updateCardsPackHandler(e._id)}>update</SuperButton>
-                       </div>
-                    : <div> </div>
+                    ? <div>
+                        <SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
+                        <SuperButton className={s.button} onClick={() => updateCardsPackHandler(e._id)}>update</SuperButton>
+                    </div>
+                    : <div></div>
 
             ]
         }
@@ -99,7 +103,19 @@ export const Table = () => {
 
     return (
         <div className={`${sContainer.container} ${s.table}`}>
+            <Modal
+                show={modalShowHide}
+                onClose={() => {
+                    setModalShowHide(false)
+                }}>
+                Enter Card Pack name.
+                <div>
+                    <SuperInputText value={cardPackNameInModal} onChangeText={setCardPackNameInModal}/>
+                </div>
+                <SuperButton onClick={addCardPackInModalButtonHandler}>Add Card Pack</SuperButton>
 
+
+            </Modal>
             <h1>This is table of Card Packs.</h1>
             <Search/>
             <Settings setPageCountHandler={setPageCountHandler}
