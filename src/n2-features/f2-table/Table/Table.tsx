@@ -4,9 +4,10 @@ import s from './Table.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {
     getCardsPackTC,
+    setCardsCountAC,
     setPageCountAC,
-    setUserIdAfterRadioAC,
-    SortPackType
+    setSearchPackNameAC,
+    setUserIdAfterRadioAC
 } from "../../../n1-main/m2-bll/cardsPack-reducer";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
@@ -27,6 +28,8 @@ import {
 import {ModalAddCardsPack} from "../../f3-modal/ModalAddCardsPack/ModalAddCardsPack";
 import {ModalDelCardsPack} from "../../f3-modal/ModalDelCardsPack/ModalDelCardsPack";
 import {ModalUpdateCardsPack} from "../../f3-modal/ModalUpdateCardsPack/ModalUpdateCardsPack";
+import {useCustomDebounce} from "../CustomHooks/CustomDebounce";
+import {useCustomRangeDebounce} from "../CustomHooks/CustomRangeDebounse";
 
 export const Table = () => {
 
@@ -35,14 +38,14 @@ export const Table = () => {
     const userID = useSelector<AppStoreType, string>(state => state.profile._id)
     const pageCount = useSelector<AppStoreType, number>(state => state.table.pageCount).toString()
     const page = useSelector<AppStoreType, number>(state => state.table.page)
-    const packName = useSelector<AppStoreType, string>(state => state.table.packName)
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio in Settings
-    const sortPacks = useSelector<AppStoreType, SortPackType>(state => state.table.sortPacks)
-    const min = useSelector<AppStoreType, number>(state => state.table.min)
-    const max = useSelector<AppStoreType, number>(state => state.table.max)
     const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
+    const [searchTerm, setSearchTerm] = useState('');
+    const [values, setValues] = useState<number[]>([0, 100])
+    const debouncedSearchTerm = useCustomDebounce(searchTerm, 2000);
+    const debouncedRange = useCustomRangeDebounce(values, 2000)
 
     useEffect(() => {
         if (profileOrPublic === 'Public') {
@@ -50,9 +53,11 @@ export const Table = () => {
         } else {
             dispatch(setUserIdAfterRadioAC(userID))
         }
+        dispatch(setSearchPackNameAC(debouncedSearchTerm))
+        dispatch(setCardsCountAC(debouncedRange[0], debouncedRange[1]))
         dispatch(getCardsPackTC())
 
-    }, [profileOrPublic, pageCount, page, packName, sortPacks, min, max])
+    }, [profileOrPublic, pageCount, page, debouncedSearchTerm, debouncedRange[0], debouncedRange[1]])
 
     const setPageCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (Number(e.currentTarget.value) < 1) e.currentTarget.value = '1'
@@ -107,11 +112,16 @@ export const Table = () => {
 
     return (
         <div className={`${sContainer.container} ${s.table}`}>
-            <ModalAddCardsPack />
+            <ModalAddCardsPack/>
             <ModalDelCardsPack/>
             <ModalUpdateCardsPack/>
             <h1>This is table of Card Packs.</h1>
-            <Search/>
+            <Search
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                values={values}
+                setValues={setValues}/>
+
             <Settings setPageCountHandler={setPageCountHandler}
                       superRadioArr={superRadioArr}
                       profileOrPublic={profileOrPublic}
