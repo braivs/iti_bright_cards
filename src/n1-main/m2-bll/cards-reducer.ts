@@ -113,8 +113,8 @@ export const deleteCardTC = (cardId: string): AppThunk => {
 
 type ActionType =
     | ReturnType<typeof setCardsAC>
-    |ReturnType<typeof setCurrentPageCardsAC>
-    |ReturnType<typeof setTotalCountCardsAC>
-    |ReturnType<typeof setPageCountCardsAC>
+    | ReturnType<typeof setCurrentPageCardsAC>
+    | ReturnType<typeof setTotalCountCardsAC>
+    | ReturnType<typeof setPageCountCardsAC>
 
 type AppThunk = ThunkAction<void, AppStoreType, unknown, ActionType>

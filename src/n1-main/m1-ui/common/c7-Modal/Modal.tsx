@@ -1,16 +1,22 @@
 import React from 'react';
 import s from './Modal.module.scss'
+import {useDispatch, useSelector} from "react-redux";
+import {AppStoreType} from "../../../m2-bll/store";
+import {setModalShowHideAC} from "../../../m2-bll/modal-reducer";
 
 type ModalPropsType = {
-    show: boolean
-    onClose: () => void
+
 }
 
 export const Modal: React.FC<ModalPropsType> = (props) => {
-    if (!props.show) return null
+    const dispatch = useDispatch()
+
+    const modalShowHide = useSelector<AppStoreType, boolean>(state => state.modal.modalShowHide)
+
+    if (!modalShowHide) return null
 
     const onCloseHandler = () => {
-        props.onClose()
+        dispatch(setModalShowHideAC(false))
     }
 
     return <div className={s.modalBackground}>

@@ -7,6 +7,7 @@ import {authReducer} from "./authReducer";
 import {profileReducer} from "./profileReducer";
 import {cardsPackReducer} from "./cardsPack-reducer";
 import {cardsReducer} from "./cards-reducer";
+import {modalReducer} from "./modal-reducer";
 
 const reducers = combineReducers({
     testReducer: testReducer,
@@ -16,6 +17,7 @@ const reducers = combineReducers({
     profile: profileReducer,
     table: cardsPackReducer,
     cards: cardsReducer,
+    modal: modalReducer,
 })
 
 export const store = createStore(reducers, applyMiddleware(thunkMiddleware))

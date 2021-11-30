@@ -14,16 +14,20 @@
     .modalWindow {
         display: flex;
         position: relative;
-        width: 30%;
-        height: 30%;
+        width: 40%;
+        height: 40%;
         background: rgba(240,217,0, 1);
         z-index: 2;
         justify-content: center;
         align-items: center;
 
         .modalContent {
-            align-self: center;
-            justify-self: center;
+            //align-self: center;
+            //justify-self: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         .close {
             position: absolute;
