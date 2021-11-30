@@ -26,8 +26,8 @@ export const modalReducer = (state = initialState, action: ActionType): InitialS
     }
 }
 
-export const setActiveCardPackAC = (activeCardPackId: string) =>
-    ({type: 'MODAL/SET-ACTIVE-CARDS-PACK', activeCardPack: activeCardPackId} as const)
+export const setActiveCardPackAC = (activeCardPack: string) =>
+    ({type: 'MODAL/SET-ACTIVE-CARDS-PACK', activeCardPack} as const)
 export const closeAllModalsAC = () =>
     ({type: 'MODAL/CLOSE-ALL-MODALS'} as const)
 export const showModalDelCardsPackAC = () =>
