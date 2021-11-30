@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Modal.module.scss'
 import {useDispatch} from "react-redux";
-import {closeAllModalsAC} from "../../n1-main/m2-bll/modal-reducer";
+import {closeAllModalsAC} from "../../../n1-main/m2-bll/modal-reducer";
 
 type ModalPropsType = {
     modalShowHide: boolean

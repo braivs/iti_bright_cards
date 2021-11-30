@@ -3,7 +3,6 @@ import sContainer from '../../../n1-main/m1-ui/common/components/Container.modul
 import s from './Table.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {
-    addCardsPackTC, deleteCardsPackTC,
     getCardsPackTC,
     setPageCountAC,
     setUserIdAfterRadioAC,
@@ -19,19 +18,19 @@ import {TableContent} from "../TableContent/TableContent";
 import {NavLink} from "react-router-dom";
 import {CardsPackType} from "../../../n1-main/m2-bll/api/cardsPack-api";
 import {v1} from "uuid";
-import {Modal} from "../../f3-modal/Modal";
-import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SortPacks from "../SortPacks/SortPacks";
 import {
-    closeAllModalsAC,
     setActiveCardPackAC,
     showModalAddCardPackAC,
     showModalDelCardPackAC
 } from "../../../n1-main/m2-bll/modal-reducer";
+import {ModalAddCardsPack} from "../../f3-modal/ModalAddCardsPack/ModalAddCardsPack";
+import {ModalDelCardsPack} from "../../f3-modal/ModalDelCardsPack/ModalDelCardsPack";
 
 export const Table = () => {
 
     const dispatch = useDispatch()
+
     const userID = useSelector<AppStoreType, string>(state => state.profile._id)
     const pageCount = useSelector<AppStoreType, number>(state => state.table.pageCount).toString()
     const page = useSelector<AppStoreType, number>(state => state.table.page)
@@ -40,13 +39,9 @@ export const Table = () => {
     const sortPacks = useSelector<AppStoreType, SortPackType>(state => state.table.sortPacks)
     const min = useSelector<AppStoreType, number>(state => state.table.min)
     const max = useSelector<AppStoreType, number>(state => state.table.max)
-    const activeCardPack = useSelector<AppStoreType, string>(state => state.modal.activeCardPack) // for modals
-    const modalDelCardPackShowHide = useSelector<AppStoreType, boolean>(state => state.modal.modalDelCardPackShowHide)
-    const modalAddCardPackShowHide = useSelector<AppStoreType, boolean>(state => state.modal.modalAddCardPackShowHide)
+    const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
-
-    const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
 
     useEffect(() => {
         if (profileOrPublic === 'Public') {
@@ -108,47 +103,10 @@ export const Table = () => {
         }
     })
 
-    const ModalAddCardPack = () => {
-        const [cardPackNameInModal, setCardPackNameInModal] = useState('')
-
-        const addCardPackInModalButtonHandler = () => {
-            dispatch(addCardsPackTC(cardPackNameInModal))
-            dispatch(closeAllModalsAC())
-        }
-
-        return <Modal modalShowHide={modalAddCardPackShowHide}>
-            Enter Card Pack name.
-            <div>
-                <SuperInputText value={cardPackNameInModal}
-                                onChangeText={setCardPackNameInModal}/>
-            </div>
-            <SuperButton onClick={addCardPackInModalButtonHandler}>Add Card Pack</SuperButton>
-        </Modal>
-    }
-
-    const ModalDelCardPack = () => {
-        const modalYesDelCardPackHandler = () => {
-            dispatch(deleteCardsPackTC(activeCardPack))
-            dispatch(closeAllModalsAC())
-        }
-        const modalNoDelCardPackHandler = () => {
-            dispatch(closeAllModalsAC())
-
-        }
-
-        return <Modal modalShowHide={modalDelCardPackShowHide}>
-            Are you sure you want to delete the Card Pack?
-            <div>
-                <SuperButton onClick={modalYesDelCardPackHandler}>Yes</SuperButton>
-                <SuperButton onClick={modalNoDelCardPackHandler}>No</SuperButton>
-            </div>
-        </Modal>
-    }
-
     return (
         <div className={`${sContainer.container} ${s.table}`}>
-            <ModalAddCardPack />
-            <ModalDelCardPack/>
+            <ModalAddCardsPack />
+            <ModalDelCardsPack/>
             <h1>This is table of Card Packs.</h1>
             <Search/>
             <Settings setPageCountHandler={setPageCountHandler}
