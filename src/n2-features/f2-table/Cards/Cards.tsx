@@ -11,6 +11,8 @@ import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButto
 import {TableContent} from "../TableContent/TableContent";
 import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
 import CardsPagination from "../Pagination/CardsPagination";
+import {setActiveCardAC, showModalAddCardAC} from "../../../n1-main/m2-bll/modal-reducer";
+import {ModalDelCard} from "../../f3-modal/ModalDelCard/ModalDelCard";
 
 const Cards = () => {
     const {packid} = useParams<{ packid: string }>();
@@ -34,7 +36,9 @@ const Cards = () => {
     }
 
     const delCardsHandler = (cardId: string) => {
-        dispatch(deleteCardTC(cardId))
+        // dispatch(deleteCardTC(cardId))
+        dispatch(setActiveCardAC(cardId))
+        dispatch(showModalAddCardAC())
     }
 
     const updateCardsHandler = (cardId: string) => {
@@ -64,12 +68,13 @@ const Cards = () => {
                         <SuperButton className={s.button} onClick={() => delCardsHandler(e._id)}>del</SuperButton>
                         <SuperButton className={s.button} onClick={() => updateCardsHandler(e._id)}>update</SuperButton>
                     </div>
-                    : <div></div>
+                    : <div> </div>
             ]
         }
     })
     return (
         <div>
+            <ModalDelCard />
             <h1>This is table of Cards for selected Card Pack.</h1>
             <TableContent headerModel={cardHeader} bodyModel={cardsMapped}/>
             <CardsPagination pageCard={page} pageCountCards={pageCount} cardsTotalCountCards={cardsTotalCount}/>
