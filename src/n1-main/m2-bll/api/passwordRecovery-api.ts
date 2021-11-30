@@ -1,6 +1,7 @@
 import {cardsPackInstance} from "./cardsPack-api";
 import {ResponseType} from "./cardsPack-api";
 
+//todo: need to add types
 export const passwordRecoveryApi = {
     recoveryPassword(email: string) {
         const dataForPost = {

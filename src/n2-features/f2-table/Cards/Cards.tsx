@@ -11,8 +11,9 @@ import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButto
 import {TableContent} from "../TableContent/TableContent";
 import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
 import CardsPagination from "../Pagination/CardsPagination";
-import {setActiveCardAC, showModalAddCardAC} from "../../../n1-main/m2-bll/modal-reducer";
+import {setActiveCardAC, showModalAddCardAC, showModalDelCardAC} from "../../../n1-main/m2-bll/modal-reducer";
 import {ModalDelCard} from "../../f3-modal/ModalDelCard/ModalDelCard";
+import {ModalAddCard} from "../../f3-modal/ModalAddCard/ModalAddCard";
 
 const Cards = () => {
     const {packid} = useParams<{ packid: string }>();
@@ -32,13 +33,13 @@ const Cards = () => {
     }, [packid, pageCount, page])
 
     const addCardButtonHandler = () => {
-        dispatch(addCardTC())
+        // dispatch(addCardTC())
+        dispatch(showModalAddCardAC())
     }
 
     const delCardsHandler = (cardId: string) => {
-        // dispatch(deleteCardTC(cardId))
         dispatch(setActiveCardAC(cardId))
-        dispatch(showModalAddCardAC())
+        dispatch(showModalDelCardAC())
     }
 
     const updateCardsHandler = (cardId: string) => {
@@ -50,7 +51,7 @@ const Cards = () => {
         {id: v1(), element: 'answer'},
         {id: v1(), element: 'question'},
         {id: v1(), element: 'created'},
-        {id: v1(), element: <SuperButton onClick={addCardButtonHandler}>Add Card</SuperButton>}
+        {id: v1(), element: <SuperButton onClick={addCardButtonHandler}>Add Card</SuperButton>},
     ]
 
     let cardHeader = CardsHeader.map(el => {
@@ -74,6 +75,7 @@ const Cards = () => {
     })
     return (
         <div>
+            <ModalAddCard />
             <ModalDelCard />
             <h1>This is table of Cards for selected Card Pack.</h1>
             <TableContent headerModel={cardHeader} bodyModel={cardsMapped}/>
@@ -83,3 +85,5 @@ const Cards = () => {
 };
 
 export default Cards;
+
+// todo: need to swap answer and question in table

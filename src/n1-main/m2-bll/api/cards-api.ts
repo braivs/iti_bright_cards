@@ -1,16 +1,16 @@
-import axios from "axios";
 import {cardsPackInstance} from "./cardsPack-api";
-// import {SortPackType} from "../table-reducer";
-import {SortPackType} from "../cardsPack-reducer";
 
+//todo: need to add types
 export const cardsAPI = {
     getCards(cardsPack_id: string, page: number, pageCount: number) {
         return cardsPackInstance.get<any>('/cards/card', {params: {cardsPack_id, page, pageCount}})
     },
-    addCard(cardsPack_id: string) {
+    addCard(cardsPack_id: string, question: string, answer: string) {
         const dataForPost = {
             card: {
-                cardsPack_id
+                cardsPack_id,
+                question,
+                answer
             }
         }
         return cardsPackInstance.post('cards/card', dataForPost)

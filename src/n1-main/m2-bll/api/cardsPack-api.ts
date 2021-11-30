@@ -1,6 +1,7 @@
 import axios from "axios";
 import {SortPackType} from "../cardsPack-reducer";
 
+//todo: need to add types
 const settings = {
     withCredentials: true
 }

@@ -7,6 +7,7 @@ type ModalPropsType = {
     modalShowHide: boolean
 }
 
+
 export const Modal: React.FC<ModalPropsType> = (props) => {
     const dispatch = useDispatch()
 
@@ -25,3 +26,5 @@ export const Modal: React.FC<ModalPropsType> = (props) => {
         </div>
     </div>
 }
+
+// todo: In all modals need to add protect again blank values.

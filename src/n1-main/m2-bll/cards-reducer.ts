@@ -1,8 +1,6 @@
 import {cardsAPI, CardType} from "./api/cards-api";
 import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
-//import {getCardsPackTC, setCurrentPageAC} from "./table-reducer";
-import {getCardsPackTC, setCurrentPageAC} from "./cardsPack-reducer";
 
 const initialState: InitialStateType = {
     cards: [],
@@ -46,7 +44,7 @@ export const setTotalCountCardsAC = (cardsTotalCount: number) =>
 export const setPageCountCardsAC = (pageCount: number) =>
     ({type: 'CARDS/SET-PAGE-COUNT-CARDS', pageCount,} as const)
 
-//todo: need to fix @ts-ignore here
+// todo: need to fix @ts-ignore here
 export const getCardsTC = (): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
         const cardsPack_id = getState().table.selectedCardPackId;
@@ -67,11 +65,11 @@ export const getCardsTC = (): AppThunk => {
     }
 }
 
-export const addCardTC = (): AppThunk => {
+export const addCardTC = (question: string, answer: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
         const cardsPack_id = getState().table.selectedCardPackId;
 
-        cardsAPI.addCard(cardsPack_id)
+        cardsAPI.addCard(cardsPack_id, question, answer)
             .then(res => {
                 console.log('addCardTC then:', res)
                 dispatch(getCardsTC())
