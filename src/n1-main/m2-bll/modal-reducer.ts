@@ -5,7 +5,8 @@ const initialState: InitialStateType = {
     modalUpdateCardsPackShowHide: false,
     activeCardId: '',
     modalDelCardShowHide: false,
-    modalAddCardShowHide: false
+    modalAddCardShowHide: false,
+    modalUpdateCardShowHide: false,
 }
 
 export const modalReducer = (state = initialState, action: ActionType): InitialStateType => {
@@ -14,7 +15,8 @@ export const modalReducer = (state = initialState, action: ActionType): InitialS
             return {...state, activeCardPackId: action.activeCardPackId}
         case 'MODAL/CLOSE-ALL-MODALS':
             return {...state, modalDelCardsPackShowHide: false, modalAddCardsPackShowHide: false,
-                modalUpdateCardsPackShowHide: false, modalDelCardShowHide: false, modalAddCardShowHide: false
+                modalUpdateCardsPackShowHide: false, modalDelCardShowHide: false, modalAddCardShowHide: false,
+                modalUpdateCardShowHide: false
             }
         case 'MODAL/SHOW-MODAL-DEL-CARDS-PACK':
             return {...state, modalDelCardsPackShowHide: true}
@@ -28,6 +30,8 @@ export const modalReducer = (state = initialState, action: ActionType): InitialS
             return {...state, modalDelCardShowHide: true}
         case "MODAL/SHOW-MODAL-ADD-CARD":
             return {...state, modalAddCardShowHide: true}
+        case "MODAL/SHOW-MODAL-UPDATE-CARD":
+            return {...state, modalUpdateCardShowHide: true}
         default:
             return state
     }
@@ -49,6 +53,8 @@ export const setActiveCardAC = (activeCardId: string) =>
     ({type: 'MODAL/SET-ACTIVE-CARD-ID', activeCardId} as const)
 export const showModalAddCardAC = () =>
     ({type: 'MODAL/SHOW-MODAL-ADD-CARD'} as const)
+export const showModalUpdateCardAC = () =>
+    ({type: 'MODAL/SHOW-MODAL-UPDATE-CARD'} as const)
 
 type InitialStateType = {
     activeCardPackId: string
@@ -58,6 +64,7 @@ type InitialStateType = {
     activeCardId: string
     modalDelCardShowHide: boolean
     modalAddCardShowHide: boolean
+    modalUpdateCardShowHide: boolean
 }
 
 type ActionType =
@@ -69,3 +76,6 @@ type ActionType =
     | ReturnType<typeof setActiveCardAC>
     | ReturnType<typeof showModalDelCardAC>
     | ReturnType<typeof showModalAddCardAC>
+    | ReturnType<typeof showModalUpdateCardAC>
+
+// todo: maybe possible to optimize boilerplate code is cases

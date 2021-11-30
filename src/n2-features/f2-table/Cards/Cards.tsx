@@ -5,15 +5,21 @@ import {useParams} from "react-router-dom";
 import s from "../Table/Table.module.scss";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import {CardType} from "../../../n1-main/m2-bll/api/cards-api";
-import {addCardTC, deleteCardTC, getCardsTC, updateCardTC} from "../../../n1-main/m2-bll/cards-reducer";
+import {getCardsTC, updateCardTC} from "../../../n1-main/m2-bll/cards-reducer";
 import {TableHeaderModelType} from "../Table/Table";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {TableContent} from "../TableContent/TableContent";
 import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
 import CardsPagination from "../Pagination/CardsPagination";
-import {setActiveCardAC, showModalAddCardAC, showModalDelCardAC} from "../../../n1-main/m2-bll/modal-reducer";
+import {
+    setActiveCardAC,
+    showModalAddCardAC,
+    showModalDelCardAC,
+    showModalUpdateCardAC
+} from "../../../n1-main/m2-bll/modal-reducer";
 import {ModalDelCard} from "../../f3-modal/ModalDelCard/ModalDelCard";
 import {ModalAddCard} from "../../f3-modal/ModalAddCard/ModalAddCard";
+import {ModalUpdateCard} from "../../f3-modal/ModalUpdateCard/ModalUpdateCard";
 
 const Cards = () => {
     const {packid} = useParams<{ packid: string }>();
@@ -33,7 +39,6 @@ const Cards = () => {
     }, [packid, pageCount, page])
 
     const addCardButtonHandler = () => {
-        // dispatch(addCardTC())
         dispatch(showModalAddCardAC())
     }
 
@@ -43,7 +48,9 @@ const Cards = () => {
     }
 
     const updateCardsHandler = (cardId: string) => {
-        dispatch(updateCardTC(cardId, 'UpdatedQuestion'))
+        // dispatch(updateCardTC(cardId, 'UpdatedQuestion'))
+        dispatch(setActiveCardAC(cardId))
+        dispatch(showModalUpdateCardAC())
     }
 
 
@@ -77,6 +84,7 @@ const Cards = () => {
         <div>
             <ModalAddCard />
             <ModalDelCard />
+            <ModalUpdateCard />
             <h1>This is table of Cards for selected Card Pack.</h1>
             <TableContent headerModel={cardHeader} bodyModel={cardsMapped}/>
             <CardsPagination pageCard={page} pageCountCards={pageCount} cardsTotalCountCards={cardsTotalCount}/>

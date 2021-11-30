@@ -25,7 +25,6 @@ export const ModalUpdateCardsPack = () => {
         setCardPackName(oldCardsPackName)
     }, [oldCardsPackName])
 
-
     const modalUpdateCardsPackShowHide = useSelector<AppStoreType, boolean>(state => state.modal.modalUpdateCardsPackShowHide)
 
     const buttonHandler = () => {

@@ -19,10 +19,10 @@ export const cardsReducer = (state = initialState, action: ActionType): InitialS
             return {...state, cardsTotalCount: action.cardsTotalCount}
         case "CARDS/SET-PAGE-COUNT-CARDS":
             return {...state, pageCount: action.pageCount}
+
         default:
             return state
     }
-
 }
 
 type InitialStateType = {
@@ -34,13 +34,10 @@ type InitialStateType = {
 
 export const setCardsAC = (cards: Array<CardType>) =>
     ({type: 'CARDS/SET-CARDS', cards} as const)
-
 export const setCurrentPageCardsAC = (page: number) =>
     ({type: 'CARDS/SET-CURRENT-PAGE-CARDS', page} as const)
-
 export const setTotalCountCardsAC = (cardsTotalCount: number) =>
     ({type: 'CARDS/SET-TOTAL-COUNT-CARDS', cardsTotalCount,} as const)
-
 export const setPageCountCardsAC = (pageCount: number) =>
     ({type: 'CARDS/SET-PAGE-COUNT-CARDS', pageCount,} as const)
 
@@ -80,9 +77,9 @@ export const addCardTC = (question: string, answer: string): AppThunk => {
     }
 }
 
-export const updateCardTC = (cardId: string, newQuestion: string): AppThunk => {
+export const updateCardTC = (cardId: string, newQuestion: string, newAnswer: string): AppThunk => {
     return (dispatch) => {
-        cardsAPI.updateCard(cardId, newQuestion)
+        cardsAPI.updateCard(cardId, newQuestion, newAnswer)
             .then(res => {
                 dispatch(getCardsTC())
                 console.log('updateCardTC then:', res)
@@ -96,7 +93,6 @@ export const updateCardTC = (cardId: string, newQuestion: string): AppThunk => {
 
 export const deleteCardTC = (cardId: string): AppThunk => {
     return (dispatch) => {
-
         cardsAPI.deleteCard(cardId)
             .then(res => {
                 dispatch(getCardsTC())

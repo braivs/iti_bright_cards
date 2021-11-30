@@ -18,11 +18,12 @@ export const cardsAPI = {
     deleteCard(card_id: string) {
         return cardsPackInstance.delete(`cards/card?id=${card_id}`)
     },
-    updateCard(card_id: string, newQuestion: string) {
+    updateCard(card_id: string, newQuestion: string, newAnswer: string) {
         const dataForPost = {
             card: {
                 _id: card_id,
-                question: newQuestion
+                question: newQuestion,
+                answer: newAnswer,
             }
         }
         return cardsPackInstance.put('cards/card', dataForPost)

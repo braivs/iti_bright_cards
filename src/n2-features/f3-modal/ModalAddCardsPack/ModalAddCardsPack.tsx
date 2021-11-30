@@ -6,6 +6,7 @@ import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/Supe
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
+import {CardType} from "../../../n1-main/m2-bll/api/cards-api";
 
 export const ModalAddCardsPack = () => {
     const dispatch = useDispatch()
