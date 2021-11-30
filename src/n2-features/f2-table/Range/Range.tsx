@@ -1,13 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {getTrackBackground, Range} from 'react-range';
 import style from './Range.module.css'
+import {setCardsCountAC} from "../../../n1-main/m2-bll/cardsPack-reducer";
+import {useCustomRangeDebounce} from "../CustomHooks/CustomRangeDebounse";
+import {useDispatch} from "react-redux";
 
 type  PropsType = {
     values: number[]
     setValues: ([]: number[]) => void
 }
 const PriceRange: React.FC<PropsType> =props=> {
-     const {values, setValues} = props
+    const {values, setValues} = props
+    const dispatch = useDispatch()
+    const debouncedRange = useCustomRangeDebounce(values, 2000)
+
+    useEffect(() => {
+        dispatch(setCardsCountAC(debouncedRange[0], debouncedRange[1]))
+    }, [debouncedRange[0], debouncedRange[1]])
+
     return (
         <div className={style.block}>
             <h3>amount of cards</h3>

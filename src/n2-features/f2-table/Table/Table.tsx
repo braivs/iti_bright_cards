@@ -6,7 +6,7 @@ import {
     addCardsPackTC,
     deleteCardsPackTC,
     getCardsPackTC,
-    setPageCountAC, setSearchPackNameAC,
+    setPageCountAC,
     setUserIdAfterRadioAC, SortPackType,
     updateCardPackTC
 } from "../../../n1-main/m2-bll/cardsPack-reducer";
@@ -24,6 +24,7 @@ import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/Supe
 import SortPacks from "../SortPacks/SortPacks";
 import {isStepDivisible} from "react-range/lib/utils";
 import {useDebounce} from "use-debounce";
+import {useCustomDebounce} from "../CustomHooks/CustomDebounce";
 
 export const Table = () => {
 
@@ -42,15 +43,17 @@ export const Table = () => {
     const [cardPackNameInModal, setCardPackNameInModal] = useState('')
     const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
 
+
     useEffect(() => {
         if (profileOrPublic === 'Public') {
             dispatch(setUserIdAfterRadioAC(''))
         } else {
             dispatch(setUserIdAfterRadioAC(userID))
         }
-        dispatch(getCardsPackTC())
+         dispatch(getCardsPackTC())
 
-    }, [profileOrPublic, pageCount, page, /*packName,*/ sortPacks, min, max])
+    }, [profileOrPublic, pageCount, page, packName, sortPacks, min, max])
+
 
     const addCardPackButtonHandler = () => {
         // dispatch(addCardsPackTC('BrightPack'))
