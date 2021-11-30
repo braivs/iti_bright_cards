@@ -3,9 +3,10 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import {CardType} from "../../../n1-main/m2-bll/api/cards-api";
-import {getCardsTC} from "../../../n1-main/m2-bll/cards-reducer";
+import {getCardsTC, setPageCountCardsAC} from "../../../n1-main/m2-bll/cards-reducer";
 import {Learn} from "./Learn";
 import {setSelectedCardPack} from "../../../n1-main/m2-bll/cardsPack-reducer";
+import {CardsPackType} from "../../../n1-main/m2-bll/api/cardsPack-api";
 
 
 const getCard = (cards: CardType[]) => {
@@ -39,8 +40,15 @@ export const LearnContainer = () => {
     const {packid} = useParams<{ packid: string }>();
     const dispatch = useDispatch()
     const cards = useSelector<AppStoreType, Array<CardType>>(state => state.cards.cards)
-    let pageCount = useSelector<AppStoreType, number>(state => state.cards.pageCount) // кол-во элементов на одной стр
+    const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
 
+
+    const cardsIndex = cardsPacks.find(cp => cp._id === packid)
+    let cardsCount = 0
+    if (cardsIndex) {
+        cardsCount = cardsIndex.cardsCount
+    }
+    console.log(cardsIndex)
     let [card, setCards] = useState<CardType>(initialCard)
     let [initial, setInitial] = useState(false)
 
@@ -49,19 +57,17 @@ export const LearnContainer = () => {
     }
 
     useEffect(() => {
-
         if (!initial) {
+            dispatch(setPageCountCardsAC(cardsCount))
             dispatch(setSelectedCardPack(packid))
             dispatch(getCardsTC())
-
-
             setInitial(true)
         }
         if (cards.length > 0) {
             setCards(getCard(cards))
         }
 
-    }, [packid])
+    }, [packid, cards])
 
 
     return <Learn card={card} nextCard={nextCard}/>
