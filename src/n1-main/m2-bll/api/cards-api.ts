@@ -4,8 +4,8 @@ import {cardsPackInstance} from "./cardsPack-api";
 import {SortPackType} from "../cardsPack-reducer";
 
 export const cardsAPI = {
-    getCards(cardsPack_id: string, page: number, pageCount: number, cardsTotalCount: number) {
-        return cardsPackInstance.get<any>('/cards/card', {params: {cardsPack_id, page, pageCount, cardsTotalCount}})
+    getCards(cardsPack_id: string, page: number, pageCount: number) {
+        return cardsPackInstance.get<any>('/cards/card', {params: {cardsPack_id, page, pageCount}})
     },
     addCard(cardsPack_id: string) {
         const dataForPost = {

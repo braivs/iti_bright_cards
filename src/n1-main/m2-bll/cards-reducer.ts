@@ -52,8 +52,7 @@ export const getCardsTC = (): AppThunk => {
         const cardsPack_id = getState().table.selectedCardPackId;
         const page = getState().cards.page
         const pageCount = getState().cards.pageCount
-        const cardsTotalCount = getState().cards.cardsTotalCount
-        cardsAPI.getCards(cardsPack_id, page, pageCount, cardsTotalCount)
+        cardsAPI.getCards(cardsPack_id, page, pageCount)
             .then(res => {
                 console.log('getCardsTC then:', res.data)
                 // @ts-ignore

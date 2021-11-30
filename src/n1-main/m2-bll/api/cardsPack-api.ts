@@ -12,10 +12,10 @@ export const cardsPackInstance = axios.create({
 })
 
 export const cardsPackApi = {
-    getCardsPack(userId: string, pageCount: string, page: number, cardPacksTotalCount: number,
+    getCardsPack(userId: string, pageCount: string, page: number,
                  packName: string,sortPacks: SortPackType, min: number, max: number) {
         return cardsPackInstance.get<CardsPackResponseType>(`cards/pack`, {params: {
-                user_id: userId, pageCount, page, cardPacksTotalCount,packName,
+                user_id: userId, pageCount, page, packName,
                 sortPacks, min, max,
             }})
     },

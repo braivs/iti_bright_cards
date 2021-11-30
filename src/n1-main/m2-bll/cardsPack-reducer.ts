@@ -87,7 +87,6 @@ export const setSelectedCardPack = (cardPackId: string) =>
 export const getCardsPackTC = () => {
     return (dispatch: Dispatch<ActionType>, getState: () => AppStoreType) => {
         const page = getState().table.page
-        const cardPacksTotalCount = getState().table.cardPacksTotalCount
         const packName = getState().table.packName
         const pageCount = getState().table.pageCount.toString()
         const userIdAfterRadio = getState().table.userIdAfterRadio
@@ -95,7 +94,7 @@ export const getCardsPackTC = () => {
         const min = getState().table.min
         const max = getState().table.max
 
-        cardsPackApi.getCardsPack(userIdAfterRadio, pageCount, page, cardPacksTotalCount,
+        cardsPackApi.getCardsPack(userIdAfterRadio, pageCount, page,
             packName, sortPacks, min, max,)
             .then((res) => {
                 dispatch(setCardPacksAC(res.data.cardPacks))

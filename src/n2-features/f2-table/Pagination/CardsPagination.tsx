@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import style from './Pagination.module.css'
-// import {setCurrentPageAC} from "../../../n1-main/m2-bll/table-reducer";
 import SuperButton from '../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton';
-import {setCurrentPageCardsAC, setPageCountCardsAC} from "../../../n1-main/m2-bll/cards-reducer";
+import {setCurrentPageCardsAC} from "../../../n1-main/m2-bll/cards-reducer";
+import Select from "../Select/Select";
 
 
 type PropsType = {
@@ -18,7 +18,6 @@ const CardsPagination = (props: PropsType) => {
 
     const currentPageHandler = (page: number) => {
         dispatch(setCurrentPageCardsAC(page))
-        dispatch(setPageCountCardsAC(pageCountCards))
     }
 
     let pagesCountCards = Math.ceil(cardsTotalCountCards / pageCountCards); //количество страниц всех!!! до пагинатора
@@ -34,8 +33,12 @@ const CardsPagination = (props: PropsType) => {
     const rightNumber = portion * portionSize
     const correctValue = pages.filter((p) => p ? p >= leftNumber && p <= rightNumber : '')
 
+
     return (
-        <div className={style.pagination}> {portion > 1 &&
+        <div className={style.pagination}>
+           <Select pageCountCards={pageCountCards}/>
+
+            {portion > 1 &&
         <SuperButton onClick={() => {
             setPortion(portion - 1)
         }} className={style.btn}>Prev

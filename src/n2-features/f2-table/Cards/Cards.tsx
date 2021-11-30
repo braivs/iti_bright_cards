@@ -27,7 +27,7 @@ const Cards = () => {
             dispatch(setSelectedCardPack(packid))
             dispatch(getCardsTC())
         }
-    }, [packid, pageCount, cardsTotalCount, page  ])
+    }, [packid, pageCount, page])
 
     const addCardButtonHandler = () => {
         dispatch(addCardTC())
@@ -40,7 +40,6 @@ const Cards = () => {
     const updateCardsHandler = (cardId: string) => {
         dispatch(updateCardTC(cardId, 'UpdatedQuestion'))
     }
-
 
 
     const CardsHeader: TableHeaderModelType = [
@@ -65,7 +64,7 @@ const Cards = () => {
                         <SuperButton className={s.button} onClick={() => delCardsHandler(e._id)}>del</SuperButton>
                         <SuperButton className={s.button} onClick={() => updateCardsHandler(e._id)}>update</SuperButton>
                     </div>
-                    : <div> </div>
+                    : <div></div>
             ]
         }
     })
