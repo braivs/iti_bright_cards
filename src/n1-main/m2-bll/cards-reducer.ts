@@ -6,7 +6,7 @@ import {getCardsPackTC, setCurrentPageAC} from "./cardsPack-reducer";
 
 const initialState: InitialStateType = {
     cards: [],
-    pageCount: 3,
+    pageCount: 1,
     page: 1,
     cardsTotalCount: 20,
 }

@@ -6,7 +6,7 @@ import {
     addCardsPackTC,
     deleteCardsPackTC,
     getCardsPackTC,
-    setPageCountAC,
+    setPageCountAC, setSearchPackNameAC,
     setUserIdAfterRadioAC, SortPackType,
     updateCardPackTC
 } from "../../../n1-main/m2-bll/cardsPack-reducer";
@@ -23,6 +23,7 @@ import {Modal} from "../../../n1-main/m1-ui/common/c7-Modal/Modal";
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SortPacks from "../SortPacks/SortPacks";
 import {isStepDivisible} from "react-range/lib/utils";
+import {useDebounce} from "use-debounce";
 
 export const Table = () => {
 
@@ -39,9 +40,7 @@ export const Table = () => {
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
     const [modalShowHide, setModalShowHide] = useState(false)
     const [cardPackNameInModal, setCardPackNameInModal] = useState('')
-
     const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
-
 
     useEffect(() => {
         if (profileOrPublic === 'Public') {
@@ -51,7 +50,7 @@ export const Table = () => {
         }
         dispatch(getCardsPackTC())
 
-    }, [profileOrPublic, pageCount, page, packName, sortPacks, min, max])
+    }, [profileOrPublic, pageCount, page, /*packName,*/ sortPacks, min, max])
 
     const addCardPackButtonHandler = () => {
         // dispatch(addCardsPackTC('BrightPack'))
@@ -125,7 +124,7 @@ export const Table = () => {
 
             </Modal>
             <h1>This is table of Card Packs.</h1>
-            <Search/>
+            <Search />
             <Settings setPageCountHandler={setPageCountHandler}
                       superRadioArr={superRadioArr}
                       profileOrPublic={profileOrPublic}
