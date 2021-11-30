@@ -9,11 +9,11 @@ import {AppStoreType} from "../../../n1-main/m2-bll/store";
 export const ModalDelCardsPack = () => {
     const dispatch = useDispatch()
 
-    const activeCardPack = useSelector<AppStoreType, string>(state => state.modal.activeCardPack)
-    const modalDelCardPackShowHide = useSelector<AppStoreType, boolean>(state => state.modal.modalDelCardPackShowHide)
+    const activeCardPackId = useSelector<AppStoreType, string>(state => state.modal.activeCardPackId)
+    const modalDelCardPackShowHide = useSelector<AppStoreType, boolean>(state => state.modal.modalDelCardsPackShowHide)
 
     const modalYesDelCardPackHandler = () => {
-        dispatch(deleteCardsPackTC(activeCardPack))
+        dispatch(deleteCardsPackTC(activeCardPackId))
         dispatch(closeAllModalsAC())
     }
     const modalNoDelCardPackHandler = () => {

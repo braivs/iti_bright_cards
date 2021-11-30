@@ -11,7 +11,7 @@ export const ModalAddCardsPack = () => {
     const dispatch = useDispatch()
     const [cardPackNameInModal, setCardPackNameInModal] = useState('')
 
-    const modalAddCardPackShowHide = useSelector<AppStoreType, boolean>(state => state.modal.modalAddCardPackShowHide)
+    const modalAddCardPackShowHide = useSelector<AppStoreType, boolean>(state => state.modal.modalAddCardsPackShowHide)
 
     const addCardPackInModalButtonHandler = () => {
         dispatch(addCardsPackTC(cardPackNameInModal))

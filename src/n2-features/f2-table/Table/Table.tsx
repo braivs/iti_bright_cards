@@ -6,8 +6,7 @@ import {
     getCardsPackTC,
     setPageCountAC,
     setUserIdAfterRadioAC,
-    SortPackType,
-    updateCardPackTC
+    SortPackType
 } from "../../../n1-main/m2-bll/cardsPack-reducer";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
@@ -21,11 +20,13 @@ import {v1} from "uuid";
 import SortPacks from "../SortPacks/SortPacks";
 import {
     setActiveCardPackAC,
-    showModalAddCardPackAC,
-    showModalDelCardPackAC
+    showModalAddCardsPackAC,
+    showModalDelCardsPackAC,
+    showModalUpdateCardsPackAC
 } from "../../../n1-main/m2-bll/modal-reducer";
 import {ModalAddCardsPack} from "../../f3-modal/ModalAddCardsPack/ModalAddCardsPack";
 import {ModalDelCardsPack} from "../../f3-modal/ModalDelCardsPack/ModalDelCardsPack";
+import {ModalUpdateCardsPack} from "../../f3-modal/ModalUpdateCardsPack/ModalUpdateCardsPack";
 
 export const Table = () => {
 
@@ -58,14 +59,15 @@ export const Table = () => {
         dispatch(setPageCountAC(Number(e.currentTarget.value)))
     }
     const delCardsPackHandler = (cardPackId: string) => {
-        dispatch(showModalDelCardPackAC())
+        dispatch(showModalDelCardsPackAC())
         dispatch(setActiveCardPackAC(cardPackId))
     }
     const updateCardsPackHandler = (cardPackId: string) => {
-        dispatch(updateCardPackTC(cardPackId, 'BrightUpdatedName'))
+        dispatch(showModalUpdateCardsPackAC())
+        dispatch(setActiveCardPackAC(cardPackId))
     }
     const addCardPackButtonHandler = () => {
-        dispatch(showModalAddCardPackAC())
+        dispatch(showModalAddCardsPackAC())
     }
 
     const CardsPackHeader: TableHeaderModelType = [
@@ -107,6 +109,7 @@ export const Table = () => {
         <div className={`${sContainer.container} ${s.table}`}>
             <ModalAddCardsPack />
             <ModalDelCardsPack/>
+            <ModalUpdateCardsPack/>
             <h1>This is table of Card Packs.</h1>
             <Search/>
             <Settings setPageCountHandler={setPageCountHandler}
