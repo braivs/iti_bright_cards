@@ -1,51 +1,38 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
-import {setCardsCountAC, setSearchPackNameAC} from "../../../n1-main/m2-bll/cardsPack-reducer";
+import {setSearchPackNameAC} from "../../../n1-main/m2-bll/cardsPack-reducer";
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
-import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import style from './Search.module.css'
 import PriceRange from "../Range/Range";
+import {useCustomDebounce} from "../CustomHooks/CustomDebounce";
+
 
 const Search = () => {
     const dispatch = useDispatch()
-    const [state, setState] = useState('')
+    const [searchTerm, setSearchTerm] = useState('');
+    const [values, setValues] = useState<number[]>([0, 100])
+    const debouncedSearchTerm = useCustomDebounce(searchTerm, 2000);
 
-    const [values, setValues] = useState([0, 100]);
-    const currentHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setState(e.currentTarget.value)
-    }
-
-    const onClickHandler = () => {
-        dispatch(setSearchPackNameAC(state))
-        dispatch(setCardsCountAC(values[0], values[1]))
-        setState('')
-    }
-
-    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            onClickHandler()
-        }
+    useEffect(() => {
+        dispatch(setSearchPackNameAC(debouncedSearchTerm))
+    }, [debouncedSearchTerm])
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.currentTarget.value)
     }
 
     return (
         <div className={style.block}>
 
             <SuperInputText
-                value={state}
-                onChange={currentHandler}
-                onKeyPress={onKeyPressHandler}
+                value={searchTerm}
+                onChange={onChangeHandler}
                 placeholder={'enter name'}/>
 
             <PriceRange
                 values={values}
-                setValues={setValues}/>
-
-            <SuperButton
-                onClick={onClickHandler}
-                className={style.search}>Search
-            </SuperButton>
-        </div>
-    );
+                setValues={setValues}
+            />
+        </div>)
 }
 
 export default Search;

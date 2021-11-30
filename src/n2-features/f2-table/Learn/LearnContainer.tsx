@@ -39,6 +39,7 @@ export const LearnContainer = () => {
     const {packid} = useParams<{ packid: string }>();
     const dispatch = useDispatch()
     const cards = useSelector<AppStoreType, Array<CardType>>(state => state.cards.cards)
+    let pageCount = useSelector<AppStoreType, number>(state => state.cards.pageCount) // кол-во элементов на одной стр
 
     let [card, setCards] = useState<CardType>(initialCard)
     let [initial, setInitial] = useState(false)
@@ -52,13 +53,15 @@ export const LearnContainer = () => {
         if (!initial) {
             dispatch(setSelectedCardPack(packid))
             dispatch(getCardsTC())
+
+
             setInitial(true)
         }
         if (cards.length > 0) {
             setCards(getCard(cards))
         }
 
-    }, [packid, cards])
+    }, [packid])
 
 
     return <Learn card={card} nextCard={nextCard}/>

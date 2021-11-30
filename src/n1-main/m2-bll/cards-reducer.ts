@@ -52,15 +52,14 @@ export const getCardsTC = (): AppThunk => {
         const cardsPack_id = getState().table.selectedCardPackId;
         const page = getState().cards.page
         const pageCount = getState().cards.pageCount
-        const cardsTotalCount = getState().cards.cardsTotalCount
-        cardsAPI.getCards(cardsPack_id, page, pageCount, cardsTotalCount)
+        cardsAPI.getCards(cardsPack_id, page, pageCount)
             .then(res => {
                 console.log('getCardsTC then:', res.data)
                 // @ts-ignore
                 dispatch(setCardsAC(res.data.cards))
-                dispatch(setTotalCountCardsAC(res.data.cardsTotalCount))
                 dispatch(setCurrentPageCardsAC(res.data.page))
                 dispatch(setPageCountCardsAC(res.data.pageCount))
+                dispatch(setTotalCountCardsAC(res.data.cardsTotalCount))
             })
             .catch(res => {
                 console.log('getCardsTC catch:', res.response.data.error)

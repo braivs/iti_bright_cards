@@ -6,10 +6,11 @@ import {getCardsPackTC, setCurrentPageAC} from "../../../n1-main/m2-bll/cardsPac
 import SuperButton from '../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton';
 
 const Pagination = () => {
+    const dispatch = useDispatch()
     let pageCount = useSelector<AppStoreType, number>(state => state.table.pageCount) // кол-во элементов на одной стр
     let cardPacksTotalCount = useSelector<AppStoreType, number>(state => state.table.cardPacksTotalCount)// кол-во колод
     let page = useSelector<AppStoreType, number>(state => state.table.page)// выбранная страница
-    const dispatch = useDispatch()
+
 
     const currentPageHandler = (page: number) => {
         dispatch(setCurrentPageAC(page))

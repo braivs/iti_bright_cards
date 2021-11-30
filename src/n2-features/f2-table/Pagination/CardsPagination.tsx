@@ -1,40 +1,44 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import style from './Pagination.module.css'
-// import {setCurrentPageAC} from "../../../n1-main/m2-bll/table-reducer";
 import SuperButton from '../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton';
-import {setCurrentPageAC} from "../../../n1-main/m2-bll/cardsPack-reducer";
+import {setCurrentPageCardsAC} from "../../../n1-main/m2-bll/cards-reducer";
+import Select from "../Select/Select";
 
 
 type PropsType = {
-    page: number
-    pageCount: number
-    cardsTotalCount: number
+    pageCard: number
+    pageCountCards: number
+    cardsTotalCountCards: number
 
 }
 const CardsPagination = (props: PropsType) => {
-    const {page, pageCount,cardsTotalCount } = props
+    const {pageCard, pageCountCards,cardsTotalCountCards } = props
     const dispatch = useDispatch()
 
     const currentPageHandler = (page: number) => {
-        dispatch(setCurrentPageAC(page))
+        dispatch(setCurrentPageCardsAC(page))
     }
 
-    let pagesCount = Math.ceil(cardsTotalCount / pageCount); //количество страниц всех!!! до пагинатора
+    let pagesCountCards = Math.ceil(cardsTotalCountCards / pageCountCards); //количество страниц всех!!! до пагинатора
     let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
+    for (let i = 1; i <= pagesCountCards; i++) {
         pages.push(i)
     }
     const portionSize = 10; // порция которая видна в пагинации
-    const portionCount = Math.ceil(pagesCount / portionSize) // количество порций по 5 страниц
+    const portionCount = Math.ceil(pagesCountCards / portionSize) // количество порций по 5 страниц
 
     const [portion, setPortion] = useState(1)
     const leftNumber = (portion - 1) * portionSize + 1
     const rightNumber = portion * portionSize
     const correctValue = pages.filter((p) => p ? p >= leftNumber && p <= rightNumber : '')
 
+
     return (
-        <div className={style.pagination}> {portion > 1 &&
+        <div className={style.pagination}>
+           <Select pageCountCards={pageCountCards}/>
+
+            {portion > 1 &&
         <SuperButton onClick={() => {
             setPortion(portion - 1)
         }} className={style.btn}>Prev
@@ -44,7 +48,7 @@ const CardsPagination = (props: PropsType) => {
                 return (
                     <span
                         key={p}
-                        className={`${style.item} ${page === p ? style.select : style.item}`}
+                        className={`${style.item} ${pageCard === p ? style.select : style.item}`}
                         onClick={() => currentPageHandler(p)}>{p}
                     </span>
                 )
