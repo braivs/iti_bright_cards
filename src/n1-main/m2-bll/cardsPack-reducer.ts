@@ -2,7 +2,6 @@ import {Dispatch} from "react";
 import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
 import {cardsPackApi, CardsPackType} from "./api/cardsPack-api";
-import {setModalShowHideAC} from "./modal-reducer";
 
 
  export type SortPackType = '0name' | '1name' | '0cardsCount' | '1cardsCount' | '0updated'| '1updated'| null
@@ -161,6 +160,5 @@ type ActionType =
     | ReturnType<typeof setCardsCountAC>
     | ReturnType<typeof setSearchPackNameAC>
     | ReturnType<typeof setSelectedCardPack>
-    | ReturnType<typeof setModalShowHideAC>
 
 type AppThunk = ThunkAction<void, AppStoreType, unknown, ActionType>

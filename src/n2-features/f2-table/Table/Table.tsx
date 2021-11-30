@@ -19,10 +19,15 @@ import {TableContent} from "../TableContent/TableContent";
 import {NavLink} from "react-router-dom";
 import {CardsPackType} from "../../../n1-main/m2-bll/api/cardsPack-api";
 import {v1} from "uuid";
-import {Modal} from "../../../n1-main/m1-ui/common/c7-Modal/Modal";
+import {Modal} from "../../f3-modal/Modal";
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SortPacks from "../SortPacks/SortPacks";
-import {setActiveCardPackAC, setModalShowHideAC} from "../../../n1-main/m2-bll/modal-reducer";
+import {
+    closeAllModalsAC,
+    setActiveCardPackAC,
+    showModalAddCardPackAC,
+    showModalDelCardPackAC
+} from "../../../n1-main/m2-bll/modal-reducer";
 
 export const Table = () => {
 
@@ -35,13 +40,13 @@ export const Table = () => {
     const sortPacks = useSelector<AppStoreType, SortPackType>(state => state.table.sortPacks)
     const min = useSelector<AppStoreType, number>(state => state.table.min)
     const max = useSelector<AppStoreType, number>(state => state.table.max)
-    const activeCardPack = useSelector<AppStoreType,string>(state => state.modal.activeCardPack)
+    const activeCardPack = useSelector<AppStoreType, string>(state => state.modal.activeCardPack) // for modals
+    const modalDelCardPackShowHide = useSelector<AppStoreType, boolean>(state => state.modal.modalDelCardPackShowHide)
+    const modalAddCardPackShowHide = useSelector<AppStoreType, boolean>(state => state.modal.modalAddCardPackShowHide)
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
-    //const [cardPackNameInModal, setCardPackNameInModal] = useState('')
 
     const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
-
 
     useEffect(() => {
         if (profileOrPublic === 'Public') {
@@ -53,10 +58,19 @@ export const Table = () => {
 
     }, [profileOrPublic, pageCount, page, packName, sortPacks, min, max])
 
+    const setPageCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (Number(e.currentTarget.value) < 1) e.currentTarget.value = '1'
+        dispatch(setPageCountAC(Number(e.currentTarget.value)))
+    }
+    const delCardsPackHandler = (cardPackId: string) => {
+        dispatch(showModalDelCardPackAC())
+        dispatch(setActiveCardPackAC(cardPackId))
+    }
+    const updateCardsPackHandler = (cardPackId: string) => {
+        dispatch(updateCardPackTC(cardPackId, 'BrightUpdatedName'))
+    }
     const addCardPackButtonHandler = () => {
-        // dispatch(addCardsPackTC('BrightPack'))
-        dispatch(setModalShowHideAC(true))
-        // setModalShowHide(true)
+        dispatch(showModalAddCardPackAC())
     }
 
     const CardsPackHeader: TableHeaderModelType = [
@@ -68,25 +82,6 @@ export const Table = () => {
         {id: v1(), element: <div><span>updated</span><SortPacks upperSort={'0updated'} lowerCount={'1updated'}/></div>},
         {id: v1(), element: <SuperButton onClick={addCardPackButtonHandler}>Add CardPack</SuperButton>},
     ]
-
-    const setPageCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (Number(e.currentTarget.value) < 1) e.currentTarget.value = '1'
-        dispatch(setPageCountAC(Number(e.currentTarget.value)))
-    }
-
-    const delCardsPackHandler = (cardPackId: string) => {
-        dispatch(setModalShowHideAC(true))
-        dispatch(setActiveCardPackAC(cardPackId))
-    }
-
-    const updateCardsPackHandler = (cardPackId: string) => {
-        dispatch(updateCardPackTC(cardPackId, 'BrightUpdatedName'))
-    }
-
-    const addCardPackInModalButtonHandler = () => {
-        //dispatch(addCardsPackTC(cardPackNameInModal))
-        dispatch(setModalShowHideAC(false))
-    }
 
     // remapping arrays for TableContent
     const cardsPackMapped = cardsPacks.map(e => {
@@ -116,19 +111,16 @@ export const Table = () => {
     const ModalAddCardPack = () => {
         const [cardPackNameInModal, setCardPackNameInModal] = useState('')
 
-        const changeStateUp = (value: string) => {
-                setCardPackNameInModal(value)
-        }
-
         const addCardPackInModalButtonHandler = () => {
             dispatch(addCardsPackTC(cardPackNameInModal))
-            dispatch(setModalShowHideAC(false))
+            dispatch(closeAllModalsAC())
         }
 
-        return <Modal>
+        return <Modal modalShowHide={modalAddCardPackShowHide}>
             Enter Card Pack name.
             <div>
-                <SuperInputText value={cardPackNameInModal} onChangeText={changeStateUp}/>
+                <SuperInputText value={cardPackNameInModal}
+                                onChangeText={setCardPackNameInModal}/>
             </div>
             <SuperButton onClick={addCardPackInModalButtonHandler}>Add Card Pack</SuperButton>
         </Modal>
@@ -136,16 +128,15 @@ export const Table = () => {
 
     const ModalDelCardPack = () => {
         const modalYesDelCardPackHandler = () => {
-            // window.alert('Yes')
             dispatch(deleteCardsPackTC(activeCardPack))
-            dispatch(setModalShowHideAC(false))
+            dispatch(closeAllModalsAC())
         }
         const modalNoDelCardPackHandler = () => {
-            dispatch(setModalShowHideAC(false))
+            dispatch(closeAllModalsAC())
 
         }
 
-        return <Modal>
+        return <Modal modalShowHide={modalDelCardPackShowHide}>
             Are you sure you want to delete the Card Pack?
             <div>
                 <SuperButton onClick={modalYesDelCardPackHandler}>Yes</SuperButton>
@@ -156,8 +147,8 @@ export const Table = () => {
 
     return (
         <div className={`${sContainer.container} ${s.table}`}>
-            {/*<ModalAddCardPack />*/}
-            <ModalDelCardPack />
+            <ModalAddCardPack />
+            <ModalDelCardPack/>
             <h1>This is table of Card Packs.</h1>
             <Search/>
             <Settings setPageCountHandler={setPageCountHandler}
