@@ -16,7 +16,6 @@ const Search = () => {
     useEffect(() => {
         dispatch(setSearchPackNameAC(debouncedSearchTerm))
     }, [debouncedSearchTerm])
-
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.currentTarget.value)
     }

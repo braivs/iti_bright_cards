@@ -17,7 +17,6 @@ const PriceRange: React.FC<PropsType> =props=> {
     useEffect(() => {
         dispatch(setCardsCountAC(debouncedRange[0], debouncedRange[1]))
     }, [debouncedRange[0], debouncedRange[1]])
-
     return (
         <div className={style.block}>
             <h3>amount of cards</h3>
