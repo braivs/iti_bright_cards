@@ -1,8 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import {setPageCountCardsAC} from "../../../n1-main/m2-bll/cards-reducer";
 import {useDispatch} from "react-redux";
-import style from './Select.module.css'
-
+import style from './Select.module.scss'
 
 type PropsType = {
     pageCountCards: number
@@ -19,15 +18,16 @@ const Select =(props: PropsType) => {
     const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>)=>{
         setState(+e.currentTarget.value)
     }
-    const arOptions: number[] = [1, 3, 5, 7, 10,15, 20, 30]
-    const option = arOptions.map(arr=> {
-        return <option>{arr}</option>
+    const arOptions = Array.from(Array(30).keys())
+    const option = arOptions.map((index,arr)=> {
+        return <option key={index}>{arr}</option>
     })
     return (
-        <div className={style.container}>
+        <div>
             <select value={state}
                     onChange={onChangeHandler}
-                    onClick={onClickHandler} className={style.select}>
+                    onClick={onClickHandler}
+                    className={style.select}>
                 {option}
             </select>
         </div>

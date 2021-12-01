@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Header} from "../p1-header/Header";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {RegistrationContainer} from "../../../n2-features/f1-auth/a2-register/RegistrationContainer";

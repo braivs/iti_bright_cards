@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './TableContent.module.scss'
 import {TableHeaderModelType} from "../Table/Table";
-import SortPacks from "../SortPacks/SortPacks";
 
 type BodyType = {
     id: string,
