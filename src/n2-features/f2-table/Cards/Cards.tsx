@@ -46,7 +46,10 @@ const Cards = () => {
         {id: v1(), element: 'answer'},
         {id: v1(), element: 'question'},
         {id: v1(), element: 'created'},
-        {id: v1(), element: <SuperButton onClick={addCardButtonHandler}>Add Card</SuperButton>}
+        {id: v1(), element: 'shots'},
+        {id: v1(), element: 'grade'},
+        {id: v1(), element: <SuperButton onClick={addCardButtonHandler}>Add Card</SuperButton>},
+
     ]
 
     let cardHeader = CardsHeader.map(el => {
@@ -59,6 +62,11 @@ const Cards = () => {
                 e.question,
                 e.answer,
                 e.created,
+                e.shots,
+                <div className={s.star}>{
+                    Math.round(e.grade) == 1 ? '⁎' : Math.round(e.grade) == 2 ? '⁎⁎' :
+                        Math.round(e.grade) == 3 ? '⁎⁎⁎' : Math.round(e.grade) == 4 ? '⁎⁎⁎⁎' :
+                            Math.round(e.grade) == 5 ? '⁎⁎⁎⁎⁎' : ''}</div>,
                 e.user_id === userID
                     ? <div>
                         <SuperButton className={s.button} onClick={() => delCardsHandler(e._id)}>del</SuperButton>

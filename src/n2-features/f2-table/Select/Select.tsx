@@ -19,8 +19,8 @@ const Select =(props: PropsType) => {
         setState(+e.currentTarget.value)
     }
     const arOptions = Array.from(Array(30).keys())
-    const option = arOptions.map(arr=> {
-        return <option>{arr}</option>
+    const option = arOptions.map((index,arr)=> {
+        return <option key={index}>{arr}</option>
     })
     return (
         <div>

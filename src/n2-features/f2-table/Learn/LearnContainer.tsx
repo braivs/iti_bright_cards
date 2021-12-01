@@ -70,5 +70,5 @@ export const LearnContainer = () => {
     }, [packid, cards])
 
 
-    return <Learn card={card} nextCard={nextCard}/>
+    return <Learn card={card} nextCard={nextCard} />
 }

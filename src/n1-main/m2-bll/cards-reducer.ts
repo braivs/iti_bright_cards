@@ -3,12 +3,15 @@ import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
 //import {getCardsPackTC, setCurrentPageAC} from "./table-reducer";
 import {getCardsPackTC, setCurrentPageAC} from "./cardsPack-reducer";
+import {Dispatch} from "redux";
 
 const initialState: InitialStateType = {
     cards: [],
     pageCount: 1,
     page: 1,
     cardsTotalCount: 20,
+    grade: 3,
+    card_id: ''
 }
 
 export const cardsReducer = (state = initialState, action: ActionType): InitialStateType => {
@@ -21,6 +24,8 @@ export const cardsReducer = (state = initialState, action: ActionType): InitialS
             return {...state, cardsTotalCount: action.cardsTotalCount}
         case "CARDS/SET-PAGE-COUNT-CARDS":
             return {...state, pageCount: action.pageCount}
+        case "CARDS/SET-CARDS-GRADE":
+            return {...state, cards: state.cards.map(c => c._id === action.card_id ? {...c , grade: action.grade } : c)}
         default:
             return state
     }
@@ -32,7 +37,12 @@ type InitialStateType = {
     pageCount: number
     page: number
     cardsTotalCount: number
+    grade: number
+    card_id: string
 }
+
+export const setCardsGradeAC = (card_id: string, grade: number) =>
+    ({type: 'CARDS/SET-CARDS-GRADE', card_id, grade} as const)
 
 export const setCardsAC = (cards: Array<CardType>) =>
     ({type: 'CARDS/SET-CARDS', cards} as const)
@@ -110,10 +120,23 @@ export const deleteCardTC = (cardId: string): AppThunk => {
     }
 }
 
+export const setCardsGrade = (cardId: string, grade: number) => {
+    return (dispatch: Dispatch<ActionType>) => {
+        cardsAPI.updateCardGrade(cardId, grade)
+            .then(res => {
+               dispatch(setCardsGradeAC(res.data.card_id, res.data.grade))
+            })
+            .catch(res =>{
+                console.log(res.response.data.error)
+            })
+    }
+}
+
 type ActionType =
     | ReturnType<typeof setCardsAC>
     | ReturnType<typeof setCurrentPageCardsAC>
     | ReturnType<typeof setTotalCountCardsAC>
     | ReturnType<typeof setPageCountCardsAC>
+    | ReturnType<typeof setCardsGradeAC>
 
 type AppThunk = ThunkAction<void, AppStoreType, unknown, ActionType>

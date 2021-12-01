@@ -27,6 +27,9 @@ export const cardsAPI = {
         }
         return cardsPackInstance.put('cards/card', dataForPost)
     },
+    updateCardGrade(card_id: string, grade: number){
+        return cardsPackInstance.put<UpdateCardGradeType>('cards/grade',{card_id, grade})
+    }
 }
 
 type ResponseType<D = {}> = {
@@ -35,6 +38,16 @@ type ResponseType<D = {}> = {
         data: D
     }
 }
+
+type UpdateCardGradeType = {
+    _id: ''
+    cardsPack_id: ''
+    card_id: ''
+    user_id: ''
+    grade: number
+    shots: number
+}
+
 
 export type CardsPackType = {
     cardsCount: number
