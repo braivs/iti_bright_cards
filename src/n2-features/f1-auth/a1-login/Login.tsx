@@ -18,7 +18,7 @@ export type LoginPropsType = {
     LoggedIn: (e: FormEvent<HTMLFormElement>) => void
 }
 
-//todo: need to fix any
+
 export const Login: React.FC<LoginPropsType> = (props) => {
     const changeLogin = (e: ChangeEvent<HTMLInputElement>) => {
         props.setEmail(e.currentTarget.value)
