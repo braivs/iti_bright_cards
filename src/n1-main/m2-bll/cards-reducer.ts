@@ -1,7 +1,6 @@
 import {cardsAPI, CardType} from "./api/cards-api";
 import {AppStoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
-import {getCardsPackTC, setCurrentPageAC} from "./cardsPack-reducer";
 import {Dispatch} from "redux";
 
 const initialState: InitialStateType = {
