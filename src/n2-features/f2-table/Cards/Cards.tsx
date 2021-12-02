@@ -55,8 +55,8 @@ const Cards = () => {
 
 
     const CardsHeader: TableHeaderModelType = [
-        {id: v1(), element: 'answer'},
         {id: v1(), element: 'question'},
+        {id: v1(), element: 'answer'},
         {id: v1(), element: 'created'},
         {id: v1(), element: 'shots'},
         {id: v1(), element: 'grade'},
@@ -100,5 +100,3 @@ const Cards = () => {
 };
 
 export default Cards;
-
-// todo: need to swap answer and question in table

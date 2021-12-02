@@ -7,7 +7,8 @@ export const passwordRecoveryApi = {
         const dataForPost = {
             email,
             from: "Briws <brightwiths@gmail.com>",
-            message: `<div>password recovery link:<a href='http://localhost:3000/#/passwordnew/$token$'>link</a></div>` // todo: need to change this before yarn deploy
+            message: `<div>password recovery link:<a href='http://localhost:3000/#/passwordnew/$token$'>link</a></div>`
+            // todo: need to change this before yarn deploy
         }
         return cardsPackInstance.post<ResponseType>('auth/forgot', dataForPost)
     },
