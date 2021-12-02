@@ -1,8 +1,6 @@
 import {cardsPackInstance} from "./cardsPack-api";
-import {ResponseType} from "./cardsPack-api";
 import axios from "axios";
 
-//todo: need to add types
 const settings = {
     withCredentials: true
 }
@@ -13,7 +11,6 @@ const recoveryPasswordInstanceHeroku = axios.create({
     ...settings
 })
 
-//todo: need to add types
 export const passwordRecoveryApi = {
     recoveryPassword(email: string) {
         const dataForPost = {
@@ -29,3 +26,11 @@ export const passwordRecoveryApi = {
     },
 }
 
+type ResponseType = {
+    answer: boolean
+    html: boolean
+    info: string
+    success: boolean
+}
+
+// todo: Maybe need to type error.

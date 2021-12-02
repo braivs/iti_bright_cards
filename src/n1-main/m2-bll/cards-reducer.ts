@@ -50,7 +50,6 @@ export const setTotalCountCardsAC = (cardsTotalCount: number) =>
 export const setPageCountCardsAC = (pageCount: number) =>
     ({type: 'CARDS/SET-PAGE-COUNT-CARDS', pageCount,} as const)
 
-// todo: need to fix @ts-ignore here
 export const getCardsTC = (): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
         const cardsPack_id = getState().table.selectedCardPackId;
@@ -58,8 +57,8 @@ export const getCardsTC = (): AppThunk => {
         const pageCount = getState().cards.pageCount
         cardsAPI.getCards(cardsPack_id, page, pageCount)
             .then(res => {
+                debugger
                 console.log('getCardsTC then:', res.data)
-                // @ts-ignore
                 dispatch(setCardsAC(res.data.cards))
                 dispatch(setCurrentPageCardsAC(res.data.page))
                 dispatch(setPageCountCardsAC(res.data.pageCount))

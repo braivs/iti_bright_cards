@@ -113,7 +113,7 @@ export const addCardsPackTC = (cardPackName: string): AppThunk => {
     return (dispatch, getState: () => AppStoreType) => {
         cardsPackApi.addCardPack(cardPackName)
             .then(res => {
-                console.log('addCardsPackTC then:', res)
+                console.log('addCardsPackTC then:', res.data)
                 dispatch(getCardsPackTC())
             })
             .catch(res => {

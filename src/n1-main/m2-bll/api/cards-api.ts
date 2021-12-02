@@ -1,9 +1,8 @@
 import {cardsPackInstance} from "./cardsPack-api";
 
-//todo: need to add types
 export const cardsAPI = {
     getCards(cardsPack_id: string, page: number, pageCount: number) {
-        return cardsPackInstance.get<any>('/cards/card', {params: {cardsPack_id, page, pageCount}})
+        return cardsPackInstance.get<GetCardsResponseType>('/cards/card', {params: {cardsPack_id, page, pageCount}})
     },
     addCard(cardsPack_id: string, question: string, answer: string) {
         const dataForPost = {
@@ -33,13 +32,6 @@ export const cardsAPI = {
     }
 }
 
-type ResponseType<D = {}> = {
-    info: string
-    response: {
-        data: D
-    }
-}
-
 type UpdateCardGradeType = {
     _id: ''
     cardsPack_id: ''
@@ -48,66 +40,6 @@ type UpdateCardGradeType = {
     grade: number
     shots: number
 }
-
-
-export type CardsPackType = {
-    cardsCount: number
-    created: string
-    deckCover?: string
-    grade: number // средняя оценка карточек
-    more_id: string
-    name: string
-    path: string // папка
-    private: boolean
-    rating: number // лайки
-    shots: number // количество попыток
-    type: string // ещё будет "folder" (папка)
-    updated: string
-    user_id: string
-    user_name: string
-    __v: number
-    _id: string
-}
-
-type CardsResponseType = {
-    cardPacks: Array<CardsPackType>
-    cardPacksTotalCount: number // количество колод
-    maxCardsCount: number
-    minCardsCount: number
-    page: number // выбранная страница
-    pageCount: number // количество элементов на странице
-}
-type addCardsPostType = {
-    cardsPack: {
-        name?: string
-        path?: string
-        grade?: number
-        shots?: number
-        rating?: number
-        deckCover?: "url" | "base64"
-        private?: boolean
-        type?: string
-    }
-}
-type updateCardsPostType = {
-    cardsPack: {
-        _id: string
-        name?: string // не обязательно
-    }
-}
-
-type cardDataType = {
-    cards: Array<CardsPackType>
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
-    packUserId: string
-    page: number
-    pageCount: number
-    token: string
-    tokenDeathTime: number
-}
-
 export type CardType = {
     answer: string
     cardsPack_id: string
@@ -124,3 +56,17 @@ export type CardType = {
     __v: number
     _id: string
 }
+type GetCardsResponseType = {
+    cards: Array<CardType>
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    packUserId: string
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+// DeleteCardResponseType and UpdateCardResponseType not typed because in task no need.
+
+// todo: Maybe need to type error.

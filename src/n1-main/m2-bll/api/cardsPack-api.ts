@@ -1,7 +1,6 @@
 import axios from "axios";
 import {SortPackType} from "../cardsPack-reducer";
 
-//todo: need to add types
 const settings = {
     withCredentials: true
 }
@@ -15,7 +14,7 @@ export const cardsPackInstance = axios.create({
 export const cardsPackApi = {
     getCardsPack(userId: string, pageCount: string, page: number,
                  packName: string,sortPacks: SortPackType, min: number, max: number) {
-        return cardsPackInstance.get<CardsPackResponseType>(`cards/pack`, {params: {
+        return cardsPackInstance.get<GetCardsPackResponseType>(`cards/pack`, {params: {
                 user_id: userId, pageCount, page, packName,
                 sortPacks, min, max,
             }})
@@ -26,7 +25,7 @@ export const cardsPackApi = {
                 name: cardPackName
             }
         }
-        return cardsPackInstance.post('cards/pack', dataForPost)
+        return cardsPackInstance.post<AddCardsPackResponseType>('cards/pack', dataForPost)
     },
     deleteCardPack(cardPackId: string) {
         return cardsPackInstance.delete(`cards/pack?id=${cardPackId}`)
@@ -40,13 +39,6 @@ export const cardsPackApi = {
         }
         return cardsPackInstance.put('cards/pack', dataForPost)
     },
-}
-
-export type ResponseType<D = {}> = {
-    info: string
-    response: {
-        data: D
-    }
 }
 
 export type CardsPackType = {
@@ -67,15 +59,6 @@ export type CardsPackType = {
     __v: number
     _id: string
 }
-
-type CardsPackResponseType = {
-    cardPacks: Array<CardsPackType>
-    cardPacksTotalCount: number // количество колод
-    maxCardsCount: number
-    minCardsCount: number
-    page: number // выбранная страница
-    pageCount: number // количество элементов на странице
-}
 type addCardsPackPostType = {
     cardsPack: {
         name?: string
@@ -94,3 +77,19 @@ type updateCardsPackPostType = {
         name?: string // не обязательно
     }
 }
+type GetCardsPackResponseType = {
+    cardPacks: Array<CardsPackType>
+    cardPacksTotalCount: number // количество колод
+    maxCardsCount: number
+    minCardsCount: number
+    page: number // выбранная страница
+    pageCount: number // количество элементов на странице
+
+}
+type AddCardsPackResponseType = GetCardsPackResponseType & {
+    token: string
+    tokenDeathTime: number
+}
+//DeleteCardPackResponse and updateCardPackResponse not typed because in task no need.
+
+// todo: Maybe need to type error.
