@@ -57,7 +57,6 @@ export const getCardsTC = (): AppThunk => {
         const pageCount = getState().cards.pageCount
         cardsAPI.getCards(cardsPack_id, page, pageCount)
             .then(res => {
-                debugger
                 console.log('getCardsTC then:', res.data)
                 dispatch(setCardsAC(res.data.cards))
                 dispatch(setCurrentPageCardsAC(res.data.page))

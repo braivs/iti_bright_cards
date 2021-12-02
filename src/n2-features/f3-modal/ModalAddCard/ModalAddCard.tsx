@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import {closeAllModalsAC} from "../../../n1-main/m2-bll/modal-reducer";
 import {Modal} from "../Modal/Modal";
-import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import {addCardTC} from "../../../n1-main/m2-bll/cards-reducer";
+import sInput from '../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText.module.scss'
 
 export const ModalAddCard = () => {
     const dispatch = useDispatch()
@@ -18,12 +18,14 @@ export const ModalAddCard = () => {
         dispatch(addCardTC(question, answer))
         dispatch(closeAllModalsAC())
     }
-    //todo: change to textarea
+
     return <Modal modalShowHide={modalAddCardShowHide}>
         <div>Enter Card question:</div>
-        <SuperInputText value={question} onChangeText={setQuestion}/>
+        <textarea className={sInput.input} value={question} onChange={(e) => {setQuestion(e.target.value)}} />
         <div>Enter Card answer:</div>
-        <SuperInputText value={answer} onChangeText={setAnswer}/>
+        <textarea className={sInput.input} value={answer} onChange={(e) => {setAnswer(e.target.value)}} />
         <SuperButton onClick={buttonHandler}>Add Card</SuperButton>
     </Modal>
 }
+
+// todo: Separate textarea to common component
