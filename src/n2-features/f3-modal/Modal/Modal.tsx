@@ -26,5 +26,3 @@ export const Modal: React.FC<ModalPropsType> = (props) => {
         </div>
     </div>
 }
-
-// todo: In all modals need to add protect again blank values.
