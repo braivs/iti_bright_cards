@@ -20,7 +20,7 @@ const getCard = (cards: CardType[]) => {
 
     return cards[res.id + 1];
 }
-let initialCard = {
+let initialCard: CardType = {
     answer: '',
     cardsPack_id: '',
     comments: '',
@@ -50,7 +50,7 @@ export const LearnContainer = () => {
     }
     console.log(cardsIndex)
     let [card, setCards] = useState<CardType>(initialCard)
-    let [initial, setInitial] = useState(false)
+    let [initial, setInitial] = useState<boolean>(false)
 
     let nextCard = () => {
         setCards(getCard(cards))
