@@ -15,30 +15,28 @@ export const Learn = (props: LearnPropsType) => {
     const [hidden, setHidden] = useState(true)
     const dispatch = useDispatch()
 
-    const submitHandler = ( grade: number) =>{
-        dispatch(setCardsGrade( props.card._id, grade))
+    const submitHandler = (grade: number) => {
+        dispatch(setCardsGrade(props.card._id, grade))
     }
     const nextCard = () => {
         props.nextCard()
         setHidden(true)
     }
-    const grades = [1,2,3,4,5]
-
+    const grades = [1, 2, 3, 4, 5]
     return <div className={s.body}>
-
         <span>{props.card.question}</span>
 
         <div>
             {hidden ? <SuperButton onClick={() => setHidden(false)}>Answer</SuperButton> :
-            <span>{props.card.answer}</span>}
+                <span>{props.card.answer}</span>}
         </div>
 
-
+        {!hidden &&
         <div className={s.grade}>
-            {grades.map((g,i) => (
+            {grades.map((g, i) => (
                 <SuperButton key={i} className={s.gradeBtn} onClick={() => (submitHandler(g))}>{g}</SuperButton>
             ))}
-        </div>
+        </div>}
 
         <div className={s.btn}>
             <NavLink exact to={`/table`}><SuperButton>Cancel</SuperButton></NavLink>
