@@ -6,8 +6,7 @@ const settings = {
 }
 
 const recoveryPasswordInstanceHeroku = axios.create({
-    // baseURL: 'http://localhost:7542/2.0/',
-    baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0/', // this works only with heroku
     ...settings
 })
 
@@ -16,7 +15,8 @@ export const passwordRecoveryApi = {
         const dataForPost = {
             email,
             from: "Briws <brightwiths@gmail.com>",
-            message: `<div>password recovery link:<a href='http://localhost:3000/#/passwordnew/$token$'>link</a></div>`
+            /*message: `<div>password recovery link:<a href='http://localhost:3000/#/passwordnew/$token$'>link</a></div>`*/
+            message: `<div>password recovery link:<a href='https://neko-back.herokuapp.com/2.0/#/passwordnew/$token$'>link</a></div>`
             // todo: need to change this before yarn deploy
         }
         return recoveryPasswordInstanceHeroku.post<ResponseType>('auth/forgot', dataForPost)

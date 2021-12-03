@@ -1,4 +1,4 @@
-import React, {FormEvent, MouseEvent} from 'react';
+import React, {FormEvent} from 'react';
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import s from './Login.module.scss'
