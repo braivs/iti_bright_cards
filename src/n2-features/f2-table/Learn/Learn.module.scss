@@ -2,15 +2,14 @@
 
 
 .body {
-  position: relative;
   margin: 30px auto;
   border: 2px solid $primaryColor;
   width: 50%;
-  min-height: 300px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 10px 150px 10px;
+  padding: 10px 10px 0px 10px;
 
 
   span {
@@ -19,8 +18,7 @@
     font-weight: bold;
   }
   .grade {
-    position: absolute;
-    bottom: 70px;
+    padding: 40px 0 20px 0;
     .gradeBtn {
       width: 60px;
       height: 40px;
@@ -29,8 +27,7 @@
   }
 
   .btn {
-    position: absolute;
-    bottom: 20px;
+    padding-bottom: 30px;
   }
 }
 
