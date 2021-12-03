@@ -42,7 +42,6 @@ export const LearnContainer = () => {
     const cards = useSelector<AppStoreType, Array<CardType>>(state => state.cards.cards)
     const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
 
-
     const cardsIndex = cardsPacks.find(cp => cp._id === packid)
     let cardsCount = 0
     if (cardsIndex) {
@@ -70,5 +69,5 @@ export const LearnContainer = () => {
     }, [packid, cards])
 
 
-    return <Learn card={card} nextCard={nextCard} />
+    return <Learn card={card} nextCard={nextCard}  />
 }
