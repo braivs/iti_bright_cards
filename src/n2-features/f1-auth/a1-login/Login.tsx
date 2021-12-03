@@ -1,4 +1,4 @@
-import React, {FormEvent} from 'react';
+import React, {ChangeEvent, FormEvent, MouseEvent} from 'react';
 import SuperInputText from "../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText";
 import SuperCheckbox from "../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox";
 import s from './Login.module.scss'
@@ -18,15 +18,15 @@ export type LoginPropsType = {
     LoggedIn: (e: FormEvent<HTMLFormElement>) => void
 }
 
-//todo: need to fix any
+
 export const Login: React.FC<LoginPropsType> = (props) => {
-    const changeLogin = (e:any) => {
+    const changeLogin = (e: ChangeEvent<HTMLInputElement>) => {
         props.setEmail(e.currentTarget.value)
     }
-    const changePassword = (e:any) => {
+    const changePassword = (e:ChangeEvent<HTMLInputElement>) => {
         props.setPassword(e.currentTarget.value)
     }
-    const changeRemember = (e:any) => {
+    const changeRemember = (e:ChangeEvent<HTMLInputElement>) => {
         props.setRememberMe(e.currentTarget.checked)
     }
 
