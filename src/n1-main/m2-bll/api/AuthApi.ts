@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from 'axios'
-import {InitialProfileType, SetProfileType} from "../../../n1-main/m2-bll/profileReducer";
+import {InitialProfileType, SetProfileType} from "../profileReducer";
 
 const instance = axios.create({
     // baseURL: 'http://localhost:7542/2.0/',
@@ -21,14 +21,12 @@ export const authAPI = {
 }
 
 
-/*
-    export const authAPI = {
-        login(data: AuthLoginType) {
-            return instance.post<AuthLoginType, AxiosResponse<ResponseType<{ userId: number }>>>('auth/login', data)
+export  const  changeAPI = {
+    changeProfile(name: string, avatar: string) {
+        return instance.put('/auth/me', {name, avatar})
+    }
+}
 
-
-        },
-        */
 
 export type AuthLoginType = {
     email: string,

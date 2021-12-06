@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux'
-import {authAPI, AuthLoginType} from "../../n2-features/f1-auth/a1-login/AuthApi";
+import {authAPI, AuthLoginType} from "./api/AuthApi";
 import {setProfile, SetProfileType} from "./profileReducer";
 
 
