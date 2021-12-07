@@ -22,7 +22,7 @@ export const Header = () => {
                 {!isLoggedIn && <NavLink className={s.item} to={'/registration'}>Registration</NavLink>}
                 <NavLink className={s.item} to={'/profile'}>Profile</NavLink>
                 {!isLoggedIn && <NavLink className={s.item} to={'/passwordrecovery'}>PasswordRecovery</NavLink>}
-                {/*<NavLink className={s.item} to={'/tests'}>Tests</NavLink> for test type /tests*/}
+                {/*<NavLink className={s.item} to={'/tests'}>Tests</NavLink> for tests type /tests in address*/}
                 {isLoggedIn && <a className={s.link} onClick={logout}>Log out</a>}
             </div>
 
