@@ -1,5 +1,8 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../../n2-features/f1-auth/a1-login/AuthApi";
+import {authAPI, changeAPI} from "./api/AuthApi";
+import {setIsError, setIsLoggedId} from "./authReducer";
+import {log} from "util";
+import {AppStoreType} from "./store";
 
 
 let initialState = {
@@ -19,16 +22,45 @@ export type InitialProfileType = {
 }
 //1
 export const profileReducer = (state: InitialProfileType = initialState, action: ActionsType): InitialProfileType => {
+    debugger
     switch (action.type) {
         case 'profile/SET-PROFILE':
             return {
                 ...state, avatar: action.avatar, email: action.email, name: action.name,
                 publicCardPacksCount: action.publicCardPacksCount, _id: action._id
             }
+        case 'profile/SET-AVATAR' :
+            return {
+                ...state, avatar: action.avatar
+            }
         default:
             return {...state}
     }
 }
+export const setAvatarAC = (avatar: string) => {
+    return ({type: 'profile/SET-AVATAR', avatar} as const)
+}
+export const ChangeProfileTC = () => (dispatch: Dispatch, getState: () => any) => {
+    const name = getState().profile.name
+    const avatar = getState().profile.avatar
+    console.log(avatar)
+    changeAPI.changeProfile(name, avatar).then(res => console.log(res))
+}
+/*
+export const LoginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<ActionsType | SetProfileType>) => {
+    authAPI.login({email, password, rememberMe}).then(res => {
+            dispatch(setIsLoggedId(true))
+            dispatch(setProfile(res.data))
+
+        }
+    ).catch(e => {
+            e.response ? dispatch(setIsError(e.response.data.error))
+                : dispatch(setIsError(e.message + ', more details in the console'));
+        }
+    )
+}
+*/
+
 
 
 //ActionsCreators
@@ -45,6 +77,7 @@ export const setProfile = (data: InitialProfileType) => {
 //Types
 
 export type SetProfileType = ReturnType<typeof setProfile>
+export type SetAvatarType = ReturnType<typeof setAvatarAC>
 
 
-type ActionsType = SetProfileType
+type ActionsType = SetProfileType | SetAvatarType

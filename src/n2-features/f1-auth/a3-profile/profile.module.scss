@@ -1,3 +1,4 @@
+@import '../../../n1-main/m1-ui/common/components/sass/variables';
 
 
 
@@ -7,8 +8,8 @@
   display: flex;
   justify-content: center;
   width: 500px;
-  height: 600px;
-  background-color: #f5df4e;
+  min-height: 600px;
+  background-color: $primaryColor;
   .profile {
     display: flex;
     flex-direction: column;

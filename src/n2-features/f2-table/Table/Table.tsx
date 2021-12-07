@@ -15,7 +15,7 @@ import Pagination from "../Pagination/Pagination";
 import Search from "../Search/Search";
 import {Settings} from "../Settings/Settings";
 import {TableContent} from "../TableContent/TableContent";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import {CardsPackType} from "../../../n1-main/m2-bll/api/cardsPack-api";
 import {v1} from "uuid";
 import SortPacks from "../SortPacks/SortPacks";
@@ -40,6 +40,7 @@ export const Table = () => {
     const page = useSelector<AppStoreType, number>(state => state.table.page)
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio in Settings
     const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
+    const isLoggedIn = useSelector<AppStoreType, boolean>(state => state.auth.isLoggedIn)
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
     const [searchTerm, setSearchTerm] = useState('');
@@ -74,6 +75,9 @@ export const Table = () => {
     const addCardPackButtonHandler = () => {
         dispatch(showModalAddCardsPackAC())
     }
+    if (!isLoggedIn) {
+        return <Redirect to='/login'/>
+    }
 
     const CardsPackHeader: TableHeaderModelType = [
         {id: v1(), element: <div><span>Name</span><SortPacks upperSort={'0name'} lowerCount={'1name'}/></div>},
@@ -98,12 +102,12 @@ export const Table = () => {
                         <SuperButton className={s.button} onClick={() => delCardsPackHandler(e._id)}>del</SuperButton>
                         <SuperButton className={s.button} onClick={() => updateCardsPackHandler(e._id)}>update</SuperButton>
                         <NavLink className={s.item} exact to={`/learn/${e._id}`}> <SuperButton
-                            className={s.button}>Learn</SuperButton>
+                            className={s.button}  disabled={!e.cardsCount}>Learn</SuperButton>
                         </NavLink>
                     </div>
                     : <div>
                         <NavLink className={s.item} exact to={`/learn/${e._id}`}> <SuperButton
-                            className={s.button}>Learn</SuperButton>
+                            className={s.button} disabled={!e.cardsCount}>Learn</SuperButton>
                         </NavLink>
                     </div>,
             ]
