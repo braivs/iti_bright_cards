@@ -22,7 +22,6 @@ export type InitialProfileType = {
 }
 //1
 export const profileReducer = (state: InitialProfileType = initialState, action: ActionsType): InitialProfileType => {
-    debugger
     switch (action.type) {
         case 'profile/SET-PROFILE':
             return {

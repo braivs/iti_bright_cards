@@ -7,7 +7,7 @@ import {
     setCardsCountAC,
     setPageCountAC,
     setSearchPackNameAC,
-    setUserIdAfterRadioAC
+    setUserIdAfterRadioAC, SortPackType
 } from "../../../n1-main/m2-bll/cardsPack-reducer";
 import {AppStoreType} from "../../../n1-main/m2-bll/store";
 import SuperButton from "../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton";
@@ -41,6 +41,7 @@ export const Table = () => {
     const superRadioArr = ['Profile', 'Public']  // for SuperRadio in Settings
     const cardsPacks = useSelector<AppStoreType, Array<CardsPackType>>(state => state.table.cardPacks)
     const isLoggedIn = useSelector<AppStoreType, boolean>(state => state.auth.isLoggedIn)
+    const sortPacks = useSelector<AppStoreType, SortPackType>(state => state.table.sortPacks)
 
     const [profileOrPublic, onChangeProfileOrPublic] = useState(superRadioArr[0]) // for SuperRadio is Settings
     const [searchTerm, setSearchTerm] = useState('');
@@ -58,7 +59,7 @@ export const Table = () => {
         dispatch(setCardsCountAC(debouncedRange[0], debouncedRange[1]))
         dispatch(getCardsPackTC())
 
-    }, [profileOrPublic, pageCount, page, debouncedSearchTerm, debouncedRange[0], debouncedRange[1]])
+    }, [profileOrPublic, pageCount, page, sortPacks, debouncedSearchTerm, debouncedRange[0], debouncedRange[1]])
 
     const setPageCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (Number(e.currentTarget.value) < 1) e.currentTarget.value = '1'
